@@ -11,7 +11,7 @@
     - [:point_right:注释位于上边或右边](#point_right%E6%B3%A8%E9%87%8A%E4%BD%8D%E4%BA%8E%E4%B8%8A%E8%BE%B9%E6%88%96%E5%8F%B3%E8%BE%B9)
     - [:point_right:避免无用的垃圾注释](#point_right%E9%81%BF%E5%85%8D%E6%97%A0%E7%94%A8%E7%9A%84%E5%9E%83%E5%9C%BE%E6%B3%A8%E9%87%8A)
     - [:point_right:正式代码不应该包含TODO/FIXME注释](#point_right%E6%AD%A3%E5%BC%8F%E4%BB%A3%E7%A0%81%E4%B8%8D%E5%BA%94%E8%AF%A5%E5%8C%85%E5%90%ABtodofixme%E6%B3%A8%E9%87%8A)
-- [命名](#%E5%91%BD%E5%90%8D)
+- [:point_right:命名](#point_right%E5%91%BD%E5%90%8D)
   - [:point_right:目录名](#point_right%E7%9B%AE%E5%BD%95%E5%90%8D)
   - [:point_right:包名](#point_right%E5%8C%85%E5%90%8D)
   - [:point_right:包名要和所在目录名一致](#point_right%E5%8C%85%E5%90%8D%E8%A6%81%E5%92%8C%E6%89%80%E5%9C%A8%E7%9B%AE%E5%BD%95%E5%90%8D%E4%B8%80%E8%87%B4)
@@ -25,104 +25,110 @@
   - [:point_right:结构体名应该是名词或名词短语](#point_right%E7%BB%93%E6%9E%84%E4%BD%93%E5%90%8D%E5%BA%94%E8%AF%A5%E6%98%AF%E5%90%8D%E8%AF%8D%E6%88%96%E5%90%8D%E8%AF%8D%E7%9F%AD%E8%AF%AD)
   - [:point_right:使用业界统一缩略语](#point_right%E4%BD%BF%E7%94%A8%E4%B8%9A%E7%95%8C%E7%BB%9F%E4%B8%80%E7%BC%A9%E7%95%A5%E8%AF%AD)
 - [代码格式](#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F)
-  - [使用工具对代码格式化](#%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7%E5%AF%B9%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96)
-  - [行宽不超过120个字符](#%E8%A1%8C%E5%AE%BD%E4%B8%8D%E8%B6%85%E8%BF%87120%E4%B8%AA%E5%AD%97%E7%AC%A6)
-  - [相对独立的程序块或者语句之间用空行分割](#%E7%9B%B8%E5%AF%B9%E7%8B%AC%E7%AB%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%9D%97%E6%88%96%E8%80%85%E8%AF%AD%E5%8F%A5%E4%B9%8B%E9%97%B4%E7%94%A8%E7%A9%BA%E8%A1%8C%E5%88%86%E5%89%B2)
-  - [控制表达式括号](#%E6%8E%A7%E5%88%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8B%AC%E5%8F%B7)
+  - [:point_right:使用工具对代码格式化](#point_right%E4%BD%BF%E7%94%A8%E5%B7%A5%E5%85%B7%E5%AF%B9%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96)
+  - [:point_right:行宽不超过120个字符](#point_right%E8%A1%8C%E5%AE%BD%E4%B8%8D%E8%B6%85%E8%BF%87120%E4%B8%AA%E5%AD%97%E7%AC%A6)
+  - [:point_right:相对独立的程序块或者语句之间用空行分割](#point_right%E7%9B%B8%E5%AF%B9%E7%8B%AC%E7%AB%8B%E7%9A%84%E7%A8%8B%E5%BA%8F%E5%9D%97%E6%88%96%E8%80%85%E8%AF%AD%E5%8F%A5%E4%B9%8B%E9%97%B4%E7%94%A8%E7%A9%BA%E8%A1%8C%E5%88%86%E5%89%B2)
+  - [:point_right:控制表达式括号](#point_right%E6%8E%A7%E5%88%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%8B%AC%E5%8F%B7)
 - [声明和初始化](#%E5%A3%B0%E6%98%8E%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96)
-  - [保证作用域尽量的小](#%E4%BF%9D%E8%AF%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%B0%BD%E9%87%8F%E7%9A%84%E5%B0%8F)
+  - [:point_right:保证作用域尽量的小](#point_right%E4%BF%9D%E8%AF%81%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%B0%BD%E9%87%8F%E7%9A%84%E5%B0%8F)
   - [:point_right:禁止使用魔鬼值](#point_right%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E9%AD%94%E9%AC%BC%E5%80%BC)
-  - [避免直接使用全局变量](#%E9%81%BF%E5%85%8D%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F)
-  - [变量使用时才声明并初始化](#%E5%8F%98%E9%87%8F%E4%BD%BF%E7%94%A8%E6%97%B6%E6%89%8D%E5%A3%B0%E6%98%8E%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96)
-  - [相关申明放在一个组内](#%E7%9B%B8%E5%85%B3%E7%94%B3%E6%98%8E%E6%94%BE%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%BB%84%E5%86%85)
+  - [:point_right:避免直接使用全局变量](#point_right%E9%81%BF%E5%85%8D%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F)
+  - [:point_right:变量使用时才声明并初始化](#point_right%E5%8F%98%E9%87%8F%E4%BD%BF%E7%94%A8%E6%97%B6%E6%89%8D%E5%A3%B0%E6%98%8E%E5%B9%B6%E5%88%9D%E5%A7%8B%E5%8C%96)
+  - [:point_right:相关申明放在一个组内](#point_right%E7%9B%B8%E5%85%B3%E7%94%B3%E6%98%8E%E6%94%BE%E5%9C%A8%E4%B8%80%E4%B8%AA%E7%BB%84%E5%86%85)
   - [初始化结构体变量时，尽可能采用复合字面量的方式](#%E5%88%9D%E5%A7%8B%E5%8C%96%E7%BB%93%E6%9E%84%E4%BD%93%E5%8F%98%E9%87%8F%E6%97%B6%E5%B0%BD%E5%8F%AF%E8%83%BD%E9%87%87%E7%94%A8%E5%A4%8D%E5%90%88%E5%AD%97%E9%9D%A2%E9%87%8F%E7%9A%84%E6%96%B9%E5%BC%8F)
-- [整数安全](#%E6%95%B4%E6%95%B0%E5%AE%89%E5%85%A8)
-  - [确保无符合整数运算时不会回绕](#%E7%A1%AE%E4%BF%9D%E6%97%A0%E7%AC%A6%E5%90%88%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97%E6%97%B6%E4%B8%8D%E4%BC%9A%E5%9B%9E%E7%BB%95)
-  - [确保有符合整数运算时不会出现溢出](#%E7%A1%AE%E4%BF%9D%E6%9C%89%E7%AC%A6%E5%90%88%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97%E6%97%B6%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E6%BA%A2%E5%87%BA)
-  - [确保参与移位的操作数的位数足够](#%E7%A1%AE%E4%BF%9D%E5%8F%82%E4%B8%8E%E7%A7%BB%E4%BD%8D%E7%9A%84%E6%93%8D%E4%BD%9C%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0%E8%B6%B3%E5%A4%9F)
-  - [确保除法运算和模运算中的除数不为0](#%E7%A1%AE%E4%BF%9D%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97%E5%92%8C%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%AD%E7%9A%84%E9%99%A4%E6%95%B0%E4%B8%8D%E4%B8%BA0)
-  - [确保整数转换不会造成数据截断或者符号错误](#%E7%A1%AE%E4%BF%9D%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E4%B8%8D%E4%BC%9A%E9%80%A0%E6%88%90%E6%95%B0%E6%8D%AE%E6%88%AA%E6%96%AD%E6%88%96%E8%80%85%E7%AC%A6%E5%8F%B7%E9%94%99%E8%AF%AF)
+- [:point_right:整数安全](#point_right%E6%95%B4%E6%95%B0%E5%AE%89%E5%85%A8)
+  - [:point_right:确保无符合整数运算时不会回绕](#point_right%E7%A1%AE%E4%BF%9D%E6%97%A0%E7%AC%A6%E5%90%88%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97%E6%97%B6%E4%B8%8D%E4%BC%9A%E5%9B%9E%E7%BB%95)
+  - [:point_right:确保有符合整数运算时不会出现溢出](#point_right%E7%A1%AE%E4%BF%9D%E6%9C%89%E7%AC%A6%E5%90%88%E6%95%B4%E6%95%B0%E8%BF%90%E7%AE%97%E6%97%B6%E4%B8%8D%E4%BC%9A%E5%87%BA%E7%8E%B0%E6%BA%A2%E5%87%BA)
+  - [:point_right:确保参与移位的操作数的位数足够](#point_right%E7%A1%AE%E4%BF%9D%E5%8F%82%E4%B8%8E%E7%A7%BB%E4%BD%8D%E7%9A%84%E6%93%8D%E4%BD%9C%E6%95%B0%E7%9A%84%E4%BD%8D%E6%95%B0%E8%B6%B3%E5%A4%9F)
+  - [:point_right:确保除法运算和模运算中的除数不为0](#point_right%E7%A1%AE%E4%BF%9D%E9%99%A4%E6%B3%95%E8%BF%90%E7%AE%97%E5%92%8C%E6%A8%A1%E8%BF%90%E7%AE%97%E4%B8%AD%E7%9A%84%E9%99%A4%E6%95%B0%E4%B8%8D%E4%B8%BA0)
+  - [:point_right:确保整数转换不会造成数据截断或者符号错误](#point_right%E7%A1%AE%E4%BF%9D%E6%95%B4%E6%95%B0%E8%BD%AC%E6%8D%A2%E4%B8%8D%E4%BC%9A%E9%80%A0%E6%88%90%E6%95%B0%E6%8D%AE%E6%88%AA%E6%96%AD%E6%88%96%E8%80%85%E7%AC%A6%E5%8F%B7%E9%94%99%E8%AF%AF)
 - [字符串安全](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%AE%89%E5%85%A8)
   - [需要字符串转义时优先使用raw string](#%E9%9C%80%E8%A6%81%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B9%89%E6%97%B6%E4%BC%98%E5%85%88%E4%BD%BF%E7%94%A8raw-string)
 - [数组和slice安全](#%E6%95%B0%E7%BB%84%E5%92%8Cslice%E5%AE%89%E5%85%A8)
   - [避免使用短声明定义一个空slice](#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E7%9F%AD%E5%A3%B0%E6%98%8E%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E7%A9%BAslice)
-  - [始终使用len(s)==0检查slice是否为空](#%E5%A7%8B%E7%BB%88%E4%BD%BF%E7%94%A8lens0%E6%A3%80%E6%9F%A5slice%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA)
-  - [取值时长度校验](#%E5%8F%96%E5%80%BC%E6%97%B6%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C)
-  - [不使用slice作为函数入参](#%E4%B8%8D%E4%BD%BF%E7%94%A8slice%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%85%A5%E5%8F%82)
+  - [:point_right:始终使用len(s)==0检查slice是否为空](#point_right%E5%A7%8B%E7%BB%88%E4%BD%BF%E7%94%A8lens0%E6%A3%80%E6%9F%A5slice%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA)
+  - [:point_right:取值时长度校验](#point_right%E5%8F%96%E5%80%BC%E6%97%B6%E9%95%BF%E5%BA%A6%E6%A0%A1%E9%AA%8C)
+  - [:point_right:不使用slice作为函数入参](#point_right%E4%B8%8D%E4%BD%BF%E7%94%A8slice%E4%BD%9C%E4%B8%BA%E5%87%BD%E6%95%B0%E5%85%A5%E5%8F%82)
 - [map 安全](#map-%E5%AE%89%E5%85%A8)
-  - [确保key读取到map的元素有效](#%E7%A1%AE%E4%BF%9Dkey%E8%AF%BB%E5%8F%96%E5%88%B0map%E7%9A%84%E5%85%83%E7%B4%A0%E6%9C%89%E6%95%88)
+  - [:point_right:确保key读取到map的元素有效](#point_right%E7%A1%AE%E4%BF%9Dkey%E8%AF%BB%E5%8F%96%E5%88%B0map%E7%9A%84%E5%85%83%E7%B4%A0%E6%9C%89%E6%95%88)
 - [表达式安全](#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%AE%89%E5%85%A8)
-  - [表达式的比较，应该遵循左变量右值的原则](#%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%AF%94%E8%BE%83%E5%BA%94%E8%AF%A5%E9%81%B5%E5%BE%AA%E5%B7%A6%E5%8F%98%E9%87%8F%E5%8F%B3%E5%80%BC%E7%9A%84%E5%8E%9F%E5%88%99)
+  - [:point_right:表达式的比较，应该遵循左变量右值的原则](#point_right%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%AF%94%E8%BE%83%E5%BA%94%E8%AF%A5%E9%81%B5%E5%BE%AA%E5%B7%A6%E5%8F%98%E9%87%8F%E5%8F%B3%E5%80%BC%E7%9A%84%E5%8E%9F%E5%88%99)
+- [:point_right:iota](#point_rightiota)
 - [控制语句安全](#%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5%E5%AE%89%E5%85%A8)
-  - [循环必须有显示的退出条件](#%E5%BE%AA%E7%8E%AF%E5%BF%85%E9%A1%BB%E6%9C%89%E6%98%BE%E7%A4%BA%E7%9A%84%E9%80%80%E5%87%BA%E6%9D%A1%E4%BB%B6)
-  - [避免在循环体中修改循环控制变量](#%E9%81%BF%E5%85%8D%E5%9C%A8%E5%BE%AA%E7%8E%AF%E4%BD%93%E4%B8%AD%E4%BF%AE%E6%94%B9%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F)
-  - [慎用goto,goto只能向下跳转](#%E6%85%8E%E7%94%A8gotogoto%E5%8F%AA%E8%83%BD%E5%90%91%E4%B8%8B%E8%B7%B3%E8%BD%AC)
-  - [Switch要有default分支](#switch%E8%A6%81%E6%9C%89default%E5%88%86%E6%94%AF)
-  - [禁止使用浮点数作为循环计数器](#%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%BE%AA%E7%8E%AF%E8%AE%A1%E6%95%B0%E5%99%A8)
-  - [不要在迭代集合数据结构的过程中修改或者删除元素](#%E4%B8%8D%E8%A6%81%E5%9C%A8%E8%BF%AD%E4%BB%A3%E9%9B%86%E5%90%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BF%AE%E6%94%B9%E6%88%96%E8%80%85%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0)
+  - [:point_right:删除不必要的else](#point_right%E5%88%A0%E9%99%A4%E4%B8%8D%E5%BF%85%E8%A6%81%E7%9A%84else)
+  - [:point_right:尽量保持正常代码路径为最小缩进](#point_right%E5%B0%BD%E9%87%8F%E4%BF%9D%E6%8C%81%E6%AD%A3%E5%B8%B8%E4%BB%A3%E7%A0%81%E8%B7%AF%E5%BE%84%E4%B8%BA%E6%9C%80%E5%B0%8F%E7%BC%A9%E8%BF%9B)
+  - [:point_right:如果只用到`range`中的索引部分，则去除冗余的元素](#point_right%E5%A6%82%E6%9E%9C%E5%8F%AA%E7%94%A8%E5%88%B0range%E4%B8%AD%E7%9A%84%E7%B4%A2%E5%BC%95%E9%83%A8%E5%88%86%E5%88%99%E5%8E%BB%E9%99%A4%E5%86%97%E4%BD%99%E7%9A%84%E5%85%83%E7%B4%A0)
+  - [:point_right:如果不使用`range`中的任何部分，则不要赋值给匿名变量](#point_right%E5%A6%82%E6%9E%9C%E4%B8%8D%E4%BD%BF%E7%94%A8range%E4%B8%AD%E7%9A%84%E4%BB%BB%E4%BD%95%E9%83%A8%E5%88%86%E5%88%99%E4%B8%8D%E8%A6%81%E8%B5%8B%E5%80%BC%E7%BB%99%E5%8C%BF%E5%90%8D%E5%8F%98%E9%87%8F)
+  - [:point_right:循环必须有显示的退出条件](#point_right%E5%BE%AA%E7%8E%AF%E5%BF%85%E9%A1%BB%E6%9C%89%E6%98%BE%E7%A4%BA%E7%9A%84%E9%80%80%E5%87%BA%E6%9D%A1%E4%BB%B6)
+  - [:point_right:避免在循环体中修改循环控制变量](#point_right%E9%81%BF%E5%85%8D%E5%9C%A8%E5%BE%AA%E7%8E%AF%E4%BD%93%E4%B8%AD%E4%BF%AE%E6%94%B9%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F)
+  - [:point_right:慎用goto,goto只能向下跳转](#point_right%E6%85%8E%E7%94%A8gotogoto%E5%8F%AA%E8%83%BD%E5%90%91%E4%B8%8B%E8%B7%B3%E8%BD%AC)
+  - [:point_right:Switch要有default分支](#point_rightswitch%E8%A6%81%E6%9C%89default%E5%88%86%E6%94%AF)
+  - [:point_right:禁止使用浮点数作为循环计数器](#point_right%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E6%B5%AE%E7%82%B9%E6%95%B0%E4%BD%9C%E4%B8%BA%E5%BE%AA%E7%8E%AF%E8%AE%A1%E6%95%B0%E5%99%A8)
+  - [:point_right:不要在迭代集合数据结构的过程中修改或者删除元素](#point_right%E4%B8%8D%E8%A6%81%E5%9C%A8%E8%BF%AD%E4%BB%A3%E9%9B%86%E5%90%88%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E8%BF%87%E7%A8%8B%E4%B8%AD%E4%BF%AE%E6%94%B9%E6%88%96%E8%80%85%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0)
 - [函数和方法](#%E5%87%BD%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95)
   - [合理设计](#%E5%90%88%E7%90%86%E8%AE%BE%E8%AE%A1)
-    - [合理选择方法的接受者](#%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E6%96%B9%E6%B3%95%E7%9A%84%E6%8E%A5%E5%8F%97%E8%80%85)
-    - [函数功能要单一](#%E5%87%BD%E6%95%B0%E5%8A%9F%E8%83%BD%E8%A6%81%E5%8D%95%E4%B8%80)
-    - [避免使用具名返回值](#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%85%B7%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC)
-    - [返回已被修改大小的slice对象](#%E8%BF%94%E5%9B%9E%E5%B7%B2%E8%A2%AB%E4%BF%AE%E6%94%B9%E5%A4%A7%E5%B0%8F%E7%9A%84slice%E5%AF%B9%E8%B1%A1)
-    - [避免栈调用层次太深](#%E9%81%BF%E5%85%8D%E6%A0%88%E8%B0%83%E7%94%A8%E5%B1%82%E6%AC%A1%E5%A4%AA%E6%B7%B1)
+    - [:point_right:合理选择方法的接受者](#point_right%E5%90%88%E7%90%86%E9%80%89%E6%8B%A9%E6%96%B9%E6%B3%95%E7%9A%84%E6%8E%A5%E5%8F%97%E8%80%85)
+    - [:point_right:函数功能要单一](#point_right%E5%87%BD%E6%95%B0%E5%8A%9F%E8%83%BD%E8%A6%81%E5%8D%95%E4%B8%80)
+    - [:point_right:避免使用具名返回值](#point_right%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%85%B7%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC)
+    - [:point_right:返回已被修改大小的slice对象](#point_right%E8%BF%94%E5%9B%9E%E5%B7%B2%E8%A2%AB%E4%BF%AE%E6%94%B9%E5%A4%A7%E5%B0%8F%E7%9A%84slice%E5%AF%B9%E8%B1%A1)
+    - [:point_right:避免栈调用层次太深](#point_right%E9%81%BF%E5%85%8D%E6%A0%88%E8%B0%83%E7%94%A8%E5%B1%82%E6%AC%A1%E5%A4%AA%E6%B7%B1)
+    - [:point_right:方法参数当传递的值为较大的结构体时，应传递指针，避免底层复制](#point_right%E6%96%B9%E6%B3%95%E5%8F%82%E6%95%B0%E5%BD%93%E4%BC%A0%E9%80%92%E7%9A%84%E5%80%BC%E4%B8%BA%E8%BE%83%E5%A4%A7%E7%9A%84%E7%BB%93%E6%9E%84%E4%BD%93%E6%97%B6%E5%BA%94%E4%BC%A0%E9%80%92%E6%8C%87%E9%92%88%E9%81%BF%E5%85%8D%E5%BA%95%E5%B1%82%E5%A4%8D%E5%88%B6)
   - [init函数](#init%E5%87%BD%E6%95%B0)
-    - [一个文件只定义一个init函数](#%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8F%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAinit%E5%87%BD%E6%95%B0)
-    - [一个包如果有多个init函数，不要存在任何依赖关系](#%E4%B8%80%E4%B8%AA%E5%8C%85%E5%A6%82%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AAinit%E5%87%BD%E6%95%B0%E4%B8%8D%E8%A6%81%E5%AD%98%E5%9C%A8%E4%BB%BB%E4%BD%95%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB)
-    - [注意init函数内进行初始化的场景限制](#%E6%B3%A8%E6%84%8Finit%E5%87%BD%E6%95%B0%E5%86%85%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E5%9C%BA%E6%99%AF%E9%99%90%E5%88%B6)
+    - [:point_right:一个文件只定义一个init函数](#point_right%E4%B8%80%E4%B8%AA%E6%96%87%E4%BB%B6%E5%8F%AA%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AAinit%E5%87%BD%E6%95%B0)
+    - [:point_right:一个包如果有多个init函数，不要存在任何依赖关系](#point_right%E4%B8%80%E4%B8%AA%E5%8C%85%E5%A6%82%E6%9E%9C%E6%9C%89%E5%A4%9A%E4%B8%AAinit%E5%87%BD%E6%95%B0%E4%B8%8D%E8%A6%81%E5%AD%98%E5%9C%A8%E4%BB%BB%E4%BD%95%E4%BE%9D%E8%B5%96%E5%85%B3%E7%B3%BB)
+    - [:point_right:注意init函数内进行初始化的场景限制](#point_right%E6%B3%A8%E6%84%8Finit%E5%87%BD%E6%95%B0%E5%86%85%E8%BF%9B%E8%A1%8C%E5%88%9D%E5%A7%8B%E5%8C%96%E7%9A%84%E5%9C%BA%E6%99%AF%E9%99%90%E5%88%B6)
   - [闭包](#%E9%97%AD%E5%8C%85)
-    - [禁止在闭包中直接使用循环控制变量](#%E7%A6%81%E6%AD%A2%E5%9C%A8%E9%97%AD%E5%8C%85%E4%B8%AD%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F)
+    - [:point_right:禁止在闭包中直接使用循环控制变量](#point_right%E7%A6%81%E6%AD%A2%E5%9C%A8%E9%97%AD%E5%8C%85%E4%B8%AD%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%BE%AA%E7%8E%AF%E6%8E%A7%E5%88%B6%E5%8F%98%E9%87%8F)
 - [结构体](#%E7%BB%93%E6%9E%84%E4%BD%93)
-  - [合理使用匿名嵌套](#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8D%E5%B5%8C%E5%A5%97)
+  - [:point_right:合理使用匿名嵌套](#point_right%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8D%E5%B5%8C%E5%A5%97)
 - [接口](#%E6%8E%A5%E5%8F%A3)
-  - [避免接口过大](#%E9%81%BF%E5%85%8D%E6%8E%A5%E5%8F%A3%E8%BF%87%E5%A4%A7)
-  - [从使用者角度设计接口](#%E4%BB%8E%E4%BD%BF%E7%94%A8%E8%80%85%E8%A7%92%E5%BA%A6%E8%AE%BE%E8%AE%A1%E6%8E%A5%E5%8F%A3)
-  - [避免类型可能不为空的接口变量和nil直接进行比较](#%E9%81%BF%E5%85%8D%E7%B1%BB%E5%9E%8B%E5%8F%AF%E8%83%BD%E4%B8%8D%E4%B8%BA%E7%A9%BA%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%8F%98%E9%87%8F%E5%92%8Cnil%E7%9B%B4%E6%8E%A5%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83)
+  - [:point_right:避免接口过大](#point_right%E9%81%BF%E5%85%8D%E6%8E%A5%E5%8F%A3%E8%BF%87%E5%A4%A7)
+  - [:point_right:从使用者角度设计接口](#point_right%E4%BB%8E%E4%BD%BF%E7%94%A8%E8%80%85%E8%A7%92%E5%BA%A6%E8%AE%BE%E8%AE%A1%E6%8E%A5%E5%8F%A3)
+  - [:point_right:避免类型可能不为空的接口变量和nil直接进行比较](#point_right%E9%81%BF%E5%85%8D%E7%B1%BB%E5%9E%8B%E5%8F%AF%E8%83%BD%E4%B8%8D%E4%B8%BA%E7%A9%BA%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%8F%98%E9%87%8F%E5%92%8Cnil%E7%9B%B4%E6%8E%A5%E8%BF%9B%E8%A1%8C%E6%AF%94%E8%BE%83)
 - [类型断言](#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80)
-  - [必须处理类型断言的失败](#%E5%BF%85%E9%A1%BB%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E5%A4%B1%E8%B4%A5)
+  - [:point_right:必须处理类型断言的失败](#point_right%E5%BF%85%E9%A1%BB%E5%A4%84%E7%90%86%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80%E7%9A%84%E5%A4%B1%E8%B4%A5)
 - [包安全](#%E5%8C%85%E5%AE%89%E5%85%A8)
-  - [使用internal目录避免内部公开的Api对外暴露](#%E4%BD%BF%E7%94%A8internal%E7%9B%AE%E5%BD%95%E9%81%BF%E5%85%8D%E5%86%85%E9%83%A8%E5%85%AC%E5%BC%80%E7%9A%84api%E5%AF%B9%E5%A4%96%E6%9A%B4%E9%9C%B2)
-  - [禁止使用 `.` 来简化导入包](#%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8--%E6%9D%A5%E7%AE%80%E5%8C%96%E5%AF%BC%E5%85%A5%E5%8C%85)
-  - [禁止使用相对路径导包](#%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AF%BC%E5%8C%85)
-  - [导入包的顺序按稳定度排序](#%E5%AF%BC%E5%85%A5%E5%8C%85%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8C%89%E7%A8%B3%E5%AE%9A%E5%BA%A6%E6%8E%92%E5%BA%8F)
-  - [导入包时名称未冲突的情况下应避免使用别名](#%E5%AF%BC%E5%85%A5%E5%8C%85%E6%97%B6%E5%90%8D%E7%A7%B0%E6%9C%AA%E5%86%B2%E7%AA%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%BA%94%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%88%AB%E5%90%8D)
+  - [:point_right:使用internal目录避免内部公开的Api对外暴露](#point_right%E4%BD%BF%E7%94%A8internal%E7%9B%AE%E5%BD%95%E9%81%BF%E5%85%8D%E5%86%85%E9%83%A8%E5%85%AC%E5%BC%80%E7%9A%84api%E5%AF%B9%E5%A4%96%E6%9A%B4%E9%9C%B2)
+  - [:point_right:禁止使用 `.` 来简化导入包](#point_right%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8--%E6%9D%A5%E7%AE%80%E5%8C%96%E5%AF%BC%E5%85%A5%E5%8C%85)
+  - [:point_right:禁止使用相对路径导包](#point_right%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%AF%BC%E5%8C%85)
+  - [:point_right:导入包的顺序按稳定度排序](#point_right%E5%AF%BC%E5%85%A5%E5%8C%85%E7%9A%84%E9%A1%BA%E5%BA%8F%E6%8C%89%E7%A8%B3%E5%AE%9A%E5%BA%A6%E6%8E%92%E5%BA%8F)
+  - [:point_right:导入包时名称未冲突的情况下应避免使用别名](#point_right%E5%AF%BC%E5%85%A5%E5%8C%85%E6%97%B6%E5%90%8D%E7%A7%B0%E6%9C%AA%E5%86%B2%E7%AA%81%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%BA%94%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8%E5%88%AB%E5%90%8D)
 - [错误处理](#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86)
-  - [使用恰当的错误处理机制](#%E4%BD%BF%E7%94%A8%E6%81%B0%E5%BD%93%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6)
-  - [确保正确处理函数的错误返回值](#%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0%E7%9A%84%E9%94%99%E8%AF%AF%E8%BF%94%E5%9B%9E%E5%80%BC)
-  - [错误信息不应该大写，或者以标点结尾。](#%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E4%B8%8D%E5%BA%94%E8%AF%A5%E5%A4%A7%E5%86%99%E6%88%96%E8%80%85%E4%BB%A5%E6%A0%87%E7%82%B9%E7%BB%93%E5%B0%BE)
+  - [:point_right:使用恰当的错误处理机制](#point_right%E4%BD%BF%E7%94%A8%E6%81%B0%E5%BD%93%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%E6%9C%BA%E5%88%B6)
+  - [:point_right:确保正确处理函数的错误返回值](#point_right%E7%A1%AE%E4%BF%9D%E6%AD%A3%E7%A1%AE%E5%A4%84%E7%90%86%E5%87%BD%E6%95%B0%E7%9A%84%E9%94%99%E8%AF%AF%E8%BF%94%E5%9B%9E%E5%80%BC)
+  - [:point_right:错误信息不应该大写，或者以标点结尾。](#point_right%E9%94%99%E8%AF%AF%E4%BF%A1%E6%81%AF%E4%B8%8D%E5%BA%94%E8%AF%A5%E5%A4%A7%E5%86%99%E6%88%96%E8%80%85%E4%BB%A5%E6%A0%87%E7%82%B9%E7%BB%93%E5%B0%BE)
 - [异常处理](#%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86)
-  - [包外可见的函数禁止向外抛出panic](#%E5%8C%85%E5%A4%96%E5%8F%AF%E8%A7%81%E7%9A%84%E5%87%BD%E6%95%B0%E7%A6%81%E6%AD%A2%E5%90%91%E5%A4%96%E6%8A%9B%E5%87%BApanic)
-  - [确保发生异常时程序尝试恢复到合理的状态并记录日志](#%E7%A1%AE%E4%BF%9D%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E6%97%B6%E7%A8%8B%E5%BA%8F%E5%B0%9D%E8%AF%95%E6%81%A2%E5%A4%8D%E5%88%B0%E5%90%88%E7%90%86%E7%9A%84%E7%8A%B6%E6%80%81%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97)
+  - [:point_right:包外可见的函数禁止向外抛出panic](#point_right%E5%8C%85%E5%A4%96%E5%8F%AF%E8%A7%81%E7%9A%84%E5%87%BD%E6%95%B0%E7%A6%81%E6%AD%A2%E5%90%91%E5%A4%96%E6%8A%9B%E5%87%BApanic)
+  - [:point_right:确保发生异常时程序尝试恢复到合理的状态并记录日志](#point_right%E7%A1%AE%E4%BF%9D%E5%8F%91%E7%94%9F%E5%BC%82%E5%B8%B8%E6%97%B6%E7%A8%8B%E5%BA%8F%E5%B0%9D%E8%AF%95%E6%81%A2%E5%A4%8D%E5%88%B0%E5%90%88%E7%90%86%E7%9A%84%E7%8A%B6%E6%80%81%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97)
 - [并发](#%E5%B9%B6%E5%8F%91)
-  - [避免数据竞争](#%E9%81%BF%E5%85%8D%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89)
-  - [避免goroutine被永久阻塞](#%E9%81%BF%E5%85%8Dgoroutine%E8%A2%AB%E6%B0%B8%E4%B9%85%E9%98%BB%E5%A1%9E)
-  - [chan类型作函数参数时限定类型](#chan%E7%B1%BB%E5%9E%8B%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%97%B6%E9%99%90%E5%AE%9A%E7%B1%BB%E5%9E%8B)
-  - [使用chan时确保对chan的操作有效](#%E4%BD%BF%E7%94%A8chan%E6%97%B6%E7%A1%AE%E4%BF%9D%E5%AF%B9chan%E7%9A%84%E6%93%8D%E4%BD%9C%E6%9C%89%E6%95%88)
-  - [禁止拷贝锁和同步的对象](#%E7%A6%81%E6%AD%A2%E6%8B%B7%E8%B4%9D%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E7%9A%84%E5%AF%B9%E8%B1%A1)
+  - [:point_right:避免数据竞争](#point_right%E9%81%BF%E5%85%8D%E6%95%B0%E6%8D%AE%E7%AB%9E%E4%BA%89)
+  - [:point_right:避免goroutine被永久阻塞](#point_right%E9%81%BF%E5%85%8Dgoroutine%E8%A2%AB%E6%B0%B8%E4%B9%85%E9%98%BB%E5%A1%9E)
+  - [:point_right:chan类型作函数参数时限定类型](#point_rightchan%E7%B1%BB%E5%9E%8B%E4%BD%9C%E5%87%BD%E6%95%B0%E5%8F%82%E6%95%B0%E6%97%B6%E9%99%90%E5%AE%9A%E7%B1%BB%E5%9E%8B)
+  - [:point_right:使用chan时确保对chan的操作有效](#point_right%E4%BD%BF%E7%94%A8chan%E6%97%B6%E7%A1%AE%E4%BF%9D%E5%AF%B9chan%E7%9A%84%E6%93%8D%E4%BD%9C%E6%9C%89%E6%95%88)
+  - [:point_right:禁止拷贝锁和同步的对象](#point_right%E7%A6%81%E6%AD%A2%E6%8B%B7%E8%B4%9D%E9%94%81%E5%92%8C%E5%90%8C%E6%AD%A5%E7%9A%84%E5%AF%B9%E8%B1%A1)
 - [输入输出](#%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA)
-  - [临时文件使用完必须及时删除](#%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%AE%8C%E5%BF%85%E9%A1%BB%E5%8F%8A%E6%97%B6%E5%88%A0%E9%99%A4)
-  - [创建文件时必须显示指定合适的文件访问权限](#%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E6%97%B6%E5%BF%85%E9%A1%BB%E6%98%BE%E7%A4%BA%E6%8C%87%E5%AE%9A%E5%90%88%E9%80%82%E7%9A%84%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90)
-  - [确保检验文件路径前对其标准化](#%E7%A1%AE%E4%BF%9D%E6%A3%80%E9%AA%8C%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E5%89%8D%E5%AF%B9%E5%85%B6%E6%A0%87%E5%87%86%E5%8C%96)
+  - [:point_right:临时文件使用完必须及时删除](#point_right%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6%E4%BD%BF%E7%94%A8%E5%AE%8C%E5%BF%85%E9%A1%BB%E5%8F%8A%E6%97%B6%E5%88%A0%E9%99%A4)
+  - [:point_right:创建文件时必须显示指定合适的文件访问权限](#point_right%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E6%97%B6%E5%BF%85%E9%A1%BB%E6%98%BE%E7%A4%BA%E6%8C%87%E5%AE%9A%E5%90%88%E9%80%82%E7%9A%84%E6%96%87%E4%BB%B6%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90)
+  - [:point_right:确保检验文件路径前对其标准化](#point_right%E7%A1%AE%E4%BF%9D%E6%A3%80%E9%AA%8C%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84%E5%89%8D%E5%AF%B9%E5%85%B6%E6%A0%87%E5%87%86%E5%8C%96)
   - [确保安全地从压缩包提取文件](#%E7%A1%AE%E4%BF%9D%E5%AE%89%E5%85%A8%E5%9C%B0%E4%BB%8E%E5%8E%8B%E7%BC%A9%E5%8C%85%E6%8F%90%E5%8F%96%E6%96%87%E4%BB%B6)
-  - [禁止直接使用外部数据构造格式化字符串](#%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%9E%84%E9%80%A0%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2)
-  - [禁止在日志中保存敏感数据](#%E7%A6%81%E6%AD%A2%E5%9C%A8%E6%97%A5%E5%BF%97%E4%B8%AD%E4%BF%9D%E5%AD%98%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE)
+  - [:point_right:禁止直接使用外部数据构造格式化字符串](#point_right%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%9E%84%E9%80%A0%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2)
+  - [:point_right:禁止在日志中保存敏感数据](#point_right%E7%A6%81%E6%AD%A2%E5%9C%A8%E6%97%A5%E5%BF%97%E4%B8%AD%E4%BF%9D%E5%AD%98%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE)
 - [外部数据校验](#%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%A0%A1%E9%AA%8C)
-  - [对所有外部数据进行合法性校验](#%E5%AF%B9%E6%89%80%E6%9C%89%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%90%88%E6%B3%95%E6%80%A7%E6%A0%A1%E9%AA%8C)
-  - [禁止直接使用外部数据拼接sql语句](#%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%8B%BC%E6%8E%A5sql%E8%AF%AD%E5%8F%A5)
-  - [禁止直接使用外部数据拼接命令参数](#%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%8B%BC%E6%8E%A5%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0)
+  - [:point_right:对所有外部数据进行合法性校验](#point_right%E5%AF%B9%E6%89%80%E6%9C%89%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E8%BF%9B%E8%A1%8C%E5%90%88%E6%B3%95%E6%80%A7%E6%A0%A1%E9%AA%8C)
+  - [:point_right:禁止直接使用外部数据拼接sql语句](#point_right%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%8B%BC%E6%8E%A5sql%E8%AF%AD%E5%8F%A5)
+  - [:point_right:禁止直接使用外部数据拼接命令参数](#point_right%E7%A6%81%E6%AD%A2%E7%9B%B4%E6%8E%A5%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8%E6%95%B0%E6%8D%AE%E6%8B%BC%E6%8E%A5%E5%91%BD%E4%BB%A4%E5%8F%82%E6%95%B0)
 - [资源管理](#%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86)
-  - [在性能敏感的情况下建议采用池化技术优化资源使用](#%E5%9C%A8%E6%80%A7%E8%83%BD%E6%95%8F%E6%84%9F%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%BB%BA%E8%AE%AE%E9%87%87%E7%94%A8%E6%B1%A0%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8C%96%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8)
-  - [避免资源泄漏](#%E9%81%BF%E5%85%8D%E8%B5%84%E6%BA%90%E6%B3%84%E6%BC%8F)
-  - [合理使用defer](#%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8defer)
-  - [禁止重复释放资源](#%E7%A6%81%E6%AD%A2%E9%87%8D%E5%A4%8D%E9%87%8A%E6%94%BE%E8%B5%84%E6%BA%90)
-  - [make申请的slice、map时，根据预估或校验范围大小来申请合适的内存。](#make%E7%94%B3%E8%AF%B7%E7%9A%84slicemap%E6%97%B6%E6%A0%B9%E6%8D%AE%E9%A2%84%E4%BC%B0%E6%88%96%E6%A0%A1%E9%AA%8C%E8%8C%83%E5%9B%B4%E5%A4%A7%E5%B0%8F%E6%9D%A5%E7%94%B3%E8%AF%B7%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AD%98)
-  - [避免过多的time.After函数调用导致消耗大量的资源](#%E9%81%BF%E5%85%8D%E8%BF%87%E5%A4%9A%E7%9A%84timeafter%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%AF%BC%E8%87%B4%E6%B6%88%E8%80%97%E5%A4%A7%E9%87%8F%E7%9A%84%E8%B5%84%E6%BA%90)
+  - [:point_right:在性能敏感的情况下建议采用池化技术优化资源使用](#point_right%E5%9C%A8%E6%80%A7%E8%83%BD%E6%95%8F%E6%84%9F%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%E5%BB%BA%E8%AE%AE%E9%87%87%E7%94%A8%E6%B1%A0%E5%8C%96%E6%8A%80%E6%9C%AF%E4%BC%98%E5%8C%96%E8%B5%84%E6%BA%90%E4%BD%BF%E7%94%A8)
+  - [:point_right:避免资源泄漏](#point_right%E9%81%BF%E5%85%8D%E8%B5%84%E6%BA%90%E6%B3%84%E6%BC%8F)
+  - [:point_right:合理使用defer](#point_right%E5%90%88%E7%90%86%E4%BD%BF%E7%94%A8defer)
+  - [:point_right:禁止重复释放资源](#point_right%E7%A6%81%E6%AD%A2%E9%87%8D%E5%A4%8D%E9%87%8A%E6%94%BE%E8%B5%84%E6%BA%90)
+  - [:point_right:make申请的slice、map时，根据预估或校验范围大小来申请合适的内存。](#point_rightmake%E7%94%B3%E8%AF%B7%E7%9A%84slicemap%E6%97%B6%E6%A0%B9%E6%8D%AE%E9%A2%84%E4%BC%B0%E6%88%96%E6%A0%A1%E9%AA%8C%E8%8C%83%E5%9B%B4%E5%A4%A7%E5%B0%8F%E6%9D%A5%E7%94%B3%E8%AF%B7%E5%90%88%E9%80%82%E7%9A%84%E5%86%85%E5%AD%98)
+  - [:point_right:避免过多的time.After函数调用导致消耗大量的资源](#point_right%E9%81%BF%E5%85%8D%E8%BF%87%E5%A4%9A%E7%9A%84timeafter%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8%E5%AF%BC%E8%87%B4%E6%B6%88%E8%80%97%E5%A4%A7%E9%87%8F%E7%9A%84%E8%B5%84%E6%BA%90)
 - [内存访问](#%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE)
-  - [禁止解引用空指针](#%E7%A6%81%E6%AD%A2%E8%A7%A3%E5%BC%95%E7%94%A8%E7%A9%BA%E6%8C%87%E9%92%88)
-  - [禁止解引用空的接口和内置引用类型变量](#%E7%A6%81%E6%AD%A2%E8%A7%A3%E5%BC%95%E7%94%A8%E7%A9%BA%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%92%8C%E5%86%85%E7%BD%AE%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F)
-  - [使用[]byte而不是string存储敏感数据、敏感数据使用完后应立即清0](#%E4%BD%BF%E7%94%A8byte%E8%80%8C%E4%B8%8D%E6%98%AFstring%E5%AD%98%E5%82%A8%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E4%BD%BF%E7%94%A8%E5%AE%8C%E5%90%8E%E5%BA%94%E7%AB%8B%E5%8D%B3%E6%B8%850)
-  - [避免使用unsafe包](#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8unsafe%E5%8C%85)
+  - [:point_right:禁止解引用空指针](#point_right%E7%A6%81%E6%AD%A2%E8%A7%A3%E5%BC%95%E7%94%A8%E7%A9%BA%E6%8C%87%E9%92%88)
+  - [:point_right:禁止解引用空的接口和内置引用类型变量](#point_right%E7%A6%81%E6%AD%A2%E8%A7%A3%E5%BC%95%E7%94%A8%E7%A9%BA%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%92%8C%E5%86%85%E7%BD%AE%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%8F%98%E9%87%8F)
+  - [:point_right:使用[]byte而不是string存储敏感数据、敏感数据使用完后应立即清0](#point_right%E4%BD%BF%E7%94%A8byte%E8%80%8C%E4%B8%8D%E6%98%AFstring%E5%AD%98%E5%82%A8%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE%E4%BD%BF%E7%94%A8%E5%AE%8C%E5%90%8E%E5%BA%94%E7%AB%8B%E5%8D%B3%E6%B8%850)
+  - [:point_right:避免使用unsafe包](#point_right%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8unsafe%E5%8C%85)
 - [cgo](#cgo)
   - [最小化使用cgo范围](#%E6%9C%80%E5%B0%8F%E5%8C%96%E4%BD%BF%E7%94%A8cgo%E8%8C%83%E5%9B%B4)
   - [使用C虚拟包辅助函数C.CString和C.CBytes返回的类型转换参数使用完后需要手动释放](#%E4%BD%BF%E7%94%A8c%E8%99%9A%E6%8B%9F%E5%8C%85%E8%BE%85%E5%8A%A9%E5%87%BD%E6%95%B0ccstring%E5%92%8Cccbytes%E8%BF%94%E5%9B%9E%E7%9A%84%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%E5%8F%82%E6%95%B0%E4%BD%BF%E7%94%A8%E5%AE%8C%E5%90%8E%E9%9C%80%E8%A6%81%E6%89%8B%E5%8A%A8%E9%87%8A%E6%94%BE)
@@ -130,11 +136,25 @@
   - [避免使用C代码接管系统的信号](#%E9%81%BF%E5%85%8D%E4%BD%BF%E7%94%A8c%E4%BB%A3%E7%A0%81%E6%8E%A5%E7%AE%A1%E7%B3%BB%E7%BB%9F%E7%9A%84%E4%BF%A1%E5%8F%B7)
   - [避免直接将C代码嵌入在Go文件中](#%E9%81%BF%E5%85%8D%E7%9B%B4%E6%8E%A5%E5%B0%86c%E4%BB%A3%E7%A0%81%E5%B5%8C%E5%85%A5%E5%9C%A8go%E6%96%87%E4%BB%B6%E4%B8%AD)
   - [避免在CGO中使用C代码调用Go函数](#%E9%81%BF%E5%85%8D%E5%9C%A8cgo%E4%B8%AD%E4%BD%BF%E7%94%A8c%E4%BB%A3%E7%A0%81%E8%B0%83%E7%94%A8go%E5%87%BD%E6%95%B0)
+- [系统接口](#%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3)
+  - [:point_right:命令执行检查](#point_right%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C%E6%A3%80%E6%9F%A5)
+- [Web跨域](#web%E8%B7%A8%E5%9F%9F)
+  - [:point_right:跨域资源共享CORS限制请求来源](#point_right%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%ABcors%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E6%9D%A5%E6%BA%90)
+- [响应输出](#%E5%93%8D%E5%BA%94%E8%BE%93%E5%87%BA)
+  - [:point_right:设置正确的HTTP响应包类型](#point_right%E8%AE%BE%E7%BD%AE%E6%AD%A3%E7%A1%AE%E7%9A%84http%E5%93%8D%E5%BA%94%E5%8C%85%E7%B1%BB%E5%9E%8B)
+  - [添加安全响应头](#%E6%B7%BB%E5%8A%A0%E5%AE%89%E5%85%A8%E5%93%8D%E5%BA%94%E5%A4%B4)
+  - [外部输入拼接到HTTP响应头中需进行过滤](#%E5%A4%96%E9%83%A8%E8%BE%93%E5%85%A5%E6%8B%BC%E6%8E%A5%E5%88%B0http%E5%93%8D%E5%BA%94%E5%A4%B4%E4%B8%AD%E9%9C%80%E8%BF%9B%E8%A1%8C%E8%BF%87%E6%BB%A4)
+  - [外部输入拼接到response页面前进行编码处理](#%E5%A4%96%E9%83%A8%E8%BE%93%E5%85%A5%E6%8B%BC%E6%8E%A5%E5%88%B0response%E9%A1%B5%E9%9D%A2%E5%89%8D%E8%BF%9B%E8%A1%8C%E7%BC%96%E7%A0%81%E5%A4%84%E7%90%86)
+- [会话管理](#%E4%BC%9A%E8%AF%9D%E7%AE%A1%E7%90%86)
+  - [:point_right:安全维护session信息](#point_right%E5%AE%89%E5%85%A8%E7%BB%B4%E6%8A%A4session%E4%BF%A1%E6%81%AF)
+  - [CSRF防护](#csrf%E9%98%B2%E6%8A%A4)
+- [访问控制](#%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6)
+  - [默认鉴权](#%E9%BB%98%E8%AE%A4%E9%89%B4%E6%9D%83)
 - [其他](#%E5%85%B6%E4%BB%96)
-  - [禁止使用math/rand包提供的函数产生安全用途的伪随机数](#%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8mathrand%E5%8C%85%E6%8F%90%E4%BE%9B%E7%9A%84%E5%87%BD%E6%95%B0%E4%BA%A7%E7%94%9F%E5%AE%89%E5%85%A8%E7%94%A8%E9%80%94%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0)
+  - [:point_right:禁止使用math/rand包提供的函数产生安全用途的伪随机数](#point_right%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8mathrand%E5%8C%85%E6%8F%90%E4%BE%9B%E7%9A%84%E5%87%BD%E6%95%B0%E4%BA%A7%E7%94%9F%E5%AE%89%E5%85%A8%E7%94%A8%E9%80%94%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%95%B0)
   - [禁止代码中包含公网地址](#%E7%A6%81%E6%AD%A2%E4%BB%A3%E7%A0%81%E4%B8%AD%E5%8C%85%E5%90%AB%E5%85%AC%E7%BD%91%E5%9C%B0%E5%9D%80)
   - [删除无效或者永不执行的代码](#%E5%88%A0%E9%99%A4%E6%97%A0%E6%95%88%E6%88%96%E8%80%85%E6%B0%B8%E4%B8%8D%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%A3%E7%A0%81)
-  - [不用代码直接删除掉，不要注释掉](#%E4%B8%8D%E7%94%A8%E4%BB%A3%E7%A0%81%E7%9B%B4%E6%8E%A5%E5%88%A0%E9%99%A4%E6%8E%89%E4%B8%8D%E8%A6%81%E6%B3%A8%E9%87%8A%E6%8E%89)
+  - [:point_right:不用代码直接删除掉，不要注释掉](#point_right%E4%B8%8D%E7%94%A8%E4%BB%A3%E7%A0%81%E7%9B%B4%E6%8E%A5%E5%88%A0%E9%99%A4%E6%8E%89%E4%B8%8D%E8%A6%81%E6%B3%A8%E9%87%8A%E6%8E%89)
   - [避免调用os.Exit()和runtime.Goexit()退出函数](#%E9%81%BF%E5%85%8D%E8%B0%83%E7%94%A8osexit%E5%92%8Cruntimegoexit%E9%80%80%E5%87%BA%E5%87%BD%E6%95%B0)
 - [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
@@ -142,7 +162,7 @@
 
 # :point_right:前言
 
-个人工作和收集积累，不涉及商用，仅供学习和参考。请尊重信息、尊重开发者、勿在商业模式下传播。
+文档为个人平时生活收集和工作积累，不涉及商用，仅供学习和参考。请尊重信息、尊重开发者、勿在商业模式下传播。
 
 软件设计原则：*可读性、可维护、安全、可靠、可测试、高效、可移植*。
 
@@ -187,7 +207,7 @@
 
 ## :point_right:包注释
 
-紧贴package语句之上的注释称为包注释，且只在一个文件中加入，内容较少的可以放在与包名同名的文件中，内容较多的放在`doc.go`文件中。
+包注释紧贴package语句之上，且**只在一个文件中加入**，内容较少的可以放在与包名同名的文件中，内容较多的放在`doc.go`文件中。
 
 **正例**
 
@@ -204,7 +224,7 @@ package zip
 
 ### :point_right:外部引用的标识符都应该有注释
 
-导出符合必须有注释
+所有导出符号的代码必须有注释
 
 **正例**
 
@@ -268,7 +288,7 @@ func WriteData(buf []byte,length int)(int error){}
 // FIXME: fixed some bugs
 ```
 
-# 命名
+# :point_right:命名
 
 使用统一的风格命名：大驼峰和小驼峰
 
@@ -286,7 +306,7 @@ func WriteData(buf []byte,length int)(int error){}
 
 ## :point_right:目录名
 
-目录名采用全小写的方式、允许包含数字、中横线（`-`）（头尾不能是中横线）。
+目录名采用全小写的方式、允许包含数字、中横线 `-`（头尾不能是中横线）。
 
 **正例**
 
@@ -366,7 +386,7 @@ var string string = "stone bird"
 
 ## :point_right:避免使用包名作为前缀
 
-避免包名的上下文信息
+定义类型函数等，应避免包名的上下文信息
 
 **反例**
 
@@ -488,7 +508,7 @@ result => ret/res
 
 # 代码格式
 
-## 使用工具对代码格式化
+## :point_right:使用工具对代码格式化
 
 使用 `gofmt` 对代码进行格式化，会将GO源码按标准风格进行缩进、对齐、保留注释等。
 
@@ -500,11 +520,11 @@ result => ret/res
 find ./ *.go | grep -v vendor | xargs gofmt -w
 ```
 
-## 行宽不超过120个字符
+## :point_right:行宽不超过120个字符
 
 > 除非超过能带来显著的上下文信息。
 
-## 相对独立的程序块或者语句之间用空行分割
+## :point_right:相对独立的程序块或者语句之间用空行分割
 
 减少空行使用，一般一个空行即可，最多两个空行。
 
@@ -526,7 +546,7 @@ if err != nil {
 }
 ```
 
-## 控制表达式括号
+## :point_right:控制表达式括号
 
 - *对于if、for、switch控制表达式，不使用()*
 - *对于复杂表达式，整体最外层不使用()；里面单个简单表达式使用()明确优先级*
@@ -564,7 +584,7 @@ if a > 2 & c > 3 {
 
 # 声明和初始化
 
-## 保证作用域尽量的小
+## :point_right:保证作用域尽量的小
 
 作用域的变量、函数、类型等在程序内可引用的越大，引起错误的可能性就越高。
 
@@ -627,7 +647,7 @@ switch curType {
 }
 ```
 
-## 避免直接使用全局变量
+## :point_right:避免直接使用全局变量
 
 禁止将全局变量导出，使用全局变量会导致业务代码和全局变量间产生耦合，并且难以追踪数据的变化。应尽量避免使用全局变量。
 
@@ -651,7 +671,7 @@ func GetTotal() int {
 }
 ```
 
-## 变量使用时才声明并初始化
+## :point_right:变量使用时才声明并初始化
 
 遵循变量作用域最小原则与就近声明原则，在变量使用时才声明并初始化，使得代码更容易阅读。
 
@@ -669,7 +689,7 @@ var name string
 name = "stone bird"
 ```
 
-## 相关申明放在一个组内
+## :point_right:相关申明放在一个组内
 
 相同用途的常量或变量应该放在一个常量组或变量组。相关性高的放置在同一个组里面，以提升代码的可读性。
 
@@ -728,7 +748,7 @@ sbs := []stoneBird {
 }
 ```
 
-# 整数安全
+# :point_right:整数安全
 
 以下场景必须严格进行长度限制：
 
@@ -736,7 +756,7 @@ sbs := []stoneBird {
 - 作为对象的长度或者大小
 - 作为数组的边界（如作为循环计数器）
 
-## 确保无符合整数运算时不会回绕
+## :point_right:确保无符合整数运算时不会回绕
 
 所谓回绕是指无法用无符号整数表示运算结果。这个结果会根据该类型可以表示的最大值加1执行求模操作。
 
@@ -770,7 +790,7 @@ func sub(a, b uint64) (uint64, error) {
 }
 ```
 
-## 确保有符合整数运算时不会出现溢出
+## :point_right:确保有符合整数运算时不会出现溢出
 
 **整数溢出**是一种未定义的行为，意味着编译器处理器有符合整数溢出时具有很多选择，有符合整数溢出会发生在如下操作中
 
@@ -800,7 +820,7 @@ func doInt(a, b int32) {
 }
 ```
 
-## 确保参与移位的操作数的位数足够
+## :point_right:确保参与移位的操作数的位数足够
 
 移位的位数应该是无符号整数，go对无类型的常数依照参与表达式运算数据类型进行推导
 
@@ -826,7 +846,7 @@ func foo(num uint16,bit uint8) bool {
 }
 ```
 
-## 确保除法运算和模运算中的除数不为0
+## :point_right:确保除法运算和模运算中的除数不为0
 
 > 运行时会报错
 
@@ -841,7 +861,7 @@ func div(total,a int) bool {
 }
 ```
 
-## 确保整数转换不会造成数据截断或者符号错误
+## :point_right:确保整数转换不会造成数据截断或者符号错误
 
 当一个较大类型转换为较小类型时，并且该数原值超出较小整型的表示范围，就会发生截断错误。
 
@@ -912,7 +932,7 @@ filter = []int{} // 不符合：避免短声明定义一个空的slice
 var filter []int
 ```
 
-## 始终使用len(s)==0检查slice是否为空
+## :point_right:始终使用len(s)==0检查slice是否为空
 
 要检查slice是否为空（没有元素），必须始终检查其长度是否为0，
 
@@ -934,7 +954,7 @@ func isEmpty(s []string) bool {
 }
 ```
 
-## 取值时长度校验
+## :point_right:取值时长度校验
 
 在对slice进行操作时，必须判断长度是否合法，防止程序panic
 
@@ -958,7 +978,7 @@ func decode(data []byte) bool {
 }
 ```
 
-## 不使用slice作为函数入参
+## :point_right:不使用slice作为函数入参
 
 slice在作为函数入参时，函数内对slice的修改可能会影响原始数据
 
@@ -996,7 +1016,7 @@ func main() {
 
 # map 安全
 
-## 确保key读取到map的元素有效
+## :point_right:确保key读取到map的元素有效
 
 key如果不存在，会返回零值。使用if ok ，判断key是否存在
 
@@ -1010,7 +1030,7 @@ if v, ok := mp["key"]; ok {
 
 # 表达式安全
 
-## 表达式的比较，应该遵循左变量右值的原则
+## :point_right:表达式的比较，应该遵循左变量右值的原则
 
 当变量或方法调用与常量比较时，如果常量在左边，不符合阅读习惯，难以理解
 
@@ -1042,9 +1062,131 @@ if min < v && v < max{
 }
 ```
 
+# :point_right:iota
+
+`iota`只用于定义系统内部常量，**不建议**在业务代码中使用。
+
+枚举类型需要在`const`组中声明，被赋值的变量应该使用自定义类型。
+
+每个`iota`只在某个`const`组中自动枚举，如果定义在新的`const`组中，每次都会从`0`重新开始。
+
+**正例**
+
+```Go
+const (
+   signaturePKCS1v15 uint8 = iota + 225
+   signatureRSAPSS
+   signatureECDSA
+   signatureEd25519
+)
+//...
+type ClientAuthType int
+
+const (
+   NoClientCert ClientAuthType = iota
+   RequestClientCert
+   RequireAnyClientCert
+   VerifyClientCertIfGiven
+   RequireAndVerifyClientCert
+)
+```
+
 # 控制语句安全
 
-## 循环必须有显示的退出条件
+## :point_right:删除不必要的else
+
+如果两个分支中都包含`return`语句，则可以去除冗余的`else`。能不要else的时候就不用else
+
+**反例**
+
+```Go
+if foo {
+   return x
+} else {
+   return nil
+}
+```
+
+**正例**
+
+```go
+if foo {
+   return x
+}
+return nil
+```
+
+## :point_right:尽量保持正常代码路径为最小缩进
+
+优先处理并缩进错误分支，增加可读性。
+
+**反例**
+
+```go
+func aFunc() error {
+    err := doSomething()
+    if err == nil {
+        err := doAnotherThing()
+        if err == nil {
+            return nil // 正常代码
+        }
+        return err
+    }
+    return err
+}
+```
+
+**正例**
+
+```go
+func aFunc() error {
+    if err := doSomething(); err != nil {
+        return err    
+    }
+    if err := doAnotherThing(); err != nil {
+        return err    
+    }
+    return nil // 正常代码
+}
+```
+
+## :point_right:如果只用到`range`中的索引部分，则去除冗余的元素
+
+**反例**
+
+```go
+for i, _ := range s {
+   print(i)
+}
+```
+
+**正例**
+
+```go
+for i := range s {
+   print(i)
+}
+```
+
+## :point_right:如果不使用`range`中的任何部分，则不要赋值给匿名变量
+
+**反例**
+
+```go
+for _ = range s {
+   ...
+}
+```
+
+**正例**
+
+```go
+for range s {
+   // ...
+}
+```
+
+## :point_right:循环必须有显示的退出条件
 
 程序无法正常结束是一种缺陷，特别是它无法响应外部对他的控制。如果循环没有退出条件，循环在任何或预计时间内将完不成执行，导致死循环。
 
@@ -1068,7 +1210,7 @@ for {
 }
 ```
 
-## 避免在循环体中修改循环控制变量
+## :point_right:避免在循环体中修改循环控制变量
 
 如果在循环体内修改循环控制参数的数值，可能导致死循环，或者循环次数达不到预期
 
@@ -1088,7 +1230,7 @@ for i := 0 ; i < 10 ; i++ {
 }
 ```
 
-## 慎用goto,goto只能向下跳转
+## :point_right:慎用goto,goto只能向下跳转
 
 goto语句会破坏程序的结构性，非必要不使用goto，使用goto时，也只允许跳转到本函数内的goto语句之后的标签（向下跳转）。
 
@@ -1110,7 +1252,7 @@ if done{
 label:
 ```
 
-## Switch要有default分支
+## :point_right:Switch要有default分支
 
 每个switch，都应该包含一个default分支，即使default分支，没有业务逻辑代码。
 
@@ -1135,7 +1277,7 @@ case blue:
 }
 ```
 
-## 禁止使用浮点数作为循环计数器
+## :point_right:禁止使用浮点数作为循环计数器
 
 存储浮点数的精度有限，精度问题可能导致条件判断不准确，导致循环达不到预期。
 
@@ -1147,7 +1289,7 @@ for i := float32(2000000001);i < float32(2000000002);i++ {
 }
 ```
 
-## 不要在迭代集合数据结构的过程中修改或者删除元素
+## :point_right:不要在迭代集合数据结构的过程中修改或者删除元素
 
 使用 `for range`或 `for` 循环可以便捷的访问map和slice中的元素。
 
@@ -1177,7 +1319,7 @@ for k , v := range mp {
 
 ## 合理设计
 
-### 合理选择方法的接受者
+### :point_right:合理选择方法的接受者
 
 合理选择方法接受者的类型，对代码的可读性，和维护性都有不同的影响。
 
@@ -1189,18 +1331,18 @@ for k , v := range mp {
 - 如果接收者是map、func、或者chan，不要使用指针类型。
 - 如果方法接收者是slice，且方法中不会修改接受者容量，或者重新分配内存，不要使用指针类型。
 
-### 函数功能要单一
+### :point_right:函数功能要单一
 
 函数功能要单一，过长的函数往往意味着函数功能不单一。可以进一步拆分或分层。而且过于复杂的函数往往不利于阅读，难以维护。
 
 原则如下：
 
-- 函数行数，建议不超过50行（非空非注释
+- 函数行数，建议不超过50行（非空非注释）
 - 函数的参数个数，建议不超过5个，多了建议用结构体替代
 - 最大代码块嵌套深度，建议不超过4层。
 - 函数的返回值不超过3个。
 
-### 避免使用具名返回值
+### :point_right:避免使用具名返回值
 
 优先使用返回值，而且错误值和返回值不要复用一个返回值。
 
@@ -1220,7 +1362,7 @@ func newInt(i int) int {
 }
 ```
 
-### 返回已被修改大小的slice对象
+### :point_right:返回已被修改大小的slice对象
 
 slice 的append 操作有可能修改slice指向的地址，如果函数被设计用于更新传入的slice参数，则他的实现需要满足：
 
@@ -1245,7 +1387,7 @@ func appendSlice(s []int) []int {
 }
 ```
 
-### 避免栈调用层次太深
+### :point_right:避免栈调用层次太深
 
 调用层次太深，在栈上分配大量内存，容易导致出现栈溢出错误。GO语音有一些容易让函数调用陷入无限递归的情况，需要避免。
 
@@ -1268,19 +1410,23 @@ func (j *job) Printf(str string) {
 }
 ```
 
+### :point_right:方法参数当传递的值为较大的结构体时，应传递指针，避免底层复制
+
+参数是map，slice，chan不要传递指针，因为map，slice，chan是引用类型，当不需要修改map，slice内容时不要传递指针的指针。
+
 ## init函数
 
-> 尽量减少init函数使用
+> 尽量减少init函数使用，一般每个包只有一个
 
-### 一个文件只定义一个init函数
+### :point_right:一个文件只定义一个init函数
 
 一个文件只定义一个init函数，同时把init函数尽量放在源文件靠前的位置，这样有助于代码阅读。
 
-### 一个包如果有多个init函数，不要存在任何依赖关系
+### :point_right:一个包如果有多个init函数，不要存在任何依赖关系
 
 不要在多个init函数之间存在依赖变量或资源的初始化顺序。
 
-### 注意init函数内进行初始化的场景限制
+### :point_right:注意init函数内进行初始化的场景限制
 
 由于init函数没有返回值，如果init函数初始化失败，只能通过异常反馈错误。因此应该慎用init函数进行复杂的初始化操作。
 
@@ -1291,7 +1437,7 @@ func (j *job) Printf(str string) {
 
 ## 闭包
 
-### 禁止在闭包中直接使用循环控制变量
+### :point_right:禁止在闭包中直接使用循环控制变量
 
 **反例**
 
@@ -1321,7 +1467,7 @@ for i := 0 ;i < 5 ; i++ {
 
 # 结构体
 
-## 合理使用匿名嵌套
+## :point_right:合理使用匿名嵌套
 
 **反例**
 
@@ -1342,7 +1488,7 @@ type MyStack struct {
 
 # 接口
 
-## 避免接口过大
+## :point_right:避免接口过大
 
 golang推荐使用组合的方式来写程序。go开发者一般会嵌入其他已有接口类型的方式来构建新的接口。
 
@@ -1354,7 +1500,7 @@ golang推荐使用组合的方式来写程序。go开发者一般会嵌入其他
 
 可以参考io标准库的设计
 
-## 从使用者角度设计接口
+## :point_right:从使用者角度设计接口
 
 应该从使用者而不是实现者的角度设计接口，实现者应返回具体类型。
 
@@ -1376,7 +1522,7 @@ func NewProducer() MyProducer {
 } 
 ```
 
-## 避免类型可能不为空的接口变量和nil直接进行比较
+## :point_right:避免类型可能不为空的接口变量和nil直接进行比较
 
 在go语言底层，interface定义的变量有两个成员变量，一个类型和一个值，只有当两个都为nil的情况下的这个接口变量才是nil。
 
@@ -1396,7 +1542,7 @@ return nil
 
 # 类型断言
 
-## 必须处理类型断言的失败
+## :point_right:必须处理类型断言的失败
 
 类型断言可以判断接口变量封装的是否是期望类型；也可以判断接口变量封装的类型是否实现了目标接口。在对接口变量进行类型断言时，必须判断断言是否成功，如果失败仍执行会panic。
 
@@ -1418,13 +1564,13 @@ default: // 必须使用默认分支来处理失败的情况
 
 # 包安全
 
-## 使用internal目录避免内部公开的Api对外暴露
+## :point_right:使用internal目录避免内部公开的Api对外暴露
 
 在设计项目或模块业务代码时，应该合理的使用internal目录，把内部公开的代码放在internal中，以提供对外合理的api
 
 比如 example/a/internal只能被example/a开始的包导入，不能被example/e、 example/f等其他包导入。
 
-## 禁止使用 `.` 来简化导入包
+## :point_right:禁止使用 `.` 来简化导入包
 
 可以直接使用导入包里东西，这种写法不利于阅读
 
@@ -1437,7 +1583,7 @@ import . "example/a"  // 不符合：使用了 . 来简化导入包
 **例外**
 在测试文件_test.go中，为了避免循环依赖时方可使用
 
-## 禁止使用相对路径导包
+## :point_right:禁止使用相对路径导包
 
 **反例**
 
@@ -1445,11 +1591,11 @@ import . "example/a"  // 不符合：使用了 . 来简化导入包
 import "../net" 
 ```
 
-## 导入包的顺序按稳定度排序
+## :point_right:导入包的顺序按稳定度排序
 
 建议导入的顺序是 ：标准库、第三方库、本项目的库，不同类型之间用空行隔开
 
-## 导入包时名称未冲突的情况下应避免使用别名
+## :point_right:导入包时名称未冲突的情况下应避免使用别名
 
 **反例**
 
@@ -1470,7 +1616,7 @@ import （
 
 # 错误处理
 
-##  使用恰当的错误处理机制
+##  :point_right:使用恰当的错误处理机制
 
 错误处理机制有:
 
@@ -1478,7 +1624,7 @@ import （
 - 使用异常panic机制
 - 使用error接口的方式返回错误值 （推荐使用）
 
-##  确保正确处理函数的错误返回值
+##  :point_right:确保正确处理函数的错误返回值
 
 任何时候都不要忽略返回的error类型
 
@@ -1499,7 +1645,7 @@ if b,err := get() ;err != nil {
 }
 ```
 
-## 错误信息不应该大写，或者以标点结尾。
+## :point_right:错误信息不应该大写，或者以标点结尾。
 
 错误字符串要求：除专有名词或者缩写词外，避免字符串以大写字面开头，或以标点结尾
 
@@ -1517,7 +1663,7 @@ fmt.Errorf("something good")
 
 # 异常处理
 
-## 包外可见的函数禁止向外抛出panic
+## :point_right:包外可见的函数禁止向外抛出panic
 
 包外可见的函数禁止向外抛出panic，如果导出函数本身或者调用其他函数可能抛出panic，需要内部recover并转换成error返回给外包调用者。
 
@@ -1533,7 +1679,7 @@ func justDo() (err any) {
 }
 ```
 
-## 确保发生异常时程序尝试恢复到合理的状态并记录日志
+## :point_right:确保发生异常时程序尝试恢复到合理的状态并记录日志
 
 当函数/方法发生异常时，一般对象需要恢复到原来状态，安全关键的对象必须恢复到原来的状态。保持对象一致性常用手段包括：
 
@@ -1545,7 +1691,7 @@ func justDo() (err any) {
 
 # 并发
 
-## 避免数据竞争
+## :point_right:避免数据竞争
 
 map 、slice不是并发安全的，所以在并发下共享数据访问存在数据竞争（不单指map和slice）。并发时优先推荐消息传递数据，而不是共享内存。
 
@@ -1560,7 +1706,7 @@ go build -race cmds
 go install -race pkgname
 ```
 
-## 避免goroutine被永久阻塞
+## :point_right:避免goroutine被永久阻塞
 
 避免goroutine永久阻塞导致内存泄漏；goroutine永久阻塞一般是由于锁或者chan未正确使用造成的。
 
@@ -1572,7 +1718,7 @@ go install -race pkgname
 - 不向值为nil（var ch chan int）的chan发送或接收数据，否则将导致goroutine永久阻塞
 - 避免死锁导致goroutine阻塞。
 
-## chan类型作函数参数时限定类型
+## :point_right:chan类型作函数参数时限定类型
 
 chan类型作为函数参数传递时限定类型，根据函数创建最新权限得channel，以增加代码的可读性。
 
@@ -1592,7 +1738,7 @@ func readAndWrite(ch chan int){
 }
 ```
 
-## 使用chan时确保对chan的操作有效
+## :point_right:使用chan时确保对chan的操作有效
 
 确保chan使用时已被初始化（使用make申请过空间），禁止对nil和closed的chan进行操作，否则可能导致以下问题
 
@@ -1612,7 +1758,7 @@ case _, ok := <- ch:
 }
 ```
 
-## 禁止拷贝锁和同步的对象
+## :point_right:禁止拷贝锁和同步的对象
 
 使用锁机制时，应避免死锁。复制锁或同步的对象本身没有同步保护，因此复制结果可能不完整（不是有原值得快照），即使锁是完整的它也会和已有锁存在冲突。
 
@@ -1658,11 +1804,11 @@ func (c *Counter) Value() int64 { // 有锁的对象，使用指针传递。
 
 # 输入输出
 
-## 临时文件使用完必须及时删除
+## :point_right:临时文件使用完必须及时删除
 
 程序员经常会创建临时文件，如在/var/tmp。这样的目录可能会被定期清理。但未被清理前还是可访问的。每个程序都有责任确保删除已使用完毕的临时文件。
 
-## 创建文件时必须显示指定合适的文件访问权限
+## :point_right:创建文件时必须显示指定合适的文件访问权限
 
 多用户的文件系统是通过权限和许可模型来保护文件可访问的。多用户系统中的文件通常归属于某个特定的用户。攻击者可能通过其他用户攻击。因此创建文件时就为其指定访问权限，以防止未授权的文件访问。
 
@@ -1680,7 +1826,7 @@ f ,err := os.Creat("/tmp/test.txt") // 不符合：没有显示指定文件权�
 f ,err := os.OpenFile("/tmp/test.txt",os.O_CREATE|OS_WRONLY|OS_TRUNC,0600) 
 ```
 
-## 确保检验文件路径前对其标准化
+## :point_right:确保检验文件路径前对其标准化
 
 绝对路径名或者相对路径名中可能包含文件链接（软链接、硬链接、快捷方式、影子文件、别名等）。或者包含特殊字符（如.或..），者使得验证文件路径变得困难。如不检验，工具者可以通过路径，达到攻击的目的。
 
@@ -1719,7 +1865,7 @@ func validate(path string) bool {
 
 需要增加文件数量、文件大小、路径标准化等检验操作
 
-## 禁止直接使用外部数据构造格式化字符串
+## :point_right:禁止直接使用外部数据构造格式化字符串
 
 当攻击者可以直接控制格式化字符串时，可导致信息泄漏、拒绝服务、系统功能异常等风险。
 
@@ -1733,7 +1879,7 @@ func checked(user string) {
 
 ```
 
-## 禁止在日志中保存敏感数据
+## :point_right:禁止在日志中保存敏感数据
 
 在日中禁止输出口令、秘钥和其他保护信息。口令包括明文口令和密文口令，对于敏感信息采用以下方法：
 
@@ -1745,7 +1891,7 @@ func checked(user string) {
 
 # 外部数据校验
 
-## 对所有外部数据进行合法性校验
+## :point_right:对所有外部数据进行合法性校验
 
 编程人员处理外部数据过程中必须时刻保持这种思维意识，不要做任何外部数据符合预期的假设。外部数据必须经过严格判断后才能使用
 
@@ -1773,7 +1919,7 @@ func checked(user string) {
 
 原则：信任边界、外部数据校验
 
-## 禁止直接使用外部数据拼接sql语句
+## :point_right:禁止直接使用外部数据拼接sql语句
 
 SQL注入是指外部数据构造的SQL语句所代表的数据库操作与预期不符。这样的操作可能导致信息泄漏或者数据被篡改
 
@@ -1802,7 +1948,7 @@ func queryById(id,pwd string){
 }
 ```
 
-## 禁止直接使用外部数据拼接命令参数
+## :point_right:禁止直接使用外部数据拼接命令参数
 
 使用未经检验的不可信输入作为系统命令的参数或命令的一部分，可能会导致命令注入漏洞。
 
@@ -1814,7 +1960,7 @@ func queryById(id,pwd string){
 
 # 资源管理
 
-## 在性能敏感的情况下建议采用池化技术优化资源使用
+## :point_right:在性能敏感的情况下建议采用池化技术优化资源使用
 
 一般而言，重用一个已经创建的对象比创建一个新对象快，除非确实需要重新创建。
 
@@ -1827,7 +1973,7 @@ go语音申请的变量内存需要gc。gc回收需要额外的开销。大量�
 - 高并发任务中通过goroutine池，避免调度和GC带来的冲击；goroutine虽然轻量级，但对于高并发的轻量级任务下，频繁创建groutine来执行，效率也非常低。
 - 在合理的情况下使用struct{}空结构体。来避免数据值所占用的空间，如：配合map实现set集合。chan传递空消息等。
 
-## 避免资源泄漏
+## :point_right:避免资源泄漏
 
 在程序每个可能走到的流程中，应确保完整的释放文件句柄、DB连接等资源。特别是在异常发生时，若申请的资源（如文件句柄、数据库连接、内存资源）未得到释放，会引起资源异常占用。
 
@@ -1853,7 +1999,7 @@ defer func(){
 }()
 ```
 
-## 合理使用defer
+## :point_right:合理使用defer
 
 不要再defer中修改返回值（尤其是具名返回的情况下），使得代码不易维护。
 
@@ -1875,7 +2021,7 @@ func tryChange() int {
 }
 ```
 
-## 禁止重复释放资源
+## :point_right:禁止重复释放资源
 
 重复释放一般处于错误的流程判断中。
 
@@ -1899,7 +2045,7 @@ func foo(c chan int) {
 }
 ```
 
-## make申请的slice、map时，根据预估或校验范围大小来申请合适的内存。
+## :point_right:make申请的slice、map时，根据预估或校验范围大小来申请合适的内存。
 
 为避免扩容带来的性能消耗，在初始化slice和map时，根据预估范围来申请合适的容量。
 
@@ -1907,7 +2053,7 @@ func foo(c chan int) {
 var mp = make(map[string]string 1000)
 ```
 
-## 避免过多的time.After函数调用导致消耗大量的资源
+## :point_right:避免过多的time.After函数调用导致消耗大量的资源
 
 如果在某个时间段频繁的多次调用，则可能导致很多未过期的Timer值，从而导致大量的内存和计算消耗。
 
@@ -1949,7 +2095,7 @@ func longRunning(message <-chan string){
 
 # 内存访问
 
-## 禁止解引用空指针
+## :point_right:禁止解引用空指针
 
 go中，对值类型，声明即默认初始化。对引用类型，申明后其值是空值（nil）。使用引用类型前，必须对其有效的构建并初始化好。
 
@@ -1981,7 +2127,7 @@ func main() {
 }
 ```
 
-## 禁止解引用空的接口和内置引用类型变量
+## :point_right:禁止解引用空的接口和内置引用类型变量
 
 对chan、map内置引用类型变量，访问元素前，必须使用make显式的初始化。
 
@@ -1995,7 +2141,7 @@ var mp map[string]*student
 var ch chan int
 ```
 
-## 使用[]byte而不是string存储敏感数据、敏感数据使用完后应立即清0
+## :point_right:使用[]byte而不是string存储敏感数据、敏感数据使用完后应立即清0
 
 使用[]byte存储敏感数据，可以降低敏感数据泄漏风险
 
@@ -2006,7 +2152,7 @@ buf := make([]byte,1024)
 _,err := f.read(buf)
 ```
 
-## 避免使用unsafe包
+## :point_right:避免使用unsafe包
 
 uintptr是一个可容纳指针的指数，表示对象的地址。
 
@@ -2078,9 +2224,202 @@ func main() {
 - 被C函数调用的go函数中再调用C函数
 - 被Go函数调用的C函数中再调用Go函数
 
+# 系统接口
+
+## :point_right:命令执行检查
+
+- 使用`exec.Command`、`exec.CommandContext`、`syscall.StartProcess`、`os.StartProcess`等函数时，第一个参数（path）直接取外部输入值时，应使用白名单限定可执行的命令范围，不允许传入`bash`、`cmd`、`sh`等命令；
+- 使用`exec.Command`、`exec.CommandContext`等函数时，通过`bash`、`cmd`、`sh`等创建shell，-c后的参数（arg）拼接外部输入，应过滤\n  $  &  ;  |  '  "  ( )  `等潜在恶意字符；
+
+**反例**
+
+```go
+func foo() {
+	userInputedVal := "&& echo 'hello'" // 假设外部传入该变量值
+	cmdName := "ping " + userInputedVal
+
+	// 未判断外部输入是否存在命令注入字符，结合sh可造成命令注入
+	cmd := exec.Command("sh", "-c", cmdName)
+	output, _ := cmd.CombinedOutput()
+	fmt.Println(string(output))
+
+	cmdName := "ls"
+	// 未判断外部输入是否是预期命令
+	cmd := exec.Command(cmdName)
+	output, _ := cmd.CombinedOutput()
+	fmt.Println(string(output))
+}
+
+
+```
+
+**正例**
+
+```go
+func checkIllegal(cmdName string) bool {
+	if strings.Contains(cmdName, "&") || strings.Contains(cmdName, "|") || strings.Contains(cmdName, ";") ||
+		strings.Contains(cmdName, "$") || strings.Contains(cmdName, "'") || strings.Contains(cmdName, "`") ||
+		strings.Contains(cmdName, "(") || strings.Contains(cmdName, ")") || strings.Contains(cmdName, "\"") {
+		return true
+	}
+	return false
+}
+
+func main() {
+	userInputedVal := "&& echo 'hello'"
+	cmdName := "ping " + userInputedVal
+
+	if checkIllegal(cmdName) { // 检查传给sh的命令是否有特殊字符
+		return // 存在特殊字符直接return
+	}
+
+	cmd := exec.Command("sh", "-c", cmdName)
+	output, _ := cmd.CombinedOutput()
+	fmt.Println(string(output))
+}
+```
+
+
+
+# Web跨域
+
+## :point_right:跨域资源共享CORS限制请求来源
+
+CORS请求保护不当可导致敏感信息泄漏，因此应当严格设置Access-Control-Allow-Origin使用同源策略进行保护。
+
+**正例**
+
+```go
+c := cors.New(cors.Options{
+	AllowedOrigins:   []string{"http://qq.com", "https://qq.com"},
+	AllowCredentials: true,
+	Debug:            false,
+})
+
+// 引入中间件
+handler = c.Handler(handler)
+```
+
+# 响应输出
+
+## :point_right:设置正确的HTTP响应包类型
+
+响应头Content-Type与实际响应内容，应保持一致。如：API响应数据类型是json，则响应头使用`application/json`；若为xml，则设置为`text/xml`。
+
+## 添加安全响应头
+
+- 所有接口、页面，添加响应头 `X-Content-Type-Options: nosniff`。
+- 所有接口、页面，添加响应头`X-Frame-Options `。按需合理设置其允许范围，包括：`DENY`、`SAMEORIGIN`、`ALLOW-FROM origin`。用法参考：[MDN文档](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/X-Frame-Options)
+
+## 外部输入拼接到HTTP响应头中需进行过滤
+
+- 应尽量避免外部可控参数拼接到HTTP响应头中，如业务需要则需要过滤掉`\r`、`\n`等换行符，或者拒绝携带换行符号的外部输入。
+
+## 外部输入拼接到response页面前进行编码处理
+
+- 直出html页面或使用模板生成html页面的，推荐使用`text/template`自动编码，或者使用`html.EscapeString`或`text/template`对`<, >, &, ',"`等字符进行编码。
+
+```go
+import (
+	"html/template"
+)
+
+func outtemplate(w http.ResponseWriter, r *http.Request) {
+	param1 := r.URL.Query().Get("param1")
+	tmpl := template.New("hello")
+	tmpl, _ = tmpl.Parse(`{{define "T"}}{{.}}{{end}}`)
+	tmpl.ExecuteTemplate(w, "T", param1)
+}
+```
+
+# 会话管理
+
+## :point_right:安全维护session信息
+
+- 用户登录时应重新生成session，退出登录后应清理session。
+
+```go
+import (
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
+	"net/http"
+)
+
+// 创建cookie
+func setToken(res http.ResponseWriter, req *http.Request) {
+	expireToken := time.Now().Add(time.Minute * 30).Unix()
+	expireCookie := time.Now().Add(time.Minute * 30)
+
+	//...
+
+	cookie := http.Cookie{
+		Name:     "Auth",
+		Value:    signedToken,
+		Expires:  expireCookie, // 过期失效
+		HttpOnly: true,
+		Path:     "/",
+		Domain:   "127.0.0.1",
+		Secure:   true,
+	}
+
+	http.SetCookie(res, &cookie)
+	http.Redirect(res, req, "/profile", 307)
+}
+
+// 删除cookie
+func logout(res http.ResponseWriter, req *http.Request) {
+	deleteCookie := http.Cookie{
+		Name:    "Auth",
+		Value:   "none",
+		Expires: time.Now(),
+	}
+	http.SetCookie(res, &deleteCookie)
+	return
+}
+```
+
+## CSRF防护
+
+- 涉及系统敏感操作或可读取敏感信息的接口应校验`Referer`或添加`csrf_token`。
+
+```go
+// good
+import (
+	"github.com/gorilla/csrf"
+	"github.com/gorilla/mux"
+	"net/http"
+)
+
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/signup", ShowSignupForm)
+	r.HandleFunc("/signup/post", SubmitSignupForm)
+	// 使用csrf_token验证
+	http.ListenAndServe(":8000",
+		csrf.Protect([]byte("32-byte-long-auth-key"))(r))
+}
+```
+
+# 访问控制
+
+## 默认鉴权
+
+- 除非资源完全可对外开放，否则系统默认进行身份认证，使用白名单的方式放开不需要认证的接口或页面。
+
+- 根据资源的机密程度和用户角色，以最小权限原则，设置不同级别的权限，如完全公开、登录可读、登录可写、特定用户可读、特定用户可写等
+
+- 涉及用户自身相关的数据的读写必须验证登录态用户身份及其权限，避免越权操作
+
+  ```sql
+  -- 伪代码
+  select id from table where id=:id and userid=session.userid
+  ```
+
+- 没有独立账号体系的外网服务使用`QQ`或`微信`登录，内网服务使用`统一登录服务`登录，其他使用账号密码登录的服务需要增加验证码等二次验证
+
 # 其他
 
-## 禁止使用math/rand包提供的函数产生安全用途的伪随机数
+## :point_right:禁止使用math/rand包提供的函数产生安全用途的伪随机数
 
 math/rand 包提供生成的伪随机数，不能保证其产生的随机数序列质量。
 
@@ -2108,7 +2447,7 @@ crypto/rand （推荐使用）包中提供了密码安全学伪随机数生成�
 
 > 公共库中未使用的导出函数和变量不违反该准则
 
-## 不用代码直接删除掉，不要注释掉
+## :point_right:不用代码直接删除掉，不要注释掉
 
 被注释掉的代码，无法被正常维护。当企图恢复这段代码时，极有可能被引入被忽略的缺陷
 
@@ -2123,6 +2462,8 @@ crypto/rand （推荐使用）包中提供了密码安全学伪随机数生成�
 除main函数外，禁止在任何地方调用os.Exit()函数，调用os.Exit()会立即终止，终止前无法执行相应的defer，可能导致某些资源难以有效的清理。
 
 正确的做法是通过错误值传递到上一级调用者。结束前确保资源有序的释放，禁止下级程序直接结束进程。
+
+
 
 
 
