@@ -21,7 +21,7 @@
 
 TODO：Simple, Poetic, Pithy
 
-gopher：石鸟路遇  stonebirdjx <<1245863260@qq.com,g1245863260@gmail.com>>
+gopher：石鸟路遇  stonebirdjx <1245863260@qq.com,g1245863260@gmail.com>
 
 > 文档为个人学习或工作积累，仅供学习和参考，不涉及商用，如有不正确的地方，请邮件指正。
 
@@ -51,11 +51,29 @@ func main() {
 
 完成并运行上面代码，你现在已经是一个golang程序员 ( `gopher` ) 了.
 
+> 函数体外每个语句应该以关键字开始，如：`var`、`func`、`type`、`const`、`import`、`package`
+
 # 程序结构
 
 ## :point_right:package - 包
 
-以大写字母开头，那么它就是已导出的，在导入一个包时，你只能引用其中已导出的名字。任何“未导出”的名字在该包外均无法访问。
+package定义包
+
+- 包名原则上只由小写字面和数字组成。不包含大写字母和下划线等字符（测试包除外）
+- 一般包名和目录保持一致
+
+```go
+package zip
+package sha256
+package sha256_test
+
+// 目录名：port-obj
+// 对应的包名：portobj
+```
+
+包内以大写字母开头(函数、变量、常量、结构体...)，那么它就是已导出(外部可调用)。
+
+在导入一个包时，你只能引用其中已导出的名字。任何“未导出”的名字在该包外均无法访问。
 
 
 
@@ -65,7 +83,7 @@ func main() {
 
 下面是我的总结，不够全面，仅供参考
 
-[golang安全编码规范](https://github.com/stonebirdjx/go-ladder/blob/master/gosafe.md)
+[golang安全编码规范](https://github.com/stonebirdjx/go-ladder/blob/master/golang%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83.md)
 
 # 算法达人
 
@@ -77,7 +95,7 @@ func main() {
 
 现在你已经是优秀的go语言开发者了，请继续追踪golang社区，了解版本新特性。容器编排和AI算法是先进的方向，新的旅程如下。
 
-[k8s-ladder:每个人都是k8s大师](https://github.com/stonebirdjx/go-ladder/blob/master/gosafe.md)
+[k8s-ladder:每个人都是k8s大师](https://github.com/stonebirdjx/k8s-ladder)
 
 [python-ladder:每个人都是python大师](https://github.com/stonebirdjx/go-ladder/blob/master/gosafe.md)
 
