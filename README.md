@@ -3,11 +3,11 @@
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
 - [前言](#%E5%89%8D%E8%A8%80)
-- [:point_right:小试牛刀](#point_right%E5%B0%8F%E8%AF%95%E7%89%9B%E5%88%80)
+- [:point_right:小刀弑牛](#point_right%E5%B0%8F%E5%88%80%E5%BC%91%E7%89%9B)
 - [:point_right:helloworld](#point_righthelloworld)
 - [语言](#%E8%AF%AD%E8%A8%80)
   - [:point_right:package - 包](#point_rightpackage---%E5%8C%85)
-  - [:point_right:各种类型的内存长度和零值](#point_right%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%86%85%E5%AD%98%E9%95%BF%E5%BA%A6%E5%92%8C%E9%9B%B6%E5%80%BC)
+  - [**:point_right:各种类型的内存长度和零值**](#point_right%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%86%85%E5%AD%98%E9%95%BF%E5%BA%A6%E5%92%8C%E9%9B%B6%E5%80%BC)
   - [:point_right:变量](#point_right%E5%8F%98%E9%87%8F)
   - [:point_right:常量和iota](#point_right%E5%B8%B8%E9%87%8F%E5%92%8Ciota)
 - [安全编码规范](#%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83)
@@ -15,18 +15,19 @@
 - [原理透析](#%E5%8E%9F%E7%90%86%E9%80%8F%E6%9E%90)
 - [面试题记](#%E9%9D%A2%E8%AF%95%E9%A2%98%E8%AE%B0)
 - [徐徐前行](#%E5%BE%90%E5%BE%90%E5%89%8D%E8%A1%8C)
+- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 # 前言
 
-如果能成为golang的cookbook就好了0.0.
+:speak_no_evil:如果能成为golang的cookbook就好了:see_no_evil:
 
 整理知识，传播智慧，好好学习，天天向上。
 
 > 文档为个人平时生活收集和工作积累，不涉及商用，仅供学习和参考。请尊重信息、尊重开发者、勿在商业模式下传播。
 
-# :point_right:小试牛刀
+# :point_right:小刀弑牛
 
 [安装golang](https://go.dev/doc/install)
 
@@ -38,8 +39,6 @@
 
 # :point_right:helloworld
 
-> 程序从 `main` 包开始运行。
-
 ```go
 package main
 
@@ -50,33 +49,53 @@ func main() {
 }
 ```
 
-完成并运行上面代码，你现在已经是一个golang程序员 ( `gopher` ) 了.
+完成并运行上面代码，你现在已经是一个golang程序员 ( `gopher` ) 了，需要知道
 
-> 函数体外每个语句应该以关键字开始，如：`var`、`func`、`type`、`const`、`import`、`package`
+- 程序从 `main` 包的 `main` 函数开始运行。
+- 函数体外每个语句应该以关键字开始，如：`var`、`func`、`type`、`const`、`import`、`package`
+
+> 关于run背后的流程，学习原理时再掌握
 
 # 语言
 
 ## :point_right:package - 包
 
-package定义包
+使用package关键字定义包
 
-- 包名原则上只由小写字面和数字组成。不包含大写字母和下划线等字符（测试包除外）
-- 一般包名和目录保持一致
+包名原则上只由小写字面和数字组成。不包含大写字母和下划线等字符（测试包除外）
 
 ```go
 package zip
 package sha256
 package sha256_test
+```
 
+一般包名和目录保持一致
+
+```go
 // 目录名：port-obj
 // 对应的包名：portobj
+package portobj
 ```
 
 包内以大写字母开头(函数、变量、常量、结构体...)，那么它就是已导出(外部可调用)。
 
-在导入一个包时，你只能引用其中已导出的名字。任何“未导出”的名字在该包外均无法访问。
+```go
+package stonebird
 
-## :point_right:各种类型的内存长度和零值
+var name = "stone bird"
+var Total = 10  // 禁止导出全局变量
+
+func GetName() string {
+    return name
+}
+```
+
+- 注意包命名规范
+- 在导入一个包时，你只能引用其中已导出的名字。任何**未导出**的名字在该包外均无法访问
+- 由于全局变量可修改直接导出并不安全，一般情况下禁止导出全局变量。如需包的全局变量可使用 **常量** 或者 **非导出符号+导出函数的形式**
+
+## **:point_right:各种类型的内存长度和零值**
 
 | 类型          | 内存长度 | 零值           | 说明                                                       |
 | ------------- | -------- | -------------- | ---------------------------------------------------------- |
@@ -105,9 +124,9 @@ package sha256_test
 **默认值（零值）说明**
 
 - 数字类型 `int、uint、float32 、float64` 的零值为 0
-- 布尔类型 `bool` 的零值为false
-- 字符串 `string`  的零值为""
-- 数组和结构体零值为元素的值类型
+- 布尔类型 `bool` 的零值为`false`
+- 字符串 `string`  的零值为 `""`
+- 数组(array)和结构体零值为元素的值类型
 - 其他引用类型（指针、切片、映射、通道、函数和接口）的零值则是 nil
 
 > 内存长度目前了解即可，在结构体内存对齐时可以详细了解
@@ -135,7 +154,8 @@ func main() {
 
 - 使用`:=` 语法糖精简赋值，只能在函数内部使用
 - 特殊只写变量 `_` ,用于忽略值，起占位作用
-- 如果局部变量未使用编译期会报错。全局变量未使用不会报错。
+- 如果局部变量未使用编译期会报错。全局变量未使用不会报错
+- 全局变量禁止其他包修改，只能小写
 
 ## :point_right:常量和iota
 
@@ -241,7 +261,8 @@ const (
 
 [python-ladder:每个人都是python大师](https://github.com/stonebirdjx/go-ladder/blob/master/gosafe.md)
 
+# 参考资料
+
 强者总是比较孤独,请坚持学习！送上一句黑鸡汤：
 
 > "The last thing you want is to look back on your life and wonder... if only." --by caicloud
-
