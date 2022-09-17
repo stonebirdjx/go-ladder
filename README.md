@@ -170,7 +170,7 @@ const s = "Hello, World!"
 const b = false 
 
 const (
-	l = "stonebird"
+    l  = "stonebird"
     ll = len(l)
     lc = cap([]byte(l))
     ls = unsafe.Sizeof(l)
