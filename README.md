@@ -17,9 +17,11 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
+- [变量](#%E5%8F%98%E9%87%8F)
+  - [变量声明](#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E)
+  - [:point_right:变量总结](#point_right%E5%8F%98%E9%87%8F%E6%80%BB%E7%BB%93)
 - [程序结构](#%E7%A8%8B%E5%BA%8F%E7%BB%93%E6%9E%84)
   - [**:point_right:各种类型的内存长度和零值**](#point_right%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%86%85%E5%AD%98%E9%95%BF%E5%BA%A6%E5%92%8C%E9%9B%B6%E5%80%BC)
-  - [:point_right:变量](#point_right%E5%8F%98%E9%87%8F)
   - [:point_right:常量和iota](#point_right%E5%B8%B8%E9%87%8F%E5%92%8Ciota)
   - [:point_right:作用域](#point_right%E4%BD%9C%E7%94%A8%E5%9F%9F)
 - [类型](#%E7%B1%BB%E5%9E%8B)
@@ -387,7 +389,33 @@ go build -mod vendor
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
 
+# 变量
 
+## 变量声明
+
+使用var关键字定义变量，如果提供初始化值，可省略变量类型，由编译器自动推断。
+
+```go
+var x, y, z int
+var s, n = "abc", 123
+var (
+    a int
+    b float32
+)
+
+func main() {
+    n, s := 0x1234, "Hello, World!"
+    x, _, z := something()
+    println(x, s, n)
+}
+```
+
+## :point_right:变量总结
+
+- 使用`:=` 语法糖精简赋值，只能在函数内部使用
+- 特殊只写变量 `_` ,用于忽略值，起占位作用
+- 如果局部变量未使用编译期会报错。全局变量未使用不会报错
+- 全局变量禁止其他包修改，只能小写
 
 
 
@@ -429,31 +457,7 @@ go build -mod vendor
 
 > 内存长度目前了解即可，在结构体内存对齐时可以详细了解
 
-## :point_right:变量
 
-使用var关键字定义变量，如果提供初始化值，可省略变量类型，由编译器自动推断。
-
-```go
-var x, y, z int
-var s, n = "abc", 123
-var (
-    a int
-    b float32
-)
-
-func main() {
-    n, s := 0x1234, "Hello, World!"
-    x, _, z := something()
-    println(x, s, n)
-}
-```
-
-**变量说明**
-
-- 使用`:=` 语法糖精简赋值，只能在函数内部使用
-- 特殊只写变量 `_` ,用于忽略值，起占位作用
-- 如果局部变量未使用编译期会报错。全局变量未使用不会报错
-- 全局变量禁止其他包修改，只能小写
 
 ## :point_right:常量和iota
 
