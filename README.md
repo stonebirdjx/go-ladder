@@ -36,9 +36,12 @@
     - [八进制](#%E5%85%AB%E8%BF%9B%E5%88%B6)
     - [十六进制](#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6)
     - [:point_right:整型总结](#point_right%E6%95%B4%E5%9E%8B%E6%80%BB%E7%BB%93)
-  - [浮点型](#%E6%B5%AE%E7%82%B9%E5%9E%8B)
-    - [复数](#%E5%A4%8D%E6%95%B0)
-    - [:point_right:布尔型](#point_right%E5%B8%83%E5%B0%94%E5%9E%8B)
+  - [浮点数](#%E6%B5%AE%E7%82%B9%E6%95%B0)
+    - [浮点数类型](#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B)
+    - [正无穷大、负无穷大和非数](#%E6%AD%A3%E6%97%A0%E7%A9%B7%E5%A4%A7%E8%B4%9F%E6%97%A0%E7%A9%B7%E5%A4%A7%E5%92%8C%E9%9D%9E%E6%95%B0)
+    - [:point_right:浮点数总结](#point_right%E6%B5%AE%E7%82%B9%E6%95%B0%E6%80%BB%E7%BB%93)
+  - [复数](#%E5%A4%8D%E6%95%B0)
+  - [:point_right:布尔型](#point_right%E5%B8%83%E5%B0%94%E5%9E%8B)
   - [:point_right:字符串](#point_right%E5%AD%97%E7%AC%A6%E4%B8%B2)
   - [:point_right:数组](#point_right%E6%95%B0%E7%BB%84)
   - [:point_right:结构体](#point_right%E7%BB%93%E6%9E%84%E4%BD%93)
@@ -741,7 +744,9 @@ x := 0xdeadbeef
 - 整数安全运算
 - 可以用%d、%o或%x参数控制输出的进制格式
 
-## 浮点型
+## 浮点数
+
+### 浮点数类型
 
 提供了两种精度的浮点数，float32和float64。
 
@@ -763,6 +768,8 @@ const Avogadro = 6.02214129e23  // 阿伏伽德罗常数
 const Planck   = 6.62606957e-34 // 普朗克常数
 ```
 
+### 正无穷大、负无穷大和非数
+
 正无穷大和负无穷大，分别用于表示太大溢出的数字和除零的结果，还有NaN非数，一般用于表示无效的除法操作结果0/0或Sqrt(-1).
 
 ```go
@@ -777,7 +784,7 @@ nan := math.NaN()
 fmt.Println(nan == nan, nan < nan, nan > nan) // "false false false"
 ```
 
-**浮点数说明**
+### :point_right:浮点数总结
 
 - 浮点数和整型拥有一样的运算符和能力
 - 不能比较非数nan
@@ -785,7 +792,7 @@ fmt.Println(nan == nan, nan < nan, nan > nan) // "false false false"
 - 使用%e（带指数）或%f的形式打印浮点数
 - 浮点数的相等比较是危险的
 
-### 复数
+## 复数
 
 Go语言提供了两种精度的复数类型：complex64和complex128，分别对应float32和float64两种浮点数精度。内置的complex函数用于构建复数，内建的real和imag函数分别返回复数的实部和虚部：
 
@@ -825,7 +832,7 @@ fmt.Println(1 + 2i == 1 + 2i)
 
 - 和浮点数一样，比较相等时精度问题很危险
 
-### :point_right:布尔型
+## :point_right:布尔型
 
 布尔类型的值只有两种：true和false。一元操作符`!`对应逻辑非操作，因此`!true`的值为`false`
 
