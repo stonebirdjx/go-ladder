@@ -678,7 +678,45 @@ var i int8 = 127
 fmt.Println(i, i+1, i*i) // "127 -128 1"
 ```
 
-> 注意除数不能为0 、类型转换安全
+确保参与移位的操作数的位数足够
+
+```go
+func foo(num uint16,bit uint8) bool {
+	if uint32(num) > (uint32(1) << bit) { // 强制类型转换后，应满足函数设计要求
+		return true
+	}
+	return false
+}
+```
+
+确保除数不能为0
+
+```go
+func div(total,a int) bool {
+	if a == 0 {
+		return false
+	}
+	avg = total / a
+}
+```
+
+确保整数转换不会造成数据截断或者符号错误
+
+```go
+func int32216(a int32){
+	if (a < math.MinInt16) || (a > math.MaxInt16) {
+    	// 错误处理
+	}
+    int16(a)
+}
+
+func int2uint(a int32){
+    if a < 0 {
+    	// 错误处理
+	}
+    b := uint32(a)
+}
+```
 
 ### 八进制
 
