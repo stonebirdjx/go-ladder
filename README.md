@@ -6,7 +6,9 @@
 - [HelloWorld](#helloworld)
 - [小刀弑牛（三天）](#%E5%B0%8F%E5%88%80%E5%BC%91%E7%89%9B%E4%B8%89%E5%A4%A9)
 - [程序设计](#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1)
-  - [package - 包](#package---%E5%8C%85)
+  - [package - 包 (一天)](#package---%E5%8C%85-%E4%B8%80%E5%A4%A9)
+- [后续建议](#%E5%90%8E%E7%BB%AD%E5%BB%BA%E8%AE%AE)
+- [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -53,4 +55,23 @@ func main() {
 
 # 程序设计
 
-## package - 包
+## package - 包 (一天)
+
+- 合理使用包名、成员名、导出符号、init函数。
+- 了解相关环境变量。
+- 注意包的依赖关系，导入包不要成环。
+- 使用模块管理。
+
+[package笔记](https://github.com/stonebirdjx/go-ladder/blob/master/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/package-%E5%8C%85.md)
+
+# 后续建议
+
+强者总是比较孤独,请坚持学习！送上一句黑鸡汤：
+
+> "The last thing you want is to look back on your life and wonder... if only." --by caicloud
+
+# 参考资料
+
+[雨痕大佬的go学习笔记](https://github.com/qyuhen/book)
+
+[饶全成](https://github.com/qcrao)
