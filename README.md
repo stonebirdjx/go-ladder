@@ -5,8 +5,18 @@
 - [前言](#%E5%89%8D%E8%A8%80)
 - [HelloWorld](#helloworld)
 - [小刀弑牛](#%E5%B0%8F%E5%88%80%E5%BC%91%E7%89%9B)
-- [程序设计](#%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1)
-  - [package - 包](#package---%E5%8C%85)
+- [泛型](#%E6%B3%9B%E5%9E%8B)
+- [package - 包](#package---%E5%8C%85)
+  - [包声明](#%E5%8C%85%E5%A3%B0%E6%98%8E)
+  - [导出符号](#%E5%AF%BC%E5%87%BA%E7%AC%A6%E5%8F%B7)
+  - [init函数 - 初始化包](#init%E5%87%BD%E6%95%B0---%E5%88%9D%E5%A7%8B%E5%8C%96%E5%8C%85)
+  - [内部包](#%E5%86%85%E9%83%A8%E5%8C%85)
+  - [导入包](#%E5%AF%BC%E5%85%A5%E5%8C%85)
+  - [module - 模块](#module---%E6%A8%A1%E5%9D%97)
+  - [go work - 工作空间](#go-work---%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4)
+  - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
+  - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
+  - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
 - [测试（TDD）](#%E6%B5%8B%E8%AF%95tdd)
   - [:point_right:单元测试](#point_right%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95)
     - [:point_right:并行](#point_right%E5%B9%B6%E8%A1%8C)
@@ -23,8 +33,24 @@
   - [模糊测试](#%E6%A8%A1%E7%B3%8A%E6%B5%8B%E8%AF%95)
   - [:point_right:文档测试（示例函数）](#point_right%E6%96%87%E6%A1%A3%E6%B5%8B%E8%AF%95%E7%A4%BA%E4%BE%8B%E5%87%BD%E6%95%B0)
   - [main测试](#main%E6%B5%8B%E8%AF%95)
+  - [测试总结](#%E6%B5%8B%E8%AF%95%E6%80%BB%E7%BB%93)
 - [测试框架](#%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6)
-- [后续建议](#%E5%90%8E%E7%BB%AD%E5%BB%BA%E8%AE%AE)
+  - [:point_right:testify](#point_righttestify)
+    - [:point_right:assert - 断言](#point_rightassert---%E6%96%AD%E8%A8%80)
+    - [mock - 打桩](#mock---%E6%89%93%E6%A1%A9)
+    - [suite - 测试套件](#suite---%E6%B5%8B%E8%AF%95%E5%A5%97%E4%BB%B6)
+  - [Mock](#mock)
+  - [:point_right:goconvey](#point_rightgoconvey)
+  - [gostub](#gostub)
+    - [为全局变量打桩](#%E4%B8%BA%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E6%89%93%E6%A1%A9)
+    - [为函数打桩](#%E4%B8%BA%E5%87%BD%E6%95%B0%E6%89%93%E6%A1%A9)
+    - [为过程打桩](#%E4%B8%BA%E8%BF%87%E7%A8%8B%E6%89%93%E6%A1%A9)
+  - [monkey](#monkey)
+    - [为函数打桩](#%E4%B8%BA%E5%87%BD%E6%95%B0%E6%89%93%E6%A1%A9-1)
+    - [为方法打桩](#%E4%B8%BA%E6%96%B9%E6%B3%95%E6%89%93%E6%A1%A9)
+  - [:point_right:gomonkey](#point_rightgomonkey)
+  - [测试框架总结](#%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6%E6%80%BB%E7%BB%93)
+- [建议](#%E5%BB%BA%E8%AE%AE)
 - [参考资料](#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -34,6 +60,8 @@
 :speak_no_evil:如果能成为golang的cookbook就好了:see_no_evil:
 
 整理知识，传播智慧，好好学习，天天向上。
+
+基于golang1.8+
 
 对于一些规则或者要求，可以参考[安全编码规范](https://github.com/stonebirdjx/go-ladder/blob/master/golang%E5%AE%89%E5%85%A8%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83.md)
 
@@ -70,16 +98,312 @@ func main() {
 >
 > 如果你是没有其他语言基础的初学者，建议学习2-3遍。
 
-# 程序设计
+# 泛型
 
-## package - 包
 
-- 合理使用包名、成员名、导出符号、init函数。
-- 了解相关环境变量。
-- 注意包的依赖关系，导入包不要成环。
-- 使用模块管理。
 
-[package笔记](https://github.com/stonebirdjx/go-ladder/blob/master/%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/package-%E5%8C%85.md)
+# package - 包
+
+## 包声明
+
+使用package关键字定义包，包由同一目录下的多个源文件构成。系统设计包的目的都是为了简化大型程序的设计和维护工作。
+
+尽可能让命名有描述性且无歧义。
+
+包名一般采用单数的形式。标准库的bytes、errors和strings使用了复数形式只是为了防止和关键字冲突。
+
+包名原则上只由小写字面和数字组成。不包含大写字母和下划线等字符（测试包除外）。
+
+```go
+package zip
+package sha256
+package sha256_test
+```
+
+包名通常与目录名一致
+
+```go
+// 目录名：port-obj
+// 对应的包名：portobj
+package portobj
+```
+
+## 导出符号
+
+包是成员作用域边界，包内成员可相互访问。 名称首字母大写为 导出成员（exported），可外部访问。
+
+此规则适用于全局变量、全局常量、函数、类型、字段和方法等。
+
+```go
+package stonebird
+
+var name = "stone bird"
+var Total = 10  // 禁止导出全局变量
+
+func GetName() string {
+    return name
+}
+```
+
+> 成员命名，避免使用包名为前缀
+>
+> 遵循包内修改原则，一般情况下不导出全局变量
+
+## init函数 - 初始化包
+
+包内任意 .go 文件内都可定义一到多个 init 初始化函数。 初始化函数由编译器生成代码自动执行（仅执行一次），不能被其他代码调用。
+
+```go
+var x = 100
+
+func init() {
+	println("a", x) // a 100
+}
+
+func init() {
+	println("b", x) // a 100
+}
+```
+
+可以使用GODEBUG查看初始化执行情况
+
+```bash
+GODEBUG=inittrace=1 ./test
+init	internal/bytealg 	@0.008 ms, 	0.008 ms clock, 0 bytes, 0 allocs
+init	runtime 			@0.040 ms, 	0.048 ms clock, 0 bytes, 0 allocs
+init	main 				@0.31 ms,	0.014 ms clock, 0 bytes, 0 allocs
+# 		包名 				   启动时刻     执行耗时          堆内存分配数量和次数。
+```
+
+使用init函数应注意：
+
+- 避免在init函数中进行资源申请、打开文件、连接数据库等可能失败的操作
+- 一个包（或一个文件）只能有init函数。如果存在多个，init函数不能相互有依赖。
+
+## 内部包
+
+内部包的规范约定：导出路径包含`internal`关键字的包，只允许`internal`的父级目录及父级目录的子包导入，其它包无法导入。
+
+```bash
+.
+|-- checker
+|   |-- internal
+|   |   |-- cpu
+|   |   |   `-- cpu.go
+|   |   `-- ram
+|   |       `-- ram.go
+|   `-- server.go
+|-- go.mod
+|-- go.sum
+`-- main.go
+```
+
+如上包结构的程序，`checker/internal/cpu`和`checker/internal/ram`只能被`checker`包及其子包中的代码导入，不能被`main.go`导入。
+
+内部包（internal package）机制相当于增加了新访问权限控制： 
+
+- 内部包（含自身）只能被其父目录（含所有层次子目录）访问。
+- 内部包私有成员，依然只能在自己包内访问。
+
+## 导入包
+
+每个包是由一个全局唯一的字符串所标识的导入路径定位。使用包前，必须使用import语句导入路径。
+
+```go
+import (
+    "fmt"
+    "math/rand"
+    "encoding/json"
+
+    "golang.org/x/net/html"
+
+    "github.com/go-sql-driver/mysql"
+)
+```
+
+使用别名解决包冲突
+
+```go
+import (
+	md "math/rand"
+    m2d "math2/rand"
+)
+```
+
+简便方式
+
+```go
+import (
+	. "math/rand" // 使用简便方式。可以直接使用包内的导出符，工作中禁止使用
+)
+```
+
+只初始化包，只执行init函数
+
+```go
+import (
+	_ "math/rand" // 只执行init函数
+)
+```
+
+导入包说明：
+
+- 不能直接或间接导入自己，不支持任何形式的循环导入。不能形成导入换（A->B，B->C，C->A）
+- 未使用的导入（不包括初始化方式）被编译器视为错误。
+- 禁止使用 `.` 来简化导入包
+
+## module - 模块
+
+模块（module）是包（packages）和其依赖项（dependency）的集合。 直接体现是 go.mod 文件，存储了模块路径、编译器版本，以及依赖项列表。
+
+初始化模块
+
+```bash
+go mod init github.com/stonebirdjx/test
+```
+
+go.mod内容
+
+```go
+module github.com/stonebirdjx/test // 模块路径
+
+go 1.18 // 编译器最低版本号
+
+require (
+	github.com/gin-contrib/pprof v1.3.0
+	github.com/gin-gonic/gin v1.8.1
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/google/uuid v1.3.0
+)
+```
+
+go get添加、下载（更新）依赖项，可以向 go.mod 、 go.sum 添加依赖项和验证信息。
+
+```bash
+go get . # 分析源码，添加所有依赖。
+go get -u example.com/test # 指定模块，下载最新版本。
+go get -u=patch example.com/test@v1.3.4 # 指定版本号。
+go get example.com/test@lastet # 最新版本。
+go get example.com/test@4cf76c2 # 伪版本号（commit hash）
+go get example.com/test@bufix # 分支（branch）
+# 可使用 > 、 >= 、 < 、 <= 操作符指定版本查询范围（module query）。
+go get example.com/test@>v1.3.4
+```
+
+go mod 管理模块。
+
+- go mod init : 初始化模块，创建 go.mod 文件。 
+- go mod tidy : 添加遗漏，移除不需要的依赖项。 
+- go mod edit : 命令行方式编辑模块设置。
+  - -require , -droprequire ：添加直接或间接依赖项。 
+  - -replace , -dropreplace ：替换模块路径或版本。 
+
+```go
+go mod edit -require example.com/test@v1.3.4
+```
+
+go mod 版本标识，以 v 开头，然后是语义版本（semantic version）。
+
+正式发布前的预发行版本，添加 -pre 后缀。 
+
+使用 git tag 之类的功能标记语义化版本号。 
+
+如没有标记，则使用提交（commit）信息（time, ident）构成伪版本号。
+
+```bash
+v(major).(minor).(patch)-(pre|beta)
+ 主要 次要 补丁 预发行或测试版
+github.com/mattn/go-isatty v0.0.13  // indirect
+github.com/mattn/go-isatty v0.0.13-pre // indirect
+github.com/mattn/go-isatty v0.0.13-beta // indirect
+github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 // indirect
+```
+
+查看所有版本
+
+```go
+go list -m -versions github.com/shirou/gopsutil
+go list -m -versions all
+```
+
+module说明：
+
+- 如果子目录有go.mod文件，那么子目录属于独立模块，不属于当前模块
+- 使用命令 go get 添加、下载（更新）依赖项，其他操作可用 go mod 完成。
+- 使用 go clean -modcache 清除缓存。（自动重新下载）
+- 更改go.mod后，使用go mod tidy更新依赖
+
+## go work - 工作空间
+
+go work 主要解决多模块开发遇到的问题: 比如编译时找不到未发布的模块
+
+go work初始化 go.work 文件,支持go work use, go work replace 指令
+
+```bash
+go work init
+
+go work use ./module1 ./module2
+```
+
+go.work文件内容
+
+```bash
+# cat go.work
+
+go 1.18 
+
+use (
+	./module1
+	./module2
+)
+
+# ./module1/go.mod
+# ./module2/go.mod
+```
+
+编译时可以关闭 GOPROXY ，避免在线获取模块信息拖慢速度。
+
+```go
+GOPROXY=off go build 
+```
+
+## go vendor - 打包依赖源码
+
+将依赖包复制到 ./vendor目录
+
+```go
+go mod vendor
+```
+
+禁用工作空间，以 ./vendor的方式编译
+
+```go
+go build -mod vendor
+```
+
+## 包相关的环境变量
+
+模块感知（module-aware）模式，相关环境变量说明。 
+
+- GO111MODULE ：模块感知模式开关。（默认：on） 
+- GOMODCACHE ：模块缓存路径。 
+- GOPROXY ：模块代理服务列表。 
+- GOSUMDB ：模块数据安全校验数据库。 
+- GOPRIVATE ：私有模块路径，绕过 GOPROXY 直接获取。 
+
+> GOPRIVATE 是 GONOPROXY 、 GONOSUMDB 的默认值。
+
+## :point_right:包总结
+
+- 包名通常与目录名一致，注意命名格式和规范。
+- 特殊含义的包名：`main` 用户可执行文件入口包 ； `all` 所有包，包括标准库和依赖项。`std` 标准库。 `cmd` 工具链。可使用`go list`查看所有的包，
+- 一般情况下禁止导出全局变量。如需使用包的全局变量 **非导出符号+导出函数的形式。**
+- 包内成员命名应避免使用包名作为前缀。如`stream.StreamBuffer ` 会显得很累赘。
+- 避免使用init函数。
+- 注意包依赖关系，禁止使用 `.` 来简化导入包。
+- 使用`go list  -m -versions` 来查看所有包的版本
+- 关闭GOPROXY，可以避免在线获取模块
+- 源文件必须是 `utf-8` 的格式。
 
 
 
@@ -575,8 +899,491 @@ func TestMain(m *testing.M) {
 
 如果所有测试均通过测试，m.Run()返回0，否同m.Run()返回1，代表测试失败。
 
+## 测试总结
+
+- 掌握单元测试、子测试、覆盖率。
+- 掌握基准测试，查看性能和内存情况。
+
 # 测试框架
 
+## :point_right:testify
+
+`testify`核心有三部分内容：
+
+- `assert`：断言；
+- `mock`：测试替身；
+- `suite`：测试套件。
+
+github：https://github.com/stretchr/testify
+
+### :point_right:assert - 断言
+
+官方例子
+
+```go
+package yours
+
+import (
+  "testing"
+  "github.com/stretchr/testify/assert"
+)
+
+func TestSomething(t *testing.T) {
+
+  // assert equality
+  assert.Equal(t, 123, 123, "they should be equal")
+
+  // assert inequality
+  assert.NotEqual(t, 123, 456, "they should not be equal")
+
+  // assert for nil (good for errors)
+  assert.Nil(t, object)
+
+  // assert for not nil (good when you expect something)
+  if assert.NotNil(t, object) {
+
+    // now we know that object isn't nil, we are safe to make
+    // further assertions without causing any errors
+    assert.Equal(t, "Something", object.Value)
+  }
+    
+}
+```
+
+如果多次断言，请使用以下命令：
+
+```go
+package yours
+
+import (
+  "testing"
+  "github.com/stretchr/testify/assert"
+)
+
+func TestSomething(t *testing.T) {
+  assert := assert.New(t)
+
+  // assert equality
+  assert.Equal(123, 123, "they should be equal")
+
+  // assert inequality
+  assert.NotEqual(123, 456, "they should not be equal")
+
+  // assert for nil (good for errors)
+  assert.Nil(object)
+
+  // assert for not nil (good when you expect something)
+  if assert.NotNil(object) {
+
+    // now we know that object isn't nil, we are safe to make
+    // further assertions without causing any errors
+    assert.Equal("Something", object.Value)
+  }
+}
+```
+
+> `require`提供了和`assert`同样的接口，但是遇到错误时，`require`直接终止测试，而`assert`返回`false`。
+
+### mock - 打桩
+
+mock 包提供了一种机制，可以轻松编写模拟对象，在编写测试代码时可以使用模拟对象代替真实对象。
+
+> 为方法打桩
+
+main.go
+
+```go
+package main
+
+import (
+    "fmt"
+)
+
+type MessageService interface {
+    SendChargeNotification(int) error
+}
+
+type SMSService struct{}
+
+type MyService struct {
+    messageService MessageService
+}
+
+func (sms SMSService) SendChargeNotification(value int) error {
+    fmt.Println("Sending Production Charge Notification")
+    return nil
+}
+
+func (a MyService) ChargeCustomer(value int) error {
+    a.messageService.SendChargeNotification(value)
+    fmt.Printf("Charging Customer For the value of %d\n", value)
+    return nil
+}
+
+func main() {
+    fmt.Println("Hello World")
+
+    smsService := SMSService{}
+    myService := MyService{smsService}
+    myService.ChargeCustomer(100)
+}
+```
+
+main_test.go
+
+```go
+package main
+
+import (
+    "fmt"
+    "testing"
+
+    "github.com/stretchr/testify/mock"
+)
+
+// smsServiceMock
+type smsServiceMock struct {
+    mock.Mock
+}
+
+// Our mocked smsService method
+func (m *smsServiceMock) SendChargeNotification(value int) bool {
+    fmt.Println("Mocked charge notification function")
+    fmt.Printf("Value passed in: %d\n", value)
+ 	// this records that the method was called and passes in the value
+ 	// it was called with
+  	args := m.Called(value)
+  	// it then returns whatever we tell it to return
+  	// in this case true to simulate an SMS Service Notification
+  	// sent out
+    return args.Bool(0)
+}
+
+// we need to satisfy our MessageService interface
+// which sadly means we have to stub out every method
+// defined in that interface
+func (m *smsServiceMock) DummyFunc() {
+    fmt.Println("Dummy")
+}
+
+// TestChargeCustomer is where the magic happens
+// here we create our SMSService mock
+func TestChargeCustomer(t *testing.T) {
+    smsService := new(smsServiceMock)
+
+   // we then define what should be returned from SendChargeNotification
+   // when we pass in the value 100 to it. In this case, we want to return
+   // true as it was successful in sending a notification
+    smsService.On("SendChargeNotification", 100).Return(true)
+
+   // next we want to define the service we wish to test
+   myService := MyService{smsService}
+   // and call said method
+    myService.ChargeCustomer(100)
+
+   // at the end, we verify that our myService.ChargeCustomer
+   // method called our mocked SendChargeNotification method
+    smsService.AssertExpectations(t)
+}
+
+```
+
+### suite - 测试套件
+
+套件包提供了您可能习惯于从更常见的面向对象语言中使用的功能。 有了它，您可以将测试套件构建为结构，在您的结构上构建设置/拆卸方法和测试方法，并按照正常方式使用“go test”运行它们。
+
+```go
+type MySuite struct {
+  suite.Suite
+  recorder *httptest.ResponseRecorder
+  mux      *http.ServeMux
+}
+
+func (s *MySuite) SetupSuite() {
+  s.recorder = httptest.NewRecorder()
+  s.mux = http.NewServeMux()
+  s.mux.HandleFunc("/", index)
+  s.mux.HandleFunc("/greeting", greeting)
+}
+
+func (s *MySuite) TestIndex() {
+  request, _ := http.NewRequest("GET", "/", nil)
+  s.mux.ServeHTTP(s.recorder, request)
+
+  s.Assert().Equal(s.recorder.Code, 200, "get index error")
+  s.Assert().Contains(s.recorder.Body.String(), "Hello World", "body error")
+}
+
+func (s *MySuite) TestGreeting() {
+  request, _ := http.NewRequest("GET", "/greeting", nil)
+  request.URL.RawQuery = "name=dj"
+
+  s.mux.ServeHTTP(s.recorder, request)
+
+  s.Assert().Equal(s.recorder.Code, 200, "greeting error")
+  s.Assert().Contains(s.recorder.Body.String(), "welcome, dj", "body error")
+}
+```
+
+测试函数
+
+```go
+func TestHTTP(t *testing.T) {
+  suite.Run(t, new(MySuite))
+}
+```
+
+## Mock 
+
+gomock是官方提供的 mock 框架，同时还提供了 mockgen 工具用来辅助生成测试代码。
+
+github：https://github.com/golang/mock
+
+> 为interface打桩
+
+第一步，先创建user.go
+
+```go
+// user.go
+package user
+
+// User 表示一个用户
+type User struct {
+   Name string
+}
+// UserRepository 用户仓库
+type UserRepository interface {
+   // 根据用户id查询得到一个用户或是错误信息
+   FindOne(id int) (*User,error)
+}
+```
+
+第二步，通过mockgen在同目录下生成mock文件user_mock.go
+
+```bash
+mockgen -source user.go -destination user_mock.go -package user
+```
+
+第三步，写user_test.go
+
+```go
+// 静态设置返回值
+func TestReturn(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	
+    // 调用mock
+	repo := NewMockUserRepository(ctrl)
+	// 期望FindOne(1)返回张三用户
+	repo.EXPECT().FindOne(1).Return(&User{Name: "张三"}, nil)
+	// 期望FindOne(2)返回李四用户
+	repo.EXPECT().FindOne(2).Return(&User{Name: "李四"}, nil)
+	// 期望给FindOne(3)返回找不到用户的错误
+	repo.EXPECT().FindOne(3).Return(nil, errors.New("user not found"))
+	// 验证一下结果
+	log.Println(repo.FindOne(1)) // 这是张三
+	log.Println(repo.FindOne(2)) // 这是李四
+	log.Println(repo.FindOne(3)) // user not found
+	log.Println(repo.FindOne(4)) //没有设置4的返回值，却执行了调用，测试不通过
+}
+// 动态设置返回值
+func TestReturnDynamic(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	repo := NewMockUserRepository(ctrl)
+	// 常用方法之一：DoAndReturn()，动态设置返回值 
+	repo.EXPECT().FindOne(gomock.Any()).DoAndReturn(func(i int) (*User,error) {
+		if i == 0 {
+			return nil, errors.New("user not found")
+		}
+		if i < 100 {
+			return &User{
+				Name:"小于100",
+			}, nil
+		} else {
+			return &User{
+				Name:"大于等于100",
+			}, nil
+		}
+	})
+	log.Println(repo.FindOne(120))
+	//log.Println(repo.FindOne(66))
+	//log.Println(repo.FindOne(0))
+}
+
+// 调用次数
+func TestTimes(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	repo := NewMockUserRepository(ctrl)
+	// 默认期望调用一次
+	repo.EXPECT().FindOne(1).Return(&User{Name: "张三"}, nil)
+	// 期望调用2次
+	repo.EXPECT().FindOne(2).Return(&User{Name: "李四"}, nil).Times(2)
+	// 调用多少次可以,包括0次
+	repo.EXPECT().FindOne(3).Return(nil, errors.New("user not found")).AnyTimes()
+
+	// 验证一下结果
+	log.Println(repo.FindOne(1)) // 这是张三
+	log.Println(repo.FindOne(2)) // 这是李四
+	log.Println(repo.FindOne(2)) // FindOne(2) 需调用两次,注释本行代码将导致测试不通过
+	log.Println(repo.FindOne(3)) // user not found, 不限调用次数，注释掉本行也能通过测试
+}
+```
+
+## :point_right:goconvey
+
+goconvey是一款针对Golang的测试框架，可以管理和运行测试用例，同时提供了丰富的断言函数，并支持很多 Web 界面特性。
+
+github：https://github.com/smartystreets/goconvey
+
+```go
+func Division(a, b int) (int, error) {
+    if b == 0 {
+        return 0, errors.New("被除数不能为 0")
+    }
+    return a / b, nil
+}
+
+// 测试函数
+func TestDivision(t *testing.T) {
+    Convey("将两数相除", t, func() {
+
+        Convey("除以非 0 数", func() {
+            num, err := Division(10, 2)
+            So(err, ShouldBeNil)
+            So(num, ShouldEqual, 5)
+        })
+
+        Convey("除以 0", func() {
+            _, err := Division(10, 0)
+            So(err, ShouldNotBeNil)
+        })
+    })
+}
+```
+
+**浏览器打开**
+
+```bash
+$GOPATH/bin/goconvey
+
+http://localhost:8080
+```
+
+## gostub
+
+GoStub是一款轻量级的单元测试框架，接口友好，可以对全局变量、函数或过程(没有返回值的函数)进行打桩。
+
+github：https://github.com/prashantv/gostub
+
+### 为全局变量打桩
+
+```go
+package main
+
+import (
+   "fmt"
+   "github.com/prashantv/gostub"
+)
+
+var counter = 100
+
+func stubGlobalVariable() {
+   stubs := gostub.Stub(&counter, 200)
+   defer stubs.Reset()
+   fmt.Println("Counter:", counter)
+}
+
+func main() {
+   stubGlobalVariable()
+}
+
+// output:
+// Counter: 200
+```
+
+### 为函数打桩
+
+方法一：把函数当做变量
+
+```go
+var Exec = func(cmd string, args ...string) (string, error) {
+   ...
+}
+stubs := Stub(&Exec, func(cmd string, args ...string) (string, error) {
+   return "test", nil
+})
+defer stubs.Reset()
+```
+
+方法二:StubFunc
+
+```go
+package Adapter
+
+import (
+   "time"
+   "fmt"
+   "os"
+   "github.com/prashantv/gostub"
+)
+
+var timeNow = time.Now
+var osHostname = os.Hostname
+
+func getDate() int {
+   return timeNow().Day()
+}
+
+func getHostName() (string, error) {
+   return osHostname()
+}
+
+func StubTimeNowFunction() {
+   stubs := gostub.Stub(&timeNow, func() time.Time {
+      return time.Date(2015, 6, 1, 0, 0, 0, 0, time.UTC)
+   })
+   defer stubs.Reset()
+   fmt.Println(getDate()) 
+}
+
+func StubHostNameFunction() {
+   stubs := gostub.StubFunc(&osHostname, "LocalHost", nil)
+   defer stubs.Reset()
+   fmt.Println(getHostName())
+}
+```
+
+### 为过程打桩
+
+没有返回值的函数称为过程。通常将资源清理类函数定义为过程。
+
+```go
+package main
+
+import (
+   "fmt"
+
+   "github.com/prashantv/gostub"
+)
+
+var CleanUp = cleanUp
+
+func cleanUp(val string) {
+   fmt.Println(val)
+}
+
+func main() {
+    defer stubs.Stub(&CleanUp, func(s string) {
+		fmt.Println(fmt.Sprintf("Clean %s old cache", s))
+	}).Reset()
+    
+   CleanUp("Hello go")
+}
+// Clean Hello go old cache
+```
 
 
 
@@ -584,8 +1391,141 @@ func TestMain(m *testing.M) {
 
 
 
+## monkey
 
-# 后续建议
+monkey是一个Go单元测试中十分常用的打桩工具，它在运行时通过汇编语言重写可执行文件，将目标函数或方法的实现跳转到桩实现，其原理类似于热补丁。
+
+monkey库很强大，但是使用时需注意以下事项：
+
+- monkey不支持内联函数，在测试的时候需要通过命令行参数`-gcflags=-l`关闭Go语言的内联优化。
+- monkey不是线程安全的，所以不要把它用到并发的单元测试中。
+
+github:https://github.com/bouk/monkey
+
+> 为函数和方法打桩
+
+### 为函数打桩
+
+```go
+// func.go
+
+func MyFunc(uid int64)string{
+	u, err := varys.GetInfoByUID(uid)
+	if err != nil {
+		return "welcome"
+	}
+
+	// 这里是一些逻辑代码...
+
+	return fmt.Sprintf("hello %s\n", u.Name)
+}
+```
+
+test
+
+```go
+// func_test.go
+
+func TestMyFunc(t *testing.T) {
+	// 对 varys.GetInfoByUID 进行打桩
+	// 无论传入的uid是多少，都返回 &varys.UserInfo{Name: "liwenzhou"}, nil
+	monkey.Patch(varys.GetInfoByUID, func(int64)(*varys.UserInfo, error) {
+		return &varys.UserInfo{Name: "liwenzhou"}, nil
+	})
+
+	ret := MyFunc(123)
+	if !strings.Contains(ret, "liwenzhou"){
+		t.Fatal()
+	}
+}
+
+// 这里为防止内联优化添加了-gcflags=-l参数。
+go test -run=TestMyFunc -v -gcflags=-l
+```
+
+### 为方法打桩
+
+```go
+// method.go
+
+type User struct {
+	Name string
+	Birthday string
+}
+
+// CalcAge 计算用户年龄
+func (u *User) CalcAge() int {
+	t, err := time.Parse("2006-01-02", u.Birthday)
+	if err != nil {
+		return -1
+	}
+	return int(time.Now().Sub(t).Hours()/24.0)/365
+}
+
+
+// GetInfo 获取用户相关信息
+func (u *User) GetInfo()string{
+	age := u.CalcAge()
+	if age <= 0 {
+		return fmt.Sprintf("%s很神秘，我们还不了解ta。", u.Name)
+	}
+	return fmt.Sprintf("%s今年%d岁了，ta是我们的朋友。", u.Name, age)
+}
+```
+
+test
+
+```go
+// method_test.go
+
+func TestUserGetInfo(t *testing.T) {
+	var u = &User{
+		Name:     "q1mi",
+		Birthday: "1990-12-20",
+	}
+
+	// 为对象方法打桩
+	monkey.PatchInstanceMethod(reflect.TypeOf(u), "CalcAge", func(*User)int {
+		return 18
+	})
+
+	ret := u.GetInfo()  // 内部调用u.CalcAge方法时会返回18
+	if !strings.Contains(ret, "朋友"){
+		t.Fatal()
+	}
+}
+```
+
+## :point_right:gomonkey
+
+基于monkey
+
+github: https://github.com/agiledragon/gomonkey
+
+| 函数说明                                                     |                                            |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------ | ------------------------------------------------------------ |
+| **ApplyFunc(target, double interface{}**                     | 为**函数**/ **接口**打一个桩               | target表示函数名，第二个参数表示桩函数。                     |
+| **ApplyFuncSeq(target interface{}, outputs []OutputCell）**  | 为**函数**/ **接口**打一个特定的**桩序列** | target表示函数名，第二个参数表示桩序列参数（返回值需序列）。 |
+| **ApplyMethod(target reflect.Type, methodName string, double interface{}）** | 为**成员方法**打一个桩                     | target表示对象类型，对象的方法名，第三个参数表示桩函数。     |
+| **ApplyMethodSeq(target reflect.Type, methodName string, outputs []OutputCell）** | 为**成员方法**打一个特定的**桩序列**       | target表示对象类型，对象的方法名，第三个参数表示桩序列参数（返回值需序列）。 |
+| **ApplyFuncVar(target, double interface{}）**                | 为**函数变量**打一个桩                     | target表示函数变量，第二个参数表示桩函数。                   |
+| **ApplyFuncVarSeq(target interface{}, outputs []OutputCell）** | 为**函数变量**打一个特定的**桩序列**       | target表示函数变量，第二个参数表示桩序列参数（返回值需序列）。 |
+| **ApplyGlobalVar(target, double interface{})**               | 为**全局变量**打一个桩                     | target表示函数变量，第二个参数表示桩函数。                   |
+| **Reset()**                                                  | 删除桩                                     |                                                              |
+
+测试例子
+
+https://github.com/agiledragon/gomonkey/tree/master/test
+
+## 测试框架总结
+
+- 熟练掌握基本测试。
+- 对于普通功能函数 掌握 testify 
+- 对于一些请求、链接需要打桩的函数 掌握goconvey 、gomonkey
+
+# 建议
+
+- 写函数时就把单测写了, 提高代码覆盖率，不要出现有未执行的代码（一些不必要的分支除外）。
 
 强者总是比较孤独,请坚持学习！送上一句黑鸡汤：
 
