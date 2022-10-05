@@ -5,7 +5,6 @@
 - [前言](#%E5%89%8D%E8%A8%80)
 - [HelloWorld](#helloworld)
 - [小刀弑牛](#%E5%B0%8F%E5%88%80%E5%BC%91%E7%89%9B)
-- [泛型](#%E6%B3%9B%E5%9E%8B)
 - [package - 包](#package---%E5%8C%85)
   - [包声明](#%E5%8C%85%E5%A3%B0%E6%98%8E)
   - [导出符号](#%E5%AF%BC%E5%87%BA%E7%AC%A6%E5%8F%B7)
@@ -17,6 +16,14 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
+- [泛型](#%E6%B3%9B%E5%9E%8B)
+  - [类型约束](#%E7%B1%BB%E5%9E%8B%E7%BA%A6%E6%9D%9F)
+  - [泛型函数](#%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0)
+  - [泛型类型](#%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%9E%8B)
+  - [声明泛型类型限制 (type constraint)](#%E5%A3%B0%E6%98%8E%E6%B3%9B%E5%9E%8B%E7%B1%BB%E5%9E%8B%E9%99%90%E5%88%B6-type-constraint)
+  - [类型转换](#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+  - [:point_right:暂不支持泛型方法](#point_right%E6%9A%82%E4%B8%8D%E6%94%AF%E6%8C%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95)
+  - [:point_right:泛型总结](#point_right%E6%B3%9B%E5%9E%8B%E6%80%BB%E7%BB%93)
 - [测试（TDD）](#%E6%B5%8B%E8%AF%95tdd)
   - [:point_right:单元测试](#point_right%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95)
     - [:point_right:并行](#point_right%E5%B9%B6%E8%A1%8C)
@@ -97,10 +104,6 @@ func main() {
 > 入门重要途径，切勿心急，建议手敲一遍
 >
 > 如果你是没有其他语言基础的初学者，建议学习2-3遍。
-
-# 泛型
-
-
 
 # package - 包
 
@@ -405,7 +408,152 @@ go build -mod vendor
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
 
+# 泛型
 
+泛型（generic）是一种编程范式，这种范式与特定的类型无关，泛型允许在函数和类型的实现中使用某个类型集合中的任何一种类型。
+
+Go语言在泛型中增加了三个新的重要内容：
+
+- 函数和类型 新增对类型形参的支持
+- 支持推导，可省略类型实参（type argument）。
+
+> 鉴于 interface{} 很常用，专门为其引入别名 any 。
+
+## 类型约束
+
+```go
+[T any] // 任意类型。
+[T int] // 只能是 int。
+[T ~int] // 是 int 或底层类型是 int 的类型。
+[T int | string] // 只能是 int 或 string。
+[T io.Reader] // 任何实现 io.Reader 接口的类型。
+```
+
+- 竖线（ | ）表示类型集，匹配其中任一类型即可。
+- 波浪线（ ~ ）表示底层类型（underlying type）是该类型的所有类型。
+
+## 泛型函数
+
+```go
+func Add[T string | int | int64 | float64](a, b T) T {
+	return a + b
+}
+
+// 使用
+Add(1, 2)
+Add(1.0,2.0)
+```
+
+## 泛型类型
+
+```go
+type ListType[T int | int32 | int64 | string] []T
+type MapType[K int | int32, V int64 | string] map[K]V
+
+func main() {
+    var intList ListType[int]
+    intList = []int{1, 2, 3}
+    fmt.Println(intList)
+    strList := ListType[string]{"1", "2", "3"}
+    fmt.Println(strList)
+
+    intMap := MapType[int, string]{1: "1", 2: "2"}
+    int32Map := MapType[int32, int64]{1: 2, 3: 4}
+    fmt.Println(intMap)
+    fmt.Println(int32Map)
+}
+```
+
+## 声明泛型类型限制 (type constraint)
+
+在 Go 的类型限制是通过接口实现
+
+```go
+type Ordered interface {
+	Integer | Float | ~string
+}
+
+type Integer interface {
+	Signed | Unsigned
+}
+
+type Signed interface {
+	~int | ~int8 | ~int16 | ~int32 | ~int64
+}
+
+type Unsigned interface {
+	~uint | ~uint8 | ~uint16 | ~uint32 | ~uint64
+}
+```
+
+泛型函数内不能定义新类型。 
+
+如类型约束不是接口，则无法调用其成员。
+
+## 类型转换
+
+不支持直接 switch 类型推断（type assert），可先转换为普通接口 any。
+
+```go
+func test[T any](x T) {
+	// switch x.(type) {}
+	// ~~~~ cannot use type switch on type parameter value x
+	// 先转换为接口 ----------
+
+	// var i interface{} = x
+	var i any = x
+	switch i.(type) {
+	case int: println("int", x)
+	}
+}
+```
+
+## :point_right:暂不支持泛型方法
+
+```go
+// S 是一个普通的struct,但是包含一个泛型方法Identity.
+type S struct{}
+
+// Identity 一个泛型方法，支持任意类型.
+func (s S) Identity[T string](v T) T { return v }
+
+var s S
+s.Identity("stb") // 会报错
+```
+
+可以使用结构体支持泛型来代替
+
+```go
+package database
+
+type Client struct{ ... }
+
+type Querier[T any] struct {
+	client *Client
+}
+
+func NewQuerier[T any](c *Client) *Querier[T] {
+	return &Querier[T]{
+		client: c,
+	}
+}
+
+func (q *Querier[T]) All(ctx context.Context) ([]T, error) {
+	// implementation
+}
+
+func (q *Querier[T]) Filter(ctx context.Context, filter ...Filter) ([]T, error) {
+	// implementation
+}
+```
+
+## :point_right:泛型总结
+
+- 泛型虽然简化了代码，在平时开发过程中尽量少使用泛型。
+- 泛型可能引发 动态调用、无法内联、内存逃逸 等性能问题。
+
+- 尽量在数据结构中使用泛型。
+- 不要将接口传递给泛型函数。
 
 # 测试（TDD）
 
