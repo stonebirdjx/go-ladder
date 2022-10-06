@@ -16,6 +16,22 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
+- [Channels - 通道](#channels---%E9%80%9A%E9%81%93)
+  - [同步channel](#%E5%90%8C%E6%AD%A5channel)
+  - [异步channel](#%E5%BC%82%E6%AD%A5channel)
+  - [消息收发](#%E6%B6%88%E6%81%AF%E6%94%B6%E5%8F%91)
+  - [单向channel](#%E5%8D%95%E5%90%91channel)
+  - [select选择](#select%E9%80%89%E6%8B%A9)
+  - [关闭channel](#%E5%85%B3%E9%97%ADchannel)
+  - [:point_right:channel总结](#point_rightchannel%E6%80%BB%E7%BB%93)
+- [Goroutine - go程](#goroutine---go%E7%A8%8B)
+  - [等待任务结束](#%E7%AD%89%E5%BE%85%E4%BB%BB%E5%8A%A1%E7%BB%93%E6%9D%9F)
+  - [终止任务](#%E7%BB%88%E6%AD%A2%E4%BB%BB%E5%8A%A1)
+  - [GOMAXPROCS - 进程数（ing）](#gomaxprocs---%E8%BF%9B%E7%A8%8B%E6%95%B0ing)
+  - [挂起](#%E6%8C%82%E8%B5%B7)
+  - [顺序执行](#%E9%A1%BA%E5%BA%8F%E6%89%A7%E8%A1%8C)
+  - [线程管理](#%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86)
+  - [:point_right:goroutine总结](#point_rightgoroutine%E6%80%BB%E7%BB%93)
 - [泛型](#%E6%B3%9B%E5%9E%8B)
   - [类型约束](#%E7%B1%BB%E5%9E%8B%E7%BA%A6%E6%9D%9F)
   - [泛型函数](#%E6%B3%9B%E5%9E%8B%E5%87%BD%E6%95%B0)
@@ -407,6 +423,379 @@ go build -mod vendor
 - 使用`go list  -m -versions` 来查看所有包的版本
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
+
+# Channels - 通道
+
+golang 鼓励使用 CSP 通道，以通信来代替内存共享，实现并发安全
+
+通道（channel）行为类似消息队列。不限收发人数，不可重复消费。
+
+channel属于引用类型 和map类似，channel也对应一个make创建的底层数据结构的引用。
+
+```go
+ch := make(chan int) // ch has type 'chan int'
+```
+
+## 同步channel
+
+同步channel没有数据缓冲区，须收发双方到场直接交换数据。
+
+- 发送数据阻塞，直到有另一方准备妥当或通道关闭。 
+- 可通过 cap == 0 判断为无缓冲通道。
+
+```go
+ch := make(chan struct{})
+```
+
+## 异步channel
+
+通道自带固定大小缓冲区（buffer）
+
+- 发送数据有空位时，不会阻塞。 
+- 用 cap 、 len 获取缓冲区大小和当前缓冲数据量。
+
+```go
+ch := make(chan struct{},10)
+```
+
+## 消息收发
+
+使用`chan <- value`向channel发送消息。
+
+```go
+ch <- v
+```
+
+ok模式取值，如果ok值为false，通道被关闭。
+
+```go
+v,ok := <- ch
+```
+
+for-range变量取值
+
+```go
+for  v := range ch {
+    ...
+}
+```
+
+## 单向channel
+
+发送消息
+
+```go
+chan<- type
+```
+
+接收消息
+
+```go
+<-chan int
+```
+
+只能由发送方（生成者）关闭channel。如下
+
+```go
+c := make(chan int)
+var send chan<- int = c
+var recv <-chan int = c
+
+func squarer(send chan<- int) {
+    defer close(send)
+}
+
+func printer(recv <-chan int) {
+ 
+}
+```
+
+## select选择
+
+用 select 语句处理多个通道，随机选择可用通道做收发操作。 
+
+将失效通道置为 nil （阻塞，不可用），用作结束判断。
+
+```go
+select {
+case x, ok = <-ch1: 
+    if !ok { 
+        ch1 = nil 
+    }
+case x, ok = <-ch2: 
+    if !ok { 
+        ch2 = nil
+    }
+default:
+    doSomething()
+}
+```
+
+空 select 语句，一直阻塞。
+
+```go
+select{}
+```
+
+## 关闭channel
+
+使用close关闭channel
+
+```go
+close(ch)
+```
+
+对于 closed 或 nil 通道，规则如下： 
+
+- 无论收发， nil 通道都会阻塞。 
+- 不能关闭 nil 通道。 
+- 重复关闭通道，引发 panic ！ 
+- 向已关闭通道发送数据，引发 panic ！ 
+- 从已关闭通道接收数据，返回缓冲数据或零值。
+
+## :point_right:channel总结
+
+- 开发时为了快速消费，channel的容量要么为0，要么为1，不允许有过多的缓冲。
+- 两个相同类型的channel可以使用==运算符比较。如果两个channel引用的是相同的对象，那么比较的结果为真。一个channel也可以和nil进行比较。
+- channel作为参数传递时，为了安全和规范，只能传递单向channel。
+- 只能有生产者关闭channel。
+
+
+
+# Goroutine - go程
+
+在Go语言中，每一个并发的执行单元叫作一个goroutine。
+
+简单将 goroutine 归为协程（coroutine）并不合适。 类似多线程和协程的综合体，最大限度提升执行效率，发挥多核处理能力。 
+
+**goroutine优点**
+
+- 极小初始栈（2 KB），按需扩张。 
+- 无锁内存分配和复用，提升并发性能。 
+- 调度器平衡任务队列，充分利用多处理器。 
+- 线程自动休眠和唤醒，减少内核开销。 
+- 基于信号（signal）实现抢占式任务调度。
+
+
+
+所有用户代码都以 goroutine 执行，包括 main.main 入口函数。 当一个程序启动时，其主函数即在一个单独的goroutine中运行，我们叫它main goroutine。
+
+进程结束，不会等待其他正在执行或尚未执行的任务。
+
+```go
+func main(){
+    go foo()
+}
+```
+
+## 等待任务结束
+
+等待任务结束方式
+
+- time.Sleep  ：睡眠等待。不推荐使用。
+- channel : 信号通知。
+- WaitGroup ：等待多个任务结束。 
+- Context ：上下文通知。 
+- Mutex ：锁阻塞。不推荐使用
+
+**channel**
+
+channel 的方式,通知消息行为 可以使用空结构体。
+
+```go
+package main
+
+import (
+    "time"
+    "fmt"
+)
+
+func Process(ch chan int) {
+    //Do some work...
+    time.Sleep(time.Second)
+
+    ch <- 1 //管道中写入一个元素表示当前协程已结束
+}
+
+func main() {
+    channels := make([]chan int, 10) //创建一个10个元素的切片，元素类型为channel
+
+    for i:= 0; i < 10; i++ {
+        channels[i] = make(chan int) //切片中放入一个channel
+        go Process(channels[i])      //启动协程，传一个管道用于通信
+    }
+
+    for i, ch := range channels {  //遍历切片，等待子协程结束
+        <-ch
+        fmt.Println("Routine ", i, " quit!")
+    }
+}
+```
+
+**WaitGroup**
+
+添加计数（ WaitGroup.Add ）应在创建任务和等待之前，否则可能导致等待提前解除。
+
+```go
+package main
+
+import "sync"
+
+func main() {
+	var wg sync.WaitGroup
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func(id int) {
+			defer wg.Done()
+			println(id, "done.")
+		}(i)
+	}
+
+	wg.Wait()
+}
+```
+
+**context**
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+)
+
+func main() {
+	gen := func(ctx context.Context) <-chan int {
+		dst := make(chan int)
+		n := 1
+		go func() {
+			for {
+				select {
+				case <-ctx.Done():
+					return // returning not to leak the goroutine
+				case dst <- n:
+					n++
+				}
+			}
+		}()
+		return dst
+	}
+
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel() // cancel when we are finished consuming integers
+
+	for n := range gen(ctx) {
+		fmt.Println(n)
+		if n == 5 {
+			break
+		}
+	}
+}
+```
+
+**mutex**
+
+```go
+package main
+
+import "sync"
+
+func main() {
+	var lock sync.Mutex
+	lock.Lock()
+	go func() {
+		defer lock.Unlock()
+		println("done.")
+	}()
+	lock.Lock()
+	lock.Unlock()
+	println("exit")
+}
+```
+
+## 终止任务
+
+主动结束任务，有以下几种方式。 
+
+- 调用 runtime.Goexit 终止任务。 
+- 调用 os.Exit 结束进程。
+
+## GOMAXPROCS - 进程数（ing）
+
+一般来讲，程序运行时就将GOMAXPROCS大小设置为CPU核数，可让Go程序充分利用CPU。 
+
+GOMAXPROCS 并不是越大越好，在某些IO密集型的应用里，这个值可能并不意味着性能最好。 理论上当某个Goroutine进入系统调用时，会有一个新的M被启用或创建，继续占满CPU。任何时候都只有几个参与并发任务执行，其他处于休眠状态（可以查看GMP模型）。
+
+运行时可以设置GOMAXPROCS的环境变量,用time命令查看运行时间。程序中可以使用`runtime.GOMAXPROCS()`设置P的个数
+
+```bash
+time GOMAXPROCS=1 ./test
+```
+
+除并发控制外，还可以通过 ` GOGC` 、 `GOMEMLIMIT `调整垃圾回收频率和最大阈值。
+
+## 挂起
+
+使用`runtime.Gosched()`暂时挂起任务，释放线程去执行其他任务。当前任务被放回任务队列，等待下次被某个线程重新获取后继续执行。
+
+```go
+go func() {
+    defer wg.Done()
+    <- b
+    for i := 0; i < 5; i++ {
+        println("b", i)
+        if i == 2 { 
+            runtime.Gosched() 
+        }
+    }
+}()
+```
+
+## 顺序执行
+
+```go
+func main() {
+    const CNT = 5
+    var wg sync.WaitGroup
+    wg.Add(CNT)
+    var chans [CNT]chan struct{}
+
+    for i := 0; i < CNT; i++ {
+        chans[i] = make(chan struct{})
+        go func(id int){
+            defer wg.Done()
+            <- chans[id]
+            println(id)
+        }(i)
+    }
+    // 次序（延时，给调度器时间处理）
+    for _, x := range []int{4, 0, 1, 3, 2} {
+        close(chans[x])
+    	time.Sleep(time.Millisecond * 10)
+    }
+    wg.Wait()
+}
+```
+
+## 线程管理
+
+Go 语言既然专门将线程进一步抽象为 Goroutine，自然也就不希望我们对线程做过多的操作，事实也是如此， 大部分的用户代码并不需要线程级的操作。
+
+ `runtime.LockOSThread` 会将当前 Goroutine 锁在一个固定的 OS 线程上执行。
+
+`LockOSThread/UnlockOSThread` 也是目前唯一一个能够让 M 退出的做法（将 Goroutine 锁在 OS 线程上，且在 Goroutine 死亡退出时不调用 Unlock 方法）。 
+
+> 详情看原理
+
+## :point_right:goroutine总结
+
+- 开发时要注意保证go程顺利执行与结束。
+- 不要频繁调用 GOMAXPROCS ，它会导致 STW，影响性能。
+- 使用WaitGroup和context来控制go程活动。
+- 使用channel通信来代替内存共享（csp）
+- 以参数方式传入外部容器，但要避免和其他并发任务竞争（data race）。
 
 # 泛型
 
