@@ -16,7 +16,7 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
-- [Channels - 通道](#channels---%E9%80%9A%E9%81%93)
+- [Channel - 通道](#channel---%E9%80%9A%E9%81%93)
   - [同步channel](#%E5%90%8C%E6%AD%A5channel)
   - [异步channel](#%E5%BC%82%E6%AD%A5channel)
   - [消息收发](#%E6%B6%88%E6%81%AF%E6%94%B6%E5%8F%91)
@@ -424,7 +424,7 @@ go build -mod vendor
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
 
-# Channels - 通道
+# Channel - 通道
 
 golang 鼓励使用 CSP 通道，以通信来代替内存共享，实现并发安全
 
@@ -575,8 +575,6 @@ close(ch)
 - 调度器平衡任务队列，充分利用多处理器。 
 - 线程自动休眠和唤醒，减少内核开销。 
 - 基于信号（signal）实现抢占式任务调度。
-
-
 
 所有用户代码都以 goroutine 执行，包括 main.main 入口函数。 当一个程序启动时，其主函数即在一个单独的goroutine中运行，我们叫它main goroutine。
 
