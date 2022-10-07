@@ -2,10 +2,19 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
+- [接口原理](#%E6%8E%A5%E5%8F%A3%E5%8E%9F%E7%90%86)
+- [GO并发原理](#go%E5%B9%B6%E5%8F%91%E5%8E%9F%E7%90%86)
+- [Sync 原理](#sync-%E5%8E%9F%E7%90%86)
 - [泛型原理](#%E6%B3%9B%E5%9E%8B%E5%8E%9F%E7%90%86)
   - [:point_right:性能问题：](#point_right%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
+# 接口原理
+
+# GO并发原理
+
+# Sync 原理
 
 # 泛型原理
 

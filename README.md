@@ -16,6 +16,13 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
+- [接口](#%E6%8E%A5%E5%8F%A3)
+  - [空接口可以被赋值给任何对象](#%E7%A9%BA%E6%8E%A5%E5%8F%A3%E5%8F%AF%E4%BB%A5%E8%A2%AB%E8%B5%8B%E5%80%BC%E7%BB%99%E4%BB%BB%E4%BD%95%E5%AF%B9%E8%B1%A1)
+  - [空值判断](#%E7%A9%BA%E5%80%BC%E5%88%A4%E6%96%AD)
+  - [接口实现](#%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0)
+  - [类型断言](#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80)
+  - [让编译器检查](#%E8%AE%A9%E7%BC%96%E8%AF%91%E5%99%A8%E6%A3%80%E6%9F%A5)
+  - [:point_right:接口总结](#point_right%E6%8E%A5%E5%8F%A3%E6%80%BB%E7%BB%93)
 - [Channel - 通道](#channel---%E9%80%9A%E9%81%93)
   - [同步channel](#%E5%90%8C%E6%AD%A5channel)
   - [异步channel](#%E5%BC%82%E6%AD%A5channel)
@@ -432,6 +439,171 @@ go build -mod vendor
 - 使用`go list  -m -versions` 来查看所有包的版本
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
+
+# 接口
+
+接口是合约，是一系列方法的集合。
+
+只要目标类型方法集包含接口全部方法，就视为实现该接口，无需显示声明。 
+
+```go
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
+
+type Closer interface {
+    Close() error
+}
+
+type ReadWriter interface {
+    Reader
+    Writer
+}
+
+type ReadWriteCloser interface {
+    Reader
+    Writer
+    Closer
+}
+```
+
+- 只能声明方法，不能有字段, 不能实现。 
+- 申明接口时，尽量保证接口小，可匿名嵌入其他接口。 
+- 接口名通常以 er 作为名称后缀。 
+- 空接口（ interface{} , any ）没有任何方法声明。
+
+## 空接口可以被赋值给任何对象
+
+```go
+var a any = 123
+a = "stb"
+```
+
+## 空值判断
+
+接口内部由两个字段组成：类型 和 值。 
+
+只有两字段都为 nil 时，接口才等于 nil 。可利用反射完善判断结果。
+
+相同类型的接口底层可以做 比较时，可以用 == 对比
+
+```go
+func main() {
+    var t1, t2 any
+    println(t1 == nil, t1 == t2) // true, true
+
+    t1, t2 = 100, 100
+    println(t1 == t2) // true
+
+    // t1, t2 = map[string]int{}, map[string]int{}
+    // println(t1 == t2)
+    // ~~~~~~~~ panic: comparing uncomparable type map
+}
+```
+
+## 接口实现
+
+目标类型方法集包含接口全部方法，就视为实现该接口，（接口本身是指针）
+
+父集接口 可以 隐形转换成其子集，反之，子集不能转换成父集
+
+```go
+package main
+
+type Aer interface {
+	toString(string) string
+}
+
+type Xer interface {
+	// Aer
+	test()
+	toString(string) string
+}
+
+type N struct{}
+
+func (*N) test() {}
+
+func (N) toString(s string) string { return s }
+
+func main() {
+	var x Xer = &N{} // super
+	var a Aer = x // sub
+	a.toString("abc")
+	// var x2 Xer = a
+	// ~ Aer does not implement Xer (missing test method)
+
+	// x2 := Xer(a)
+	// ~ Aer does not implement Xer
+}
+```
+
+## 类型断言
+
+类型断言检查它操作对象的动态类型是否和断言的类型匹配。使用`i.(t)`及interface.(type)的格式来判断interface的底层类型
+
+```go
+var w io.Writer
+w = os.Stdout
+f := w.(*os.File)      // success: f == os.Stdout
+c := w.(*bytes.Buffer) // panic: interface holds *os.File, not *bytes.Buffer
+
+```
+
+使用ok来判断类型是否正常转换
+
+```go
+c, ok := w.(*bytes.Buffer) 
+if !ok {
+    errThings()
+}
+```
+
+> 不使用ok，有panic风险
+
+使用 switch 来判断类型
+
+```go
+switch i.(type) {
+case nil:       // ...
+case int, uint: // ...
+case bool:      // ...
+case string:    // ...
+default:        // ...
+}
+```
+
+>  switch i.(type) 不支持 fallthrough
+
+## 让编译器检查
+
+借助编译器 使用 `var name interfaceName = some` 判断接口是否实现
+
+```go
+type X int
+var _ fmt.Stringer = X(0) //
+// ~ X does not implement fmt.Stringer (missing String method)
+
+type FuncString func() string
+    func (f FuncString) String() string {
+        return f()
+    }
+
+func main() {
+    f := func() string {
+   		return "hello, world!"
+	}
+    
+	var t fmt.Stringer = FuncString(f)
+	fmt.Println(t)
+}
+```
+
+## :point_right:接口总结
+
+- 类型断言时一定要使用ok模式，检查是否正常转换
+- 接口的switch不支持`fallthrough`
+- 使用借助编译器或者开发工具检查接口是否实现
 
 # Channel - 通道
 
