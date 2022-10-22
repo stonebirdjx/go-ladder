@@ -16,6 +16,59 @@
   - [go vendor - 打包依赖源码](#go-vendor---%E6%89%93%E5%8C%85%E4%BE%9D%E8%B5%96%E6%BA%90%E7%A0%81)
   - [包相关的环境变量](#%E5%8C%85%E7%9B%B8%E5%85%B3%E7%9A%84%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F)
   - [:point_right:包总结](#point_right%E5%8C%85%E6%80%BB%E7%BB%93)
+- [变量](#%E5%8F%98%E9%87%8F)
+  - [变量声明](#%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E)
+  - [简短变量声明](#%E7%AE%80%E7%9F%AD%E5%8F%98%E9%87%8F%E5%A3%B0%E6%98%8E)
+  - [:point_right:变量总结](#point_right%E5%8F%98%E9%87%8F%E6%80%BB%E7%BB%93)
+- [常量和iota](#%E5%B8%B8%E9%87%8F%E5%92%8Ciota)
+  - [常量定义](#%E5%B8%B8%E9%87%8F%E5%AE%9A%E4%B9%89)
+  - [iota](#iota)
+  - [:point_right:无类型常量](#point_right%E6%97%A0%E7%B1%BB%E5%9E%8B%E5%B8%B8%E9%87%8F)
+  - [:point_right:常量总结](#point_right%E5%B8%B8%E9%87%8F%E6%80%BB%E7%BB%93)
+- [数字类型](#%E6%95%B0%E5%AD%97%E7%B1%BB%E5%9E%8B)
+  - [整型](#%E6%95%B4%E5%9E%8B)
+    - [有符号整型 & 无符号整型](#%E6%9C%89%E7%AC%A6%E5%8F%B7%E6%95%B4%E5%9E%8B--%E6%97%A0%E7%AC%A6%E5%8F%B7%E6%95%B4%E5%9E%8B)
+    - [运算符](#%E8%BF%90%E7%AE%97%E7%AC%A6)
+    - [整数安全](#%E6%95%B4%E6%95%B0%E5%AE%89%E5%85%A8)
+    - [八进制](#%E5%85%AB%E8%BF%9B%E5%88%B6)
+    - [十六进制](#%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6)
+    - [:point_right:整型总结](#point_right%E6%95%B4%E5%9E%8B%E6%80%BB%E7%BB%93)
+  - [浮点数](#%E6%B5%AE%E7%82%B9%E6%95%B0)
+    - [浮点数类型](#%E6%B5%AE%E7%82%B9%E6%95%B0%E7%B1%BB%E5%9E%8B)
+    - [正无穷大、负无穷大和非数](#%E6%AD%A3%E6%97%A0%E7%A9%B7%E5%A4%A7%E8%B4%9F%E6%97%A0%E7%A9%B7%E5%A4%A7%E5%92%8C%E9%9D%9E%E6%95%B0)
+    - [:point_right:浮点数总结](#point_right%E6%B5%AE%E7%82%B9%E6%95%B0%E6%80%BB%E7%BB%93)
+  - [复数](#%E5%A4%8D%E6%95%B0)
+  - [:point_right:布尔型](#point_right%E5%B8%83%E5%B0%94%E5%9E%8B)
+- [字符串](#%E5%AD%97%E7%AC%A6%E4%B8%B2)
+  - [结构](#%E7%BB%93%E6%9E%84)
+  - [原始字符串raw](#%E5%8E%9F%E5%A7%8B%E5%AD%97%E7%AC%A6%E4%B8%B2raw)
+  - [子串内部指针依旧指向原字节数组](#%E5%AD%90%E4%B8%B2%E5%86%85%E9%83%A8%E6%8C%87%E9%92%88%E4%BE%9D%E6%97%A7%E6%8C%87%E5%90%91%E5%8E%9F%E5%AD%97%E8%8A%82%E6%95%B0%E7%BB%84)
+  - [for遍历的两种方式](#for%E9%81%8D%E5%8E%86%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F)
+  - [字符串转义](#%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E4%B9%89)
+  - [Unicode](#unicode)
+  - [UTF-8](#utf-8)
+  - [:point_right:字符串总结](#point_right%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%BB%E7%BB%93)
+- [数组](#%E6%95%B0%E7%BB%84)
+  - [语法糖](#%E8%AF%AD%E6%B3%95%E7%B3%96)
+  - [:point_right:组数总结](#point_right%E7%BB%84%E6%95%B0%E6%80%BB%E7%BB%93)
+- [Slice](#slice)
+  - [底层数据结构](#%E5%BA%95%E5%B1%82%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [append函数](#append%E5%87%BD%E6%95%B0)
+  - [copy](#copy)
+  - [slice总结](#slice%E6%80%BB%E7%BB%93)
+- [map](#map)
+  - [map总结](#map%E6%80%BB%E7%BB%93)
+- [结构体](#%E7%BB%93%E6%9E%84%E4%BD%93)
+  - [匿名结构体](#%E5%8C%BF%E5%90%8D%E7%BB%93%E6%9E%84%E4%BD%93)
+  - [结构体比较](#%E7%BB%93%E6%9E%84%E4%BD%93%E6%AF%94%E8%BE%83)
+  - [空结构体](#%E7%A9%BA%E7%BB%93%E6%9E%84%E4%BD%93)
+  - [Tag](#tag)
+  - [结构体嵌套](#%E7%BB%93%E6%9E%84%E4%BD%93%E5%B5%8C%E5%A5%97)
+  - [内存对齐](#%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90)
+  - [:point_right:结构体总结](#point_right%E7%BB%93%E6%9E%84%E4%BD%93%E6%80%BB%E7%BB%93)
+- [:point_right:类型转换](#point_right%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+    - [:point_right:自定义类型和别名](#point_right%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%88%AB%E5%90%8D)
+    - [:point_right:类型比较](#point_right%E7%B1%BB%E5%9E%8B%E6%AF%94%E8%BE%83)
 - [函数](#%E5%87%BD%E6%95%B0)
   - [函数声明](#%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E)
   - [:point_right:值拷贝传递](#point_right%E5%80%BC%E6%8B%B7%E8%B4%9D%E4%BC%A0%E9%80%92)
@@ -32,6 +85,12 @@
   - [:point_right:panic/recover](#point_rightpanicrecover)
   - [:point_right:函数总结](#point_right%E5%87%BD%E6%95%B0%E6%80%BB%E7%BB%93)
 - [方法](#%E6%96%B9%E6%B3%95)
+  - [基于指针对象的方法](#%E5%9F%BA%E4%BA%8E%E6%8C%87%E9%92%88%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%96%B9%E6%B3%95)
+  - [嵌套和匿名嵌套](#%E5%B5%8C%E5%A5%97%E5%92%8C%E5%8C%BF%E5%90%8D%E5%B5%8C%E5%A5%97)
+  - [:point_right:方法集](#point_right%E6%96%B9%E6%B3%95%E9%9B%86)
+    - [别名扩展](#%E5%88%AB%E5%90%8D%E6%89%A9%E5%B1%95)
+  - [方法值和方法表达式](#%E6%96%B9%E6%B3%95%E5%80%BC%E5%92%8C%E6%96%B9%E6%B3%95%E8%A1%A8%E8%BE%BE%E5%BC%8F)
+  - [:point_right:方法总结](#point_right%E6%96%B9%E6%B3%95%E6%80%BB%E7%BB%93)
 - [接口](#%E6%8E%A5%E5%8F%A3)
   - [空接口可以被赋值给任何对象](#%E7%A9%BA%E6%8E%A5%E5%8F%A3%E5%8F%AF%E4%BB%A5%E8%A2%AB%E8%B5%8B%E5%80%BC%E7%BB%99%E4%BB%BB%E4%BD%95%E5%AF%B9%E8%B1%A1)
   - [空值判断](#%E7%A9%BA%E5%80%BC%E5%88%A4%E6%96%AD)
@@ -72,6 +131,9 @@
   - [类型转换](#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
   - [:point_right:暂不支持泛型方法](#point_right%E6%9A%82%E4%B8%8D%E6%94%AF%E6%8C%81%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95)
   - [:point_right:泛型总结](#point_right%E6%B3%9B%E5%9E%8B%E6%80%BB%E7%BB%93)
+- [unsafe](#unsafe)
+  - [unsafe.Sizeof, Alignof 和 Offsetof](#unsafesizeof-alignof-%E5%92%8C-offsetof)
+  - [unsafe.Pointer](#unsafepointer)
 - [测试（TDD）](#%E6%B5%8B%E8%AF%95tdd)
   - [:point_right:单元测试](#point_right%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95)
     - [:point_right:并行](#point_right%E5%B9%B6%E8%A1%8C)
@@ -455,6 +517,1084 @@ go build -mod vendor
 - 使用`go list  -m -versions` 来查看所有包的版本
 - 关闭GOPROXY，可以避免在线获取模块
 - 源文件必须是 `utf-8` 的格式。
+
+# 变量
+
+## 变量声明
+
+使用var关键字定义变量，可以一次性定义多个变量
+
+零值初始化机制可以确保每个声明的变量总是有一个良好定义的值，因此在Go语言中不存在未初始化的变量。这个特性可以简化很多代码，而且可以在没有增加额外工作的前提下确保边界条件下的合理行为。
+
+```go
+var s string   // ""
+var i, j, k int // 0, 0, 0
+var (
+    a int // 0
+    b float32 // 0
+)
+```
+
+类型由初始化表达式推导, 如果提供初始化值，可省略变量类型，由编译器自动推断。
+
+```go
+var b, f, s = true, 2.3, "four" // bool, float64, string
+var boiling float64 = 100 
+```
+
+## 简短变量声明
+
+**在函数内部**，有一种称为简短变量声明语句的形式可用于声明和初始化局部变量。它以`name := 表达式 `形式声明变量，变量的类型根据表达式来自动推导。
+
+```go
+func main() {
+    n, s := 0x1234, "Hello, World!"
+    x, _, z := something()
+    in, err := os.Open(infile) // 未使用的局部变量，编译器会报错
+    println(x, s, n)
+}
+```
+
+## :point_right:变量总结
+
+- 使用`:=` 语法糖精简赋值，只能在函数内部使用，精简定义会重新赋值变量（地址不同）。
+- 特殊只写变量 `_` ,用于忽略值，起占位作用。
+- 如果局部变量未使用编译期会报错。全局变量未使用不会报错。
+- 禁止导出全局变量（只能小写），全局变量只能由本包修改。
+
+# 常量和iota
+
+## 常量定义
+
+使用const关键字定义常量
+
+常量值必须是编译期可确定的数字、字符串、布尔值，还可以是 len、cap、unsafe.Sizeof 等编译期可确定结果的函数返回值。
+
+```go
+// 多常量初始化
+const x, y int = 1, 2
+const pi = 3.14159
+
+// 类型推断
+const s = "Hello, World!"
+const b = false
+
+const (
+	l  = "stonebird"
+	ll = len(l)
+	ls = unsafe.Sizeof(l)
+)
+```
+
+在常量组中，如不提供类型和初始化值，那么视作与上一常量相同。
+
+```go
+const (
+	s = "abc"
+	x        // x = "abc"
+)
+
+const (
+    a = 1
+    b // 1
+    c = 2
+    d // 2
+)
+```
+
+## iota
+
+关键字 iota 定义常量组中从 0 开始按行计数的自增枚举值，简单的说iota是const常量组的索引，在n行，值为n-1。
+
+```go
+const (
+	Sunday    = iota // 0
+	Monday           // 1，通常省略后续⾏表达式。
+	Tuesday          // 2
+	Wednesday        // 3
+	Thursday         // 4
+	Friday           // 5
+	Saturday         // 6
+)
+
+const (
+	_        = iota             // iota = 0
+	KB int64 = 1 << (10 * iota) // iota = 1
+	MB                          // 与 KB 表达式相同，iota = 2
+	GB
+	TB
+)
+```
+
+可以提供多个 iota，它们各自增长
+
+```go
+const (
+	A, B = iota, iota << 10 // 0, 0 << 10
+	C, D                    // 1, 1 << 10
+)
+```
+
+如果iota自增被打断，则必须显式恢复
+
+```go
+const (
+	A = iota // 0
+	B        // 1
+	C = "c"  // c
+	D        // c，与上⼀⾏相同。
+	E = iota // 4，显式恢复。注意计数包含了 C、D 两⾏。
+	F        // 5
+)
+```
+
+## :point_right:无类型常量
+
+通过延迟明确常量的具体类型，无类型的常量不仅可以提供更高的运算精度，而且可以直接用于更多的表达式而不需要显式的类型转换。
+
+```go
+const (
+   E   = 2.71828182845904523536028747135266249775724709369995957496696763
+   Pi  = 3.14159265358979323846264338327950288419716939937510582097494459
+)
+```
+
+对于常量面值，不同的写法可能会对应不同的类型。例如0、0.0、0i和`\u0000`虽然有着相同的常量值，但是它们分别对应无类型的整数、无类型的浮点数、无类型的复数和无类型的字符等不同的常量类型。同样，true和false也是无类型的布尔类型，字符串面值常量是无类型的字符串类型。
+
+不同写法的常量除法表达式可能对应不同的结果：
+
+```go
+var f float64 = 212
+fmt.Println((f - 32) * 5 / 9)     // "100"; (f - 32) * 5 is a float64
+fmt.Println(5 / 9 * (f - 32))     // "0";   5/9 is an untyped integer, 0
+fmt.Println(5.0 / 9.0 * (f - 32)) // "100"; 5.0/9.0 is an untyped float
+```
+
+> 平时使用的数字、nil、true、false、"" 都是无类型常量
+
+## :point_right:常量总结
+
+- 常量是编译期可确定的值，所以最好不用函数，除非函数对常量计算，能返回可确定结果。
+- iota在常量组中等同于数组的索引
+- 开发过程中尽量不要使用iota
+- 只有常量可以是无类型的。当一个无类型的常量被赋值给一个变量的时候，无类型的常量将会被隐式转换为对应的类型（如果转换合法的话）。
+
+# 数字类型
+
+## 整型
+
+### 有符号整型 & 无符号整型
+
+有符号整型：int8、int16、int32和int64，分别对应8、16、32、64bit大小的有符号整数。
+
+> int 在32位设备上对应int32，在64位身上对应int64
+
+无符号整型：uint8、uint16、uint32和uint64
+
+>  uint在32位设备上对应uint32，在64位身上对应uint64
+
+### 运算符
+
+照优先级递减的顺序排列
+
+```go
+*      /      %      <<       >>     &       &^
++      -      |      ^
+==     !=     <      <=       >      >=
+&&
+||
+
+// 位运算说明
+&      位运算 AND
+|      位运算 OR
+^      位运算 XOR
+&^     位清空（AND NOT）
+<<     左移
+>>     右移
+```
+
+**运算符说明**
+
+- 没有 `~` 取反，取反也用 `^`
+- 只有 `i++` 或者 `i--`， 没有`++i`或者`--i`
+- 运算过程中保证除数不为0
+
+> 位操作运算符`^`作为二元运算符时是按位异或（XOR），当用作一元运算符时表示按位取反
+
+### 整数安全
+
+一个算术运算的结果，不管是有符号或者是无符号的，如果需要更多的bit位才能正确表示的话，就说明计算结果是溢出了。
+
+```go
+var u uint8 = 255
+fmt.Println(u, u+1, u*u) // "255 0 1"
+
+var i int8 = 127
+fmt.Println(i, i+1, i*i) // "127 -128 1"
+```
+
+确保参与移位的操作数的位数足够
+
+```go
+func foo(num uint16,bit uint8) bool {
+	if uint32(num) > (uint32(1) << bit) { // 强制类型转换后，应满足函数设计要求
+		return true
+	}
+	return false
+}
+```
+
+确保除数不能为0
+
+```go
+func div(total,a int) bool {
+	if a == 0 {
+		return false
+	}
+	avg = total / a
+}
+```
+
+确保整数转换不会造成数据截断或者符号错误
+
+```go
+func int32216(a int32){
+	if (a < math.MinInt16) || (a > math.MaxInt16) {
+    	// 错误处理
+	}
+    int16(a)
+}
+
+func int2uint(a int32){
+    if a < 0 {
+    	// 错误处理
+	}
+    b := uint32(a)
+}
+```
+
+### 八进制
+
+任何大小的整数字面值都可以用以0开始的八进制格式书写，例如0666；如今八进制数据通常用于POSIX操作系统上的文件访问权限标志
+
+```go
+md := 0666
+md := 0644
+```
+
+### 十六进制
+
+以0x或0X开头的十六进制格式书写，例如0xdeadbeef。十六进制数字可以用大写或小写字母。十六进制数字则更强调数字值的bit位模式。
+
+```go
+x := 0xdeadbeef
+```
+
+### :point_right:整型总结
+
+- 注意各种整型的内存大小
+- 整数安全运算
+- 可以用%d、%o或%x参数控制输出的进制格式
+
+## 浮点数
+
+### 浮点数类型
+
+提供了两种精度的浮点数，float32和float64。
+
+```go
+var f float32 = 16777216 // 1 << 24
+fmt.Println(f == f+1)    // "true"!
+```
+
+浮点数的字面值可以直接写小数部分
+
+```go
+const e = 2.71828 // (approximately)
+```
+
+很小或很大的数最好用科学计数法书写，通过e或E来指定指数部分：
+
+```go
+const Avogadro = 6.02214129e23  // 阿伏伽德罗常数
+const Planck   = 6.62606957e-34 // 普朗克常数
+```
+
+### 正无穷大、负无穷大和非数
+
+正无穷大和负无穷大，分别用于表示太大溢出的数字和除零的结果，还有NaN非数，一般用于表示无效的除法操作结果0/0或Sqrt(-1).
+
+```go
+var z float64
+fmt.Println(z, -z, 1/z, -1/z, z/z) // "0 -0 +Inf -Inf NaN"
+```
+
+不能比较非数nan
+
+```go
+nan := math.NaN()
+fmt.Println(nan == nan, nan < nan, nan > nan) // "false false false"
+```
+
+### :point_right:浮点数总结
+
+- 浮点数和整型拥有一样的运算符和能力
+- 不能比较非数nan
+- 禁止使用浮点数作为循环的控制变量
+- 使用%e（带指数）或%f的形式打印浮点数
+- 浮点数的相等比较是危险的
+
+## 复数
+
+Go语言提供了两种精度的复数类型：complex64和complex128，分别对应float32和float64两种浮点数精度。内置的complex函数用于构建复数，内建的real和imag函数分别返回复数的实部和虚部：
+
+复数运算 `i*i = -1`
+
+加法： (a+bi)+(c+di)=(a+c)+(b+d)i
+
+减法： (a+bi)-(c+di)=(a-c)+(b-d)i
+
+乘法:	(a+bi)(c+di)=(ac-bd)+(bc+ad)i
+
+除法：（7+i)/(3+4i)=((7+i)(3-4i))/((3+4i)(3-4i))
+
+```go
+var x complex128 = complex(1, 2) // 1+2i
+var y complex128 = complex(3, 4) // 3+4i
+fmt.Println(x*y)                 // "(-5+10i)"
+fmt.Println(real(x*y))           // "-5"
+fmt.Println(imag(x*y))           // "10"
+```
+
+以 `整数i` 的方式定义复数
+
+```go
+x := 1 + 2i
+y := 3 + 4i
+z := 1i * 1i
+```
+
+复数也可以用==和!=进行相等比较。只有两个复数的实部和虚部都相等的时候它们才是相等的
+
+```go
+fmt.Println(1 + 2i == 1 + 2i) 
+```
+
+**复数说明**
+
+- 和浮点数一样，比较相等时精度问题很危险
+
+## :point_right:布尔型
+
+布尔类型的值只有两种：true和false。一元操作符`!`对应逻辑非操作，因此`!true`的值为`false`
+
+```go
+!false // true
+!!false // fasle
+```
+
+尔值可以和&&（AND）和||（OR）操作符结合
+
+```go
+if 'a' <= c && c <= 'z' ||
+    'A' <= c && c <= 'Z' ||
+    '0' <= c && c <= '9' {
+    // ...ASCII letter or digit...
+}
+```
+
+# 字符串
+
+## 结构
+
+字符串是 不可变 字节序列，其本身是一个复合结构。字符串可以包含任意的数据
+
+```go
+type stringStruct struct {
+	str unsafe.Pointer
+	len int
+}
+```
+
+索引访问字节数组（非字符），不能获取元素地址
+
+```go
+s := "hello, world"
+fmt.Println(len(s))     // "12"
+fmt.Println(s[0], s[7]) // "104 119" ('h' and 'w')
+fmt.Println(&s[3]) // 非法，字符串不能获取元素地址
+```
+
+## 原始字符串raw
+
+原始字符串（raw string）`` 定义的字符串不做转义处理
+
+```go
+s := `stone
+bird\n\t
+`
+fmt.Println(s)
+// stone
+// bird\n\t
+```
+
+## 子串内部指针依旧指向原字节数组
+
+```go
+func main() {
+	s := "hello, world!"
+	s2 := s[:4]
+	p1 := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	p2 := (*reflect.StringHeader)(unsafe.Pointer(&s2))
+	fmt.Printf("%#v, %#v\n", p1, p2)
+}
+
+// &StringHeader{ Data:0x497208, Len:13 }
+// &StringHeader{ Data:0x497208, Len:4 }
+```
+
+## for遍历的两种方式
+
+使用for循环遍历字符串时，也有 byte 和 rune 两种方式。
+
+要修改字符串，可先将其转换成[]rune 或 []byte，完成后再转换为 string。无论哪种转换，都会重新分配内存，并复制字节数组。
+
+```go
+func main() {
+	s := "abcef"
+	for i := 0; i < len(s); i++ { // byte
+		fmt.Printf("%c,", s[i])
+	}
+	fmt.Println()
+	for _, r := range s { // rune
+		fmt.Printf("%c,", r)
+	}
+}
+```
+
+可以作为append，和copy参数
+
+```go
+func main() {
+	s := "de"
+	bs := make([]byte, 0)
+	bs = append(bs, "abc"...)
+	bs = append(bs, s...)
+	buf := make([]byte, 5)
+	copy(buf, "abc")
+	copy(buf[3:], s)
+	fmt.Printf("%s\n", bs) // abcde
+	fmt.Printf("%s\n", buf)// abcde
+}
+```
+
+## 字符串转义
+
+```
+\a      响铃
+\b      退格
+\f      换页
+\n      换行
+\r      回车
+\t      制表符
+\v      垂直制表符
+\'      单引号（只用在 '\'' 形式的rune符号面值中）
+\"      双引号（只用在 "..." 形式的字符串面值中）
+\\      反斜杠
+```
+
+## Unicode
+
+Unicode收集了这个世界上所有的符号系统，包括重音符号和其它变音符号，制表符和回车符，还有很多神秘的符号，每个符号都分配一个唯一的Unicode码点，Unicode码点对应Go语言中的rune（int32）整数类型。
+
+## UTF-8
+
+UTF8是一个将Unicode码点编码为字节序列的变长编码。是Unicode的标准。UTF8编码使用1到4个字节来表示每个Unicode码点
+
+```bash
+0xxxxxxx                             runes 0-127    (ASCII)
+110xxxxx 10xxxxxx                    128-2047       (values <128 unused)
+1110xxxx 10xxxxxx 10xxxxxx           2048-65535     (values <2048 unused)
+11110xxx 10xxxxxx 10xxxxxx 10xxxxxx  65536-0x10ffff (other values unused)
+```
+
+## :point_right:字符串总结
+
+- 索引访问字节数组（非字符），不能用索引获取字节元素指针，&s[i] 非法。 
+- 切片返回子串，依旧指向原数组。
+- 内置函数 len 返回字节数组长度。
+- 支持 != 、 == 、 < 、 <= 、 >= 、 > 、 + 、 += 
+- 字符串不可被修改，换成[]rune 或 []byte修改后换回字符串，地址会变。
+
+> 字符串的存储在只读段上，并不是堆上或者栈上
+
+# 数组
+
+数组是值类型，数组的长度是固定的(非负数), 赋值和传参会复制整个数组，而不是指针。
+
+```go
+var a [4]int // 元素自动初始化为零。
+
+b := [4]int{2, 5} // 未提供初始值的元素自动初始化为 0。
+c := [4]int{5, 3: 10} // 可指定索引位置初始化。
+d := [...]int{1, 2, 3} // 编译器按初始化值数量确定数组长度。
+/*
+	a: [0 0 0 0]
+	b: [2 5 0 0]
+	c: [5 0 0 10]
+	d: [1 2 3]
+	
+*/
+a := [2][3]int{{1, 2, 3}, {4, 5, 6}}
+```
+
+## 语法糖
+
+```go
+// 编译器按初始化值数量确定数组长度。
+q := [...]int{1, 2, 3} 
+fmt.Printf("%T\n", q) // "[3]int"
+```
+
+支持索引赋值初始化，没有包含的索引为默认值
+
+```go
+e := [...]int{10, 3: 100} // 支持索引初始化，数组长度与此有关。
+
+// e: [10 0 0 100]
+```
+
+多维数组不能使用语法糖 `...` 定义, 语法糖只能用于外层数组
+
+```go
+b := [...][2]int{{1, 1}, {2, 2}, {3, 3}} // 第 2 纬度不能⽤ "..."。第二维（多维）不能用语法糖
+```
+
+多维数组依旧是连续内存存储
+
+```go
+func main() {
+	x := [...][2]int{
+		{1, 2},
+		{3, 4},
+	}
+
+	y := [...][3][2]int{
+		{
+			{1, 2},
+			{3, 4},
+			{5, 6},
+		},
+		{
+			{10, 11},
+			{12, 13},
+			{14, 15},
+		},
+	}
+
+	fmt.Println(x, len(x), cap(x)) // 2, 2
+	fmt.Println(y, len(y), cap(y)) // 2, 2
+}
+
+/*
+(gdb) x/4xg &x
+0xc000066df0: 0x0000000000000001 0x0000000000000002
+0xc000066e00: 0x0000000000000003 0x0000000000000004
+(gdb) x/12xg &y
+0xc000066e30: 0x0000000000000001 0x0000000000000002
+0xc000066e40: 0x0000000000000003 0x0000000000000004
+0xc000066e50: 0x0000000000000005 0x0000000000000006
+0xc000066e60: 0x000000000000000a 0x000000000000000b
+0xc000066e70: 0x000000000000000c 0x000000000000000d
+0xc000066e80: 0x000000000000000e 0x000000000000000f
+*/
+```
+
+取值
+
+```go
+var a [10]int 
+a[0:10]、a[:10]、a[0:]、a[:] // 这些情况等价
+```
+
+数组比较，长度和类型相同且元素可比较的数组可以比较，[2]int 和 [3]int 是不同类型。
+
+```go
+a := [2]int{1, 2}
+b := [...]int{1, 2}
+c := [2]int{1, 3}
+fmt.Println(a == b, a == c, b == c) // "true false false"
+d := [3]int{1, 2}
+fmt.Println(a == d) // compile error: cannot compare [2]int == [3]int
+```
+
+## :point_right:组数总结
+
+- 数组是单一内存块,并无其他附加结构
+- 支持索引赋值初始化，无索引的部分为默认值
+- 支持获取元素指针，&s[i]
+- 内置函数 len 和 cap 都返回一维长度
+- 元素类型支持 == 、 != ，那么数组也支持
+- 指针数组 [n]*T，数组指针 *[n]T。
+- 数组通过下标取值前，为安全需判断数组的长度。
+
+# Slice
+
+Slice（切片）代表变长的序列，序列中每个元素都有相同的类型。一个slice类型一般写作[]T，其中T代表slice中元素的类型；slice的语法和数组很像，只是没有固定长度而已。
+
+## 底层数据结构
+
+源码包 `src/runtime/slice.go`
+
+```go
+type slice struct {
+    array unsafe.Pointer
+    len   int
+    cap   int
+}
+```
+
+## append函数
+
+内置的append函数用于向slice追加元素
+
+```go
+var runes []rune
+for _, r := range "Hello, 世界" {
+    runes = append(runes, r)
+}
+fmt.Printf("%q\n", runes) // "['H' 'e' 'l' 'l' 'o' ',' ' ' '世' '界']"
+
+var x []int
+x = append(x, 1)
+x = append(x, 2, 3)
+x = append(x, 4, 5, 6)
+x = append(x, x...) // append the slice x
+fmt.Println(x)      // "[1 2 3 4 5 6 1 2 3 4 5 6]"
+```
+
+每次调用append函数，必须先检测slice底层数组是否有足够的容量来保存新添加的元素。
+
+如果有足够空间的话，直接扩展slice（依然在原有的底层数组之上），将新添加的y元素复制到新扩展的空间，并返回slice。
+
+如果没有足够的增长空间的话，append函数则会先分配一个足够大的slice用于保存新的结果，先将输入的x复制到新的空间，然后添加y元素。结果和输入将是不同的底层数组。
+
+## copy
+
+在两个切片间复制数据： 
+
+- 允许指向同一数组。 
+- 允许目标区间重叠。 
+- 复制长度以较短（ len ）切片为准。
+
+```go
+func main() {
+    s := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+    // 在同一底层数组的不同区间复制。
+    src := s[5:8]
+    dst := s[4:]
+    n := copy(dst, src)
+    fmt.Println(n, s)
+    // 在不同数组间复制。
+    dst = make([]int, 6)
+    n = copy(dst, src)
+    fmt.Println(n, dst)
+}
+/*
+3 [0 1 2 3 5 6 7 7 8 9]
+3 [6 7 7 0 0 0]
+*/
+```
+
+可以直接从字符串复制到[]byte
+
+```go
+func main() {
+    b := make([]byte, 3)
+    n := copy(b, "abcde")
+    fmt.Println(n, b)
+}
+// 3 [97 98 99]
+```
+
+## slice总结
+
+- 未初始化为 nil 。
+
+- 基于数组、初始化值或 make 函数创建。 
+
+- 函数 len 返回元素数量， cap 返回容量。 
+
+- 仅能判断是否为 nil ，不支持其他 == 、 != 操作。
+
+-  以索引访问元素，可获取底层数组元素指针。
+
+-  底层数组可能在堆上分配。
+- 分配预留的空间可以提高性能
+
+# map
+
+哈希表是一种巧妙并且实用的数据结构。它是一个**无序**的key/value对的集合，其中所有的key都是不同的，然后通过给定的key可以在常数时间复杂度内检索、更新或删除对应的value。
+
+内置的make函数可以创建一个map：
+
+```go
+ages := make(map[string]int) // mapping from strings to ints
+
+ages := map[string]int{
+    "alice":   31,
+    "charlie": 34,
+}
+```
+
+要想遍历map中全部的key/value对的话，可以使用range风格的for循环实现，和之前的slice遍历语法类似。
+
+```go
+for name, age := range ages {
+    fmt.Printf("%s\t%d\n", name, age)
+}
+```
+
+## map总结
+
+- 引用类型，无序键值对集合。 
+- 以初始化表达式或 make 函数创建。 
+- 主键须是支持 == 、 != 的类型（key必须为值类型）。 
+- 可判断字典是否为 nil ，不支持比较操作。 
+- 函数 len 返回键值对数量。 
+- 访问不存在主键，返回零值。 迭代以随机次序返回。
+- 值不可寻址（not addressable），需整体赋值,或使用指针。 
+- 按需扩张，但不会收缩（shrink）内存。
+- 预分配足够空间有助于提升性能，减少因扩张引发的内存分配和数据迁移操作
+
+# 结构体
+
+结构体是值类型，是一种聚合的数据类型，是由零个或多个任意类型的值聚合成的实体。每个值称为结构体的成员。
+
+结构体赋值和传参会复制全部内容。可用"_" 定义补位字段，支持指向自身类型的指针成员
+
+```go
+type node struct {
+	id    int
+	value string
+	next  *node // 自身指针类型。
+}
+```
+
+## 匿名结构体
+
+```go
+// 匿名结构
+user := struct {
+		id   int
+		name string
+	}{
+		id:   1,
+		name: "user1",
+	}
+```
+
+## 结构体比较
+
+所有成员类型相同，顺序相同，可比较的前提下结构体才可以比较`==` 或 `!=`
+
+```go
+func main() {
+	// 字段名、字段类型、标签和排列顺序都相同。
+	d1 := struct {
+		x int
+		s string
+	}{100, "abc"}
+	var d2 struct {
+		x int
+		s string
+	}
+	d2.x = 100
+	d2.s = "abc"
+	println(d1 == d2) // true
+}
+```
+
+## 空结构体
+
+空结构（ struct{} ）是指没有字段的结构类型，常用于值可被忽略的场合，比如set集合，channel消息通知。 
+
+无论是其自身，还是作为元素类型，其长度都为零，但这不影响作为实体存在。
+
+```go
+func main() {
+	var a struct{}
+	var b [1000]struct{}
+	s := b[:]
+	println(unsafe.Sizeof(a), unsafe.Sizeof(b)) // 0, 0
+	println(len(s), cap(s))                     // 1000, 1000
+}
+```
+
+## Tag
+
+标签（tag）不是注释，而是对字段进行描述的元数据。 不是数据成员，却是类型的组成部分。 内存布局相同，允许显式类型转换。
+
+运行期，可用反射（reflect）获取标签信息。常被用作格式校验，数据库关系映射等。json、bson、orm，http参数等
+
+```go
+package main
+
+import (
+	"fmt"
+	"reflect"
+)
+
+func main() {
+	type User struct {
+		id   int    `field:"uid" type:"integer"`
+		name string `field:"name" type:"text"`
+	}
+	t := reflect.TypeOf(User{})
+	for i := 0; i < t.NumField(); i++ {
+		f := t.Field(i)
+		fmt.Println(f.Name, f.Tag.Get("field"), f.Tag.Get("type"))
+	}
+}
+
+// id: uid integer
+// name: name text
+```
+
+## 结构体嵌套
+
+所谓匿名字段（anonymous field），是指没有名字，仅有类型的字段。也被称作嵌入字段、嵌入类型。 
+
+隐式以类型名为字段名。 嵌入类型与其指针类型隐式字段名相同。（ * 不能用于名称） 可像直属字段那样直接访问。
+
+```go
+type Attr struct {
+	perm int
+}
+type File struct {
+	Attr // 隐式字段名 Attr，语法糖!
+	name string
+}
+func main() {
+	f := File {
+		name: "test.dat",
+		// 必须显式名称初始化。
+		// perm: 0644,
+		// ~~~~ unknown field 'perm' in struct literal of type File
+		Attr: Attr{
+			perm: 0644,
+		},
+	}
+	// 像直属字段访问。
+	fmt.Printf("%s, %o\n", f.name, f.perm)
+}
+```
+
+**直属字段与嵌入字段成员存在重名问题**。
+
+编译器优先选择直属命名字段，其次按嵌入层次逐级查找匿名字段成员。 如匿名字段成员被外层同名遮蔽，那么必须用显式字段名。
+
+```go
+type File struct {
+	name []byte
+}
+
+type Data struct {
+	File
+	name string // 和 File.name 重名。
+}
+
+func main() {
+	d := Data{
+		name: "data",
+		File: File{ []byte("file") },
+	}
+
+	d.name = "data2" // 优先选择直属命名字段。
+	d.File.name = []byte("file2")
+
+	fmt.Println(d.name, d.File.name)
+}
+```
+
+匿名嵌入是 组合（composition），而非 继承（inheritance）。 结构虽然承载了 class 功能，但无法 多态（polymorphisn），只能以方法集配合接口实现。
+
+## 内存对齐
+
+不管结构包含多少字段，其内存总是一次性分配，各字段（含匿名字段成员）在相邻地址空间按定义顺序（含对 齐）排列。当然，对于引用类型、字符串和指针，结构内存中只包含其基本（头部）数据。 借助 unsafe 相关函数，输出所有字段的偏移量和长度。
+
+对齐以所有字段中最长的基础类型宽度为准。编译器这么做的目的，即为了最大限度减少读写所需指令，也因 为某些架构平台自身的要求。
+
+```go
+package main
+
+import (
+	"fmt"
+	"unsafe"
+)
+
+func main() {
+	v1 := struct {
+		a byte
+		b byte
+		c int32 // <-- int32
+	}{}
+
+	v2 := struct {
+		a byte
+		b byte // <-- byte
+	}{}
+
+	v3 := struct {
+		a byte
+		b []int // <-- int
+		c byte
+	}{}
+
+	fmt.Printf("v1: %d, %d\n", unsafe.Alignof(v1), unsafe.Sizeof(v1))
+	fmt.Printf("v2: %d, %d\n", unsafe.Alignof(v2), unsafe.Sizeof(v2))
+	fmt.Printf("v3: %d, %d\n", unsafe.Alignof(v3), unsafe.Sizeof(v3))
+}
+
+/*
+v1: 4, 8
+v2: 1, 2
+v3: 8, 40
+(gdb) x/2xw &v1
+0xc000088e88: 0x00000201 0x00000003
++---+---+---+---+---+---+---+---+
+| a | b | ? | ? | c |
++---+---+---+---+---+---+---+---+
+|<----- 4 ----->|<----- 4 ----->|
+(gdb) x/2xb &v2
+0xc000088e86: 0x01 0x02
++---+---+
+| a | b |
++---+---+
+0 1 2
+(gdb) x/5xg &v3
+0xc000088f48: 0x0000000000000001 0x000000c000088e90
+0xc000088f58: 0x0000000000000003 0x0000000000000003
+0xc000088f68: 0x0000000000000002
++---+-------+-----------+-----------+-----------+---+-------+
+| a | ... | b.ptr | b.len | b.cap | c | ... |
++---+-------+-----------+-----------+-----------+---+-------+
+|<--- 8 --->|<--- 8 --->|<--- 8 --->|<--- 8 --->|<--- 8 --->|
+*/
+
+```
+
+如果空结构是最后一个字段，那么将其当做长度 1 的类型，避免越界。
+
+## :point_right:结构体总结
+
+- 直属字段名必须唯一。
+
+- 支持自身指针类型成员。 
+
+- 可用 _ 忽略字段名。 
+
+- 支持匿名结构和空结构。 
+
+- 支持匿名嵌入其他类型，组合的方式（而非继承）。 
+
+- 支持为字段添加标签。 
+
+- 仅所有字段全部支持，才可做相等操作。 
+
+- 可用指针选择字段，但不支持多级指针。 
+
+- 字段名、类型、标签及排列顺序属类型组成部分。 
+
+- 除格式对齐外，编译器不会优化或调整布局
+
+# :point_right:类型转换
+
+除常量、别名以及未命名类型外，强制要求显式类型转换 `T(v)`。
+
+```go
+a := 100
+b := byte(a)    // 显式转换
+c := a + int(b) // 确保类型一致
+
+// 不支持隐式类型转换 
+var n int = b  // Error: cannot use b (type byte) as type int in assignment
+if a { // The non-bool value 'a' (type int) used as a condition
+	...
+}
+```
+
+使用括号避免优先级错误
+
+```go
+(*int)(p)       // 如果没有括号 *(int(p))
+(<-chan int)(c) // 如果没有括号 <-(chan int(c))
+(func())(x)     // 如果没有括号 func() x
+(func() int)(x) // --> 有返回值的函数类型可省略括号，但依然建议使用。
+(func() int)(x) // 使用括号后，更易阅读。
+```
+
+转换时确保整数转换不会造成数据截断或者符号错误
+
+```go
+var a = math.MaxInt32
+b := int16(a) // 不符合，不同类型强制转化数据会发生数据截断
+
+var a = math.MinInt32
+b := uint32(a) // 不符合，产生符号丢失
+```
+
+**类型转换说明**
+
+- 只能强制显示转换类型
+- 避免优先级错误
+- 确保转换后数据安全，不会造成数据截断或者符号错误。
+
+### :point_right:自定义类型和别名
+
+使用关键字 `type` 定义用户自定义类型
+
+```go
+type A int   // 定义新类型
+type B = int // 别名
+
+var a A = 10
+var b B = 10
+var c int = 10
+
+fmt.Println(a + c) // 错误：Invalid operation: a + c (mismatched types A and int)
+fmt.Println(b + c)
+fmt.Println(a > 8) // go编译器会强制转换A(8)
+```
+
+**自定义类型和别名说明**
+
+- 即使底层类型相同，也非同一类型。（区别于别名） 
+- 除运算符外，不继承任何信息。 
+- 不能隐式转换，不能和底层类型直接比较、运算。
+- 别名可以和底层类型进行运算和笔记
+
+### :point_right:类型比较
+
+**可以比较大小**
+
+- 相同的基础数据类型
+
+**可以比较相等 `==`** 
+
+- 相同的基础数据类型
+- 相同长度和类型的数组
+
+- 相同成员和类型，并且成员可以比较的结构体
+- 相同类型的channel
+- 相同类型的别名
+
+**不可以直接比较**
+
+- 自定义类型和底层类型不可比较，是两种不同的类型
+- slice、map、func同类型间不能直接比较，只能和 `nil` 比较
+
+> 但可以使用reflect.DeepEqual或者cmp包来比较
 
 # 函数
 
@@ -995,6 +2135,162 @@ func main() {
 - recover函数必须在defer中使用，:point_right:只能捕获当前go程的panic。
 
 # 方法
+
+方法是与对象实例相绑定的特殊函数。用于维护和展示对象自身状态。对象是内敛的，每个实例都有各自不同的独立特征，以属性和方法来对外暴露。
+
+在函数声明时，在其名字之前放上一个变量，即是一个方法。这个附加的参数会将该函数附加到这种类型上，即相当于为这种类型定义了一个独占的方法。
+
+```go
+package geometry
+
+import "math"
+
+type Point struct{ X, Y float64 }
+
+// function
+func Distance(p, q Point) float64 {
+    return math.Hypot(q.X-p.X, q.Y-p.Y)
+}
+
+// method 
+func (p Point) Distance(q Point) float64 {
+    return math.Hypot(q.X-p.X, q.Y-p.Y)
+}
+```
+
+## 基于指针对象的方法
+
+当调用一个函数时，会对其每一个参数值进行拷贝，如果一个函数需要更新一个变量，或者函数的其中一个参数实在太大我们希望能够避免进行这种默认的拷贝，这种情况下我们就需要用到指针了。
+
+```go
+func (p *Point) ScaleBy(factor float64) {
+    p.X *= factor
+    p.Y *= factor
+}
+```
+
+- 修改实例状态，用 *T 。 
+- 不修改状态的小对象或固定值，用 T 。 
+- 大对象用 *T ，减少复制成本。 
+- 引用类型、字符串、函数等指针包装对象，用 T 。 
+- 含 Mutex 等同步字段，用 *T ，避免因复制造成锁无效。 
+- 其他无法确定的，都用 *T 。
+
+## 嵌套和匿名嵌套
+
+```go
+import "image/color"
+
+type Point struct{ X, Y float64 }
+
+type ColoredPoint struct {
+    Point
+    Color color.RGBA
+}
+```
+
+按最小深度优先原则。 如两个同名方法深度相同，那么编译器无法作出选择（ambiguous selector），需显式指定。
+
+```go
+type E struct{}
+type T struct {
+    E
+}
+func (E) toString() string { return "E" }
+func (t T) toString() string { return "T." + t.E.toString() }
+// ----------------------------------
+func main() {
+    var t T
+    println(t.toString()) // T.E
+    println(t.E.toString()) // E
+}
+```
+
+- 像访问匿名字段成员那样调用其方法，由编译器负责查找。
+- 内部的结构体只能管理自己的字段
+
+## :point_right:方法集
+
+类型有个与之相关的方法集合（method set），这决定了它是否实现某个接口。
+
+根据接收参数（receiver）的不同，可分为 T 和 *T 两种视角。如T 实现接口，那么透过接口调用时， receiver 复制可以，获取指针（ &T ）不行。 相反， *T 实现接口，目标对象在外，无论是取值还是复制指针都没问题。
+
+```bash
+T.set = T 
+*T.set = T + *T
+```
+
+除直属方法外，列表里还包括匿名字段的方法。 
+
+```go
+T{ E } = T + E
+T{ *E } = T + E + *E
+*T{ E|*E } = T + *T + E + *E
+```
+
+### 别名扩展
+
+通过类型别名，对方法集进行分类，更便于维护。或新增别名，为类型添加扩展方法。
+
+```go
+type X int
+func (*X) A() { println("X.A") }
+type Y = X // 别名
+func (*Y) B() { println("Y.B") } // 扩展方法
+func main() {
+    var x X
+    x.A()
+    x.B()
+    var y Y
+    y.A()
+    y.B()
+}
+```
+
+通过反射查看合并效果
+
+```go
+func main() {
+    var n X
+    t := reflect.TypeOf(&n)
+    for i := 0; i < t.NumMethod(); i++ {
+        fmt.Println(t.Method(i))
+    }
+}
+// {A func(*main.X) <func(*main.X) Value> 0}
+// {B func(*main.X) <func(*main.X) Value> 1}
+```
+
+## 方法值和方法表达式
+
+p.Add叫作“选择器”，选择器会返回一个方法“值” -> 一个将方法（Point.Add）绑定到特定接收器变量的函数。
+
+```go
+type Point struct{ X, Y float64 }
+
+func (p Point) Add(q Point) Point { return Point{p.X + q.X, p.Y + q.Y} }
+func (p Point) Sub(q Point) Point { return Point{p.X - q.X, p.Y - q.Y} }
+
+type Path []Point
+
+func (path Path) TranslateBy(offset Point, add bool) {
+    var op func(p, q Point) Point
+    if add {
+        op = Point.Add
+    } else {
+        op = Point.Sub
+    }
+    for i := range path {
+        // Call either path[i].Add(offset) or path[i].Sub(offset).
+        path[i] = op(path[i], offset)
+    }
+}
+```
+
+## :point_right:方法总结
+
+- *T 可以拥有T类型的能力
+- 内部的结构体只能管理自己的字段
 
 # 接口
 
@@ -1889,6 +3185,33 @@ func (q *Querier[T]) Filter(ctx context.Context, filter ...Filter) ([]T, error) 
 
 - 尽量在数据结构中使用泛型。
 - 不要将接口传递给泛型函数。
+
+# unsafe
+
+## unsafe.Sizeof, Alignof 和 Offsetof
+
+unsafe.Sizeof函数返回操作数在内存中的字节大小，参数可以是任意类型的表达式，但是它并不会对表达式进行求值。
+
+```go
+import "unsafe"
+fmt.Println(unsafe.Sizeof(float64(0))) // "8"
+```
+
+`unsafe.Alignof` 函数返回对应参数的类型需要对齐的倍数。和 Sizeof 类似， Alignof 也是返回一个常量表达式，对应一个常量。通常情况下布尔和数字类型需要对齐到它们本身的大小（最多8个字节），其它的类型对齐到机器字大小。
+
+`unsafe.Offsetof` 函数的参数必须是一个字段 `x.f`，然后返回 `f` 字段相对于 `x` 起始地址的偏移量，包括可能的空洞。
+
+## unsafe.Pointer
+
+大多数指针类型会写成`*T`，表示是“一个指向T类型变量的指针”。unsafe.Pointer是特别定义的一种指针类型
+
+```go
+package math
+
+func Float64bits(f float64) uint64 { return *(*uint64)(unsafe.Pointer(&f)) }
+
+fmt.Printf("%#016x\n", Float64bits(1.0)) // "0x3ff0000000000000"
+```
 
 # 测试（TDD）
 
