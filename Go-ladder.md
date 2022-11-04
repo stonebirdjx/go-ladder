@@ -756,6 +756,8 @@ func slicecopy(to, fm slice, width uintptr) int {
 }
 ```
 
+> copy 的长度为最短切片长度，不是dst的容量
+
 <div STYLE="page-break-after: always;"></div>
 
 # SSA代码

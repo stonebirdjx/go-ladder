@@ -5,6 +5,7 @@
 - [为什么字符串不允许修改？](#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%8D%E5%85%81%E8%AE%B8%E4%BF%AE%E6%94%B9)
 - [[]byte转换成string一定会拷贝内存吗？](#byte%E8%BD%AC%E6%8D%A2%E6%88%90string%E4%B8%80%E5%AE%9A%E4%BC%9A%E6%8B%B7%E8%B4%9D%E5%86%85%E5%AD%98%E5%90%97)
 - [Slice扩容原理](#slice%E6%89%A9%E5%AE%B9%E5%8E%9F%E7%90%86)
+- [slice copy](#slice-copy)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -69,3 +70,12 @@ func main() {
 ```
 
 > 所以小于1024是双倍扩容，大于1024是1.25倍扩容描述是不准确，只有当内存对齐的情况下才是。
+
+# slice copy 
+
+```go
+copy(dst []type, src []type)
+// 底层是调用 runtime.memmove
+```
+
+copy 的长度是最短切片长度（不是容量），比如dst的长度为0，容量大于src长度，也是copy不了的。
