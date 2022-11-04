@@ -38,3 +38,34 @@ func main() {
 
 # Slice扩容原理
 
+基础类型会先内存对齐、检查容量，然后查表(sizeclass.go) 。
+
+分单个appned和 整个切片append。
+
+```go
+package main
+
+import "fmt"
+
+// 单个append
+// 1024 * 1.25 = 1280
+// 1024 * 1.25 * 4 = 5120, 查表(sizeclass.go) 5376/4 = 1344 (真时容量)
+// 1024 * 1.25 * 8 = 10240,查表(sizeclass.go)  10240/8 = 1280
+
+// 批量append的先检查容量 查表
+// 1024 * 8 = 8200  查表 9472 / 8= 1184
+func main() {
+	var int32s []int32
+	for i := 0; i < 1025; i++ {
+		int32s = append(int32s, int32(i))
+		fmt.Println(len(int32s), cap(int32s))
+	}
+
+	var arr1 = make([]int64,1024,1280)
+	var arr2 []int64
+	arr2 = append(arr2,arr1...)
+	fmt.Println(len(arr2), cap(arr2)) // 1024 1184（并不是1280）
+}
+```
+
+> 所以小于1024是双倍扩容，大于1024是1.25倍扩容描述是不准确，只有当内存对齐的情况下才是。
