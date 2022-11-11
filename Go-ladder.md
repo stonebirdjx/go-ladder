@@ -23,6 +23,98 @@
   - [访问元素](#%E8%AE%BF%E9%97%AE%E5%85%83%E7%B4%A0)
   - [追加和扩容](#%E8%BF%BD%E5%8A%A0%E5%92%8C%E6%89%A9%E5%AE%B9)
   - [拷贝](#%E6%8B%B7%E8%B4%9D)
+- [map](#map)
+  - [设计原理](#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86)
+    - [hash 函数](#hash-%E5%87%BD%E6%95%B0)
+    - [解决冲突](#%E8%A7%A3%E5%86%B3%E5%86%B2%E7%AA%81)
+  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+    - [bucket数据结构](#bucket%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [初始化](#%E5%88%9D%E5%A7%8B%E5%8C%96-2)
+    - [字面量](#%E5%AD%97%E9%9D%A2%E9%87%8F)
+    - [make](#make-1)
+  - [负载因子](#%E8%B4%9F%E8%BD%BD%E5%9B%A0%E5%AD%90)
+  - [扩容](#%E6%89%A9%E5%AE%B9)
+    - [增量扩容](#%E5%A2%9E%E9%87%8F%E6%89%A9%E5%AE%B9)
+    - [等量扩容](#%E7%AD%89%E9%87%8F%E6%89%A9%E5%AE%B9)
+  - [查找过程](#%E6%9F%A5%E6%89%BE%E8%BF%87%E7%A8%8B)
+  - [插入过程](#%E6%8F%92%E5%85%A5%E8%BF%87%E7%A8%8B)
+- [接口](#%E6%8E%A5%E5%8F%A3)
+  - [两种接口](#%E4%B8%A4%E7%A7%8D%E6%8E%A5%E5%8F%A3)
+  - [类型转换](#%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2)
+    - [指针类型](#%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B)
+    - [结构体类型](#%E7%BB%93%E6%9E%84%E4%BD%93%E7%B1%BB%E5%9E%8B)
+  - [类型断言](#%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80)
+    - [非空接口](#%E9%9D%9E%E7%A9%BA%E6%8E%A5%E5%8F%A3)
+    - [空接口](#%E7%A9%BA%E6%8E%A5%E5%8F%A3)
+- [结构体](#%E7%BB%93%E6%9E%84%E4%BD%93)
+  - [tag 规则](#tag-%E8%A7%84%E5%88%99)
+  - [tag是Struct的一部分](#tag%E6%98%AFstruct%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86)
+  - [tag常见用法](#tag%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95)
+- [for 和 Range](#for-%E5%92%8C-range)
+  - [range for slice](#range-for-slice)
+  - [range for map](#range-for-map)
+  - [range for channel](#range-for-channel)
+  - [range for string](#range-for-string)
+- [defer](#defer)
+  - [defer数据结构](#defer%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [defer的创建和执行](#defer%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%89%A7%E8%A1%8C)
+  - [defer说明](#defer%E8%AF%B4%E6%98%8E)
+- [select](#select)
+  - [逻辑实现](#%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0)
+  - [select 说明](#select-%E8%AF%B4%E6%98%8E)
+- [sync.Mutex](#syncmutex)
+  - [Mutex结构体](#mutex%E7%BB%93%E6%9E%84%E4%BD%93)
+  - [Mutex方法](#mutex%E6%96%B9%E6%B3%95)
+  - [加锁](#%E5%8A%A0%E9%94%81)
+  - [解锁](#%E8%A7%A3%E9%94%81)
+  - [自旋过程](#%E8%87%AA%E6%97%8B%E8%BF%87%E7%A8%8B)
+    - [自旋条件](#%E8%87%AA%E6%97%8B%E6%9D%A1%E4%BB%B6)
+    - [自旋的优势](#%E8%87%AA%E6%97%8B%E7%9A%84%E4%BC%98%E5%8A%BF)
+    - [自旋的问题](#%E8%87%AA%E6%97%8B%E7%9A%84%E9%97%AE%E9%A2%98)
+  - [Mutex模式](#mutex%E6%A8%A1%E5%BC%8F)
+    - [normal模式](#normal%E6%A8%A1%E5%BC%8F)
+    - [starvation模式](#starvation%E6%A8%A1%E5%BC%8F)
+- [sync.RWMutex](#syncrwmutex)
+  - [RWMutex数据结构](#rwmutex%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [RWMutex方法](#rwmutex%E6%96%B9%E6%B3%95)
+    - [Lock() 逻辑](#lock-%E9%80%BB%E8%BE%91)
+    - [Unlock()实现逻辑](#unlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
+    - [RLock()实现逻辑](#rlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
+    - [RUnlock()实现逻辑](#runlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
+- [sync.Cond](#synccond)
+  - [Cond数据结构](#cond%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [Cond 方法](#cond-%E6%96%B9%E6%B3%95)
+  - [Wait 操作](#wait-%E6%93%8D%E4%BD%9C)
+  - [Signal：唤醒最早 Wait 的 goroutine](#signal%E5%94%A4%E9%86%92%E6%9C%80%E6%97%A9-wait-%E7%9A%84-goroutine)
+  - [Cond 的惯用法及使用注意事项](#cond-%E7%9A%84%E6%83%AF%E7%94%A8%E6%B3%95%E5%8F%8A%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
+- [sync.Once](#synconce)
+  - [Once 数据结构](#once-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [once 方法](#once-%E6%96%B9%E6%B3%95)
+- [sync.Pool](#syncpool)
+  - [Pool 的数据结构](#pool-%E7%9A%84%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [poolChain 的实现](#poolchain-%E7%9A%84%E5%AE%9E%E7%8E%B0)
+  - [Put 的实现](#put-%E7%9A%84%E5%AE%9E%E7%8E%B0)
+  - [Get 的实现](#get-%E7%9A%84%E5%AE%9E%E7%8E%B0)
+  - [对象的清理](#%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%B8%85%E7%90%86)
+  - [性能之道](#%E6%80%A7%E8%83%BD%E4%B9%8B%E9%81%93)
+- [sync.Map](#syncmap)
+  - [sync.Map数据结构](#syncmap%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [sync.Map 常用的有以下方法：](#syncmap-%E5%B8%B8%E7%94%A8%E7%9A%84%E6%9C%89%E4%BB%A5%E4%B8%8B%E6%96%B9%E6%B3%95)
+    - [Load](#load)
+    - [Store](#store)
+    - [Delete](#delete)
+  - [总结](#%E6%80%BB%E7%BB%93)
+- [sync.WaitGroup](#syncwaitgroup)
+  - [WaitGroup 数据结构](#waitgroup-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [WaitGroup方法](#waitgroup%E6%96%B9%E6%B3%95)
+    - [Add(delta int)](#adddelta-int)
+    - [Done](#done)
+    - [Wait](#wait)
+- [channel](#channel)
+  - [channel数据结构](#channel%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
+  - [创建管道](#%E5%88%9B%E5%BB%BA%E7%AE%A1%E9%81%93)
+- [泛型原理](#%E6%B3%9B%E5%9E%8B%E5%8E%9F%E7%90%86)
+  - [性能问题：](#%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98)
 - [SSA代码](#ssa%E4%BB%A3%E7%A0%81)
 - [go编译器指令](#go%E7%BC%96%E8%AF%91%E5%99%A8%E6%8C%87%E4%BB%A4)
   - [//go:linkname](#golinkname)
@@ -757,6 +849,1661 @@ func slicecopy(to, fm slice, width uintptr) int {
 ```
 
 > copy 的长度为最短切片长度，不是容量，如dst的长度为0，容量大于src的长度，copy长度依然为0
+
+<div STYLE="page-break-after: always;"></div>
+
+# map
+
+Golang的map使用哈希表作为底层实现，一个哈希表里可以有多个哈希表节点，也即bucket，而每个bucket就保存了map中的一个或一组键值对。
+
+## 设计原理
+
+哈希表是计算机科学中的最重要数据结构之一，这不仅因为它 O(1)O(1) 的读写性能非常优秀，还因为它提供了键值之间的映射。想要实现一个性能优异的哈希表，需要注意两个关键点 —— 哈希函数和冲突解决方法。
+
+### hash 函数
+
+在理想情况下，哈希函数应该能够将不同键映射到不同的索引上，这要求**哈希函数的输出范围大于输入范围**（这往往不现实），但是由于键的数量会远远大于映射的范围，所以在实际使用时，这个理想的效果是不可能实现的。
+
+如果使用结果分布较为均匀的哈希函数，那么哈希的增删改查的时间复杂度为 O(1)；但是如果哈希函数的结果分布不均匀，那么所有操作的时间复杂度可能会达到 O(n)，由此看来，使用好的哈希函数是至关重要的。
+
+### 解决冲突
+
+在通常情况下，哈希函数输入的范围一定会远远大于输出的范围，所以在使用哈希表时一定会遇到冲突，哪怕我们使用了完美的哈希函数，当输入的键足够多也会产生冲突。然而多数的哈希函数都是不够完美的，所以仍然存在发生哈希碰撞的可能，这时就需要一些方法来解决哈希碰撞的问题，常见方法的就是开放寻址法和拉链法。
+
+**开放寻址法**：
+
+这种方法的核心思想是**依次探测和比较数组中的元素以判断目标键值对是否存在于哈希表中**，如果我们使用开放寻址法来实现哈希表，那么实现哈希表底层的数据结构就是数组，不过因为数组的长度有限，向哈希表写入 (author, draven) 这个键值对时会从如下的索引开始遍历：
+
+```go
+index := hash("author") % array.len
+```
+
+当我们向当前哈希表写入新的数据时，如果发生了冲突，就会将键值对写入到下一个索引不为空的位置
+
+开放寻址法中对性能影响最大的是**装载因子**，它是数组中元素的数量与数组大小的比值。随着装载因子的增加，线性探测的平均用时就会逐渐增加，这会影响哈希表的读写性能。当装载率超过 70% 之后，哈希表的性能就会急剧下降，而一旦装载率达到 100%，整个哈希表就会完全失效，这时查找和插入任意元素的时间复杂度都是 O(n)
+
+**拉链法**:
+
+拉链法是哈希表最常见的实现方法，大多数的编程语言都用拉链法实现哈希表，它的实现比较开放地址法稍微复杂一些，但是平均查找的长度也比较短，**各个用于存储节点的内存都是动态申请的，可以节省比较多的存储空间**。
+
+实现拉链法一般会使用数组加上链表，不过一些编程语言会在拉链法的哈希中引入红黑树以优化性能，拉链法会使用链表数组作为哈希底层的数据结构，我们可以将它看成可以扩展的二维数组：
+
+当我们需要将一个键值对 (Key6, Value6) 写入哈希表时，键值对中的键 Key6 都会先经过一个哈希函数，哈希函数返回的哈希会帮助我们选择一个桶，和开放地址法一样，选择桶的方式是直接对哈希返回的结果取模：
+
+```go
+index := hash("Key6") % array.len
+```
+
+选择了桶后就可以遍历当前桶中的链表了，在遍历链表的过程中会遇到以下两种情况：
+
+1. 找到键相同的键值对 — 更新键对应的值；
+2. 没有找到键相同的键值对 — 在链表的末尾追加新的键值对；
+
+## 数据结构
+
+map数据结构由`runtime/map.go/hmap`定义:
+
+```go
+type hmap struct {
+	count     int
+	flags     uint8
+	B         uint8
+	noverflow uint16
+	hash0     uint32
+
+	buckets    unsafe.Pointer
+	oldbuckets unsafe.Pointer
+	nevacuate  uintptr
+
+	extra *mapextra
+}
+
+type mapextra struct {
+	overflow    *[]*bmap
+	oldoverflow *[]*bmap
+	nextOverflow *bmap
+}
+```
+
+1. `count` 表示当前哈希表中的元素数量；
+2. `B` 表示当前哈希表持有的 `buckets` 数量，但是因为哈希表中桶的数量都 2 的倍数，所以该字段会存储对数，也就是 `len(buckets) == 2^B`；
+3. `hash0` 是哈希的种子，它能为哈希函数的结果引入随机性，这个值在创建哈希表时确定，并在调用哈希函数时作为参数传入；
+4. `oldbuckets` 是哈希在扩容时用于保存之前 `buckets` 的字段，它的大小是当前 `buckets` 的一半；
+
+每一个 [`runtime.bmap`](https://draveness.me/golang/tree/runtime.bmap) 都能存储 8 个键值对，当哈希表中存储的数据过多，单个桶已经装满时就会使用 `extra.nextOverflow` 中桶存储溢出的数据。
+
+### bucket数据结构
+
+bucket数据结构由`runtime/map.go/bmap`定义:
+
+```go
+type bmap struct {
+    tophash [8]uint8 //存储哈希值的高8位
+    data    byte[1]  //key value数据:key/key/key/.../value/value/value...
+    overflow *bmap   //溢出bucket的地址
+}
+```
+
+**每个bucket可以存储8个键值对。**所以同一个bucket存放超过8个键值对时就会再创建一个键值对，用类似链表的方式将bucket连接起来。
+
+## 初始化
+
+### 字面量
+
+```go
+hash := map[string]int{
+	"1": 2,
+	"3": 4,
+	"5": 6,
+}
+```
+
+使用字面量初始化的方式最终都会通过 [`cmd/compile/internal/gc.maplit`](https://draveness.me/golang/tree/cmd/compile/internal/gc.maplit) 初始化，我们来分析一下该函数初始化哈希的过程：
+
+```go
+func maplit(n *Node, m *Node, init *Nodes) {
+	a := nod(OMAKE, nil, nil)
+	a.Esc = n.Esc
+	a.List.Set2(typenod(n.Type), nodintconst(int64(n.List.Len())))
+	litas(m, a, init)
+
+	entries := n.List.Slice()
+	if len(entries) > 25 {
+		...
+		return
+	}
+
+	// Build list of var[c] = expr.
+	// Use temporaries so that mapassign1 can have addressable key, elem.
+	...
+}
+```
+
+当哈希表中的元素数量少于或者等于 **25 个**时，编译器会将字面量初始化的结构体转换成以下的代码，将所有的键值对一次加入到哈希表中
+
+一旦哈希表中元素的数量超过了 **25 个**，编译器会创建两个数组分别存储键和值，这些键值对会通过如下所示的 for 循环加入哈希：
+
+### make
+
+```go
+hash := make(map[string]int, 26)
+```
+
+只要我们使用 `make` 创建哈希，使用字面量初始化哈希也只是语言提供的辅助工具，最后调用的都是 [`runtime.makemap`](https://draveness.me/golang/tree/runtime.makemap)：
+
+```go
+func makemap(t *maptype, hint int, h *hmap) *hmap {
+	mem, overflow := math.MulUintptr(uintptr(hint), t.bucket.size)
+	if overflow || mem > maxAlloc {
+		hint = 0
+	}
+
+	if h == nil {
+		h = new(hmap)
+	}
+	h.hash0 = fastrand()
+
+	B := uint8(0)
+	for overLoadFactor(hint, B) {
+		B++
+	}
+	h.B = B
+
+	if h.B != 0 {
+		var nextOverflow *bmap
+		h.buckets, nextOverflow = makeBucketArray(t, h.B, nil)
+		if nextOverflow != nil {
+			h.extra = new(mapextra)
+			h.extra.nextOverflow = nextOverflow
+		}
+	}
+	return h
+}
+```
+
+这个函数会按照下面的步骤执行：
+
+1. 计算哈希占用的内存是否溢出或者超出能分配的最大值；
+2. 调用 [`runtime.fastrand`](https://draveness.me/golang/tree/runtime.fastrand) 获取一个随机的哈希种子；
+3. 根据传入的 `hint` 计算出需要的最小需要的桶的数量；
+4. 使用 [`runtime.makeBucketArray`](https://draveness.me/golang/tree/runtime.makeBucketArray) 创建用于保存桶的数组；
+
+## 负载因子
+
+负载因子用于衡量一个哈希表冲突情况，公式为：
+
+```go
+负载因子 = 键数量/bucket数量
+```
+
+例如，对于一个bucket数量为4，包含4个键值对的哈希表来说，这个哈希表的负载因子为1.
+
+哈希表需要将负载因子控制在合适的大小，超过其阀值需要进行rehash，也即键值对重新组织：
+
+- 哈希因子过小，说明空间利用率低
+- 哈希因子过大，说明冲突严重，存取效率低
+
+每个哈希表的实现对负载因子容忍程度不同，比如Redis实现中负载因子大于1时就会触发rehash，而Go则在在负载因子达到6.5时才会触发rehash，因为Redis的每个bucket只能存1个键值对，而Go的bucket可能存8个键值对，所以Go可以容忍更高的负载因子。
+
+## 扩容
+
+为了保证访问效率，当新元素将要添加进map时，都会检查是否需要扩容，扩容实际上是以空间换时间的手段。 触发扩容的条件有二个：
+
+1. 负载因子 > 6.5时，也即平均每个bucket存储的键值对达到6.5个。
+2. overflow数量 > 2^15时，也即overflow数量超过32768时。
+
+### 增量扩容
+
+当负载因子过大时，就新建一个bucket，新的bucket长度是原来的2倍，然后旧bucket数据搬迁到新的bucket。 考虑到如果map存储了数以亿计的key-value，一次性搬迁将会造成比较大的延时，**Go采用逐步搬迁策略**，即每次访问map时都会触发一次搬迁，每次搬迁2个键值对。
+
+hmap数据结构中oldbuckets成员指身原bucket，而buckets指向了新申请的bucket。新的键值对被插入新的bucket中。 后续对map的访问操作会触发迁移，将oldbuckets中的键值对逐步的搬迁过来。当oldbuckets中的键值对全部搬迁完毕后，删除oldbuckets。
+
+### 等量扩容
+
+所谓等量扩容，实际上并不是扩大容量，buckets数量不变，重新做一遍类似增量扩容的搬迁动作，把松散的键值对重新排列一次，以使bucket的使用率更高，进而保证更快的存取。
+
+经过重新组织后overflow的bucket数量会减少，即节省了空间又会提高访问效率。
+
+## 查找过程
+
+查找过程如下：
+
+1. 跟据key值算出哈希值
+2. 取哈希值低位与hmpa.B取模确定bucket位置
+3. 取哈希值高位在tophash数组中查询
+4. 如果tophash[i]中存储值也哈希值相等，则去找到该bucket中的key值进行比较
+5. 当前bucket没有找到，则继续从下个overflow的bucket中查找。
+6. 如果当前处于搬迁过程，则优先从oldbuckets查找
+
+注：如果查找不到，也不会返回空值，而是返回相应类型的0值。
+
+## 插入过程
+
+新员素插入过程如下：
+
+1. 跟据key值算出哈希值
+2. 取哈希值低位与hmap.B取模确定bucket位置
+3. 查找该key是否已经存在，如果存在则直接更新值
+4. 如果没找到将key，将key插入
+
+<div STYLE="page-break-after: always;"></div>
+
+# 接口
+
+## 两种接口
+
+Go 语言根据接口类型是否包含一组方法将接口类型分成了两类：
+
+- 使用 [`runtime.iface`](https://draveness.me/golang/tree/runtime.iface) 结构体表示包含方法的接口
+- 使用 [`runtime.eface`](https://draveness.me/golang/tree/runtime.eface) 结构体表示不包含任何方法的 `interface{}` 类型；
+
+[`runtime.eface`](https://draveness.me/golang/tree/runtime.eface) 结构体在 Go 语言中的定义是这样的：
+
+```go
+type eface struct { // 16 字节
+	_type *_type
+	data  unsafe.Pointer
+}
+```
+
+由于 `interface{}` 类型不包含任何方法，所以它的结构也相对来说比较简单，只包含指向底层数据和类型的两个指针。从上述结构我们也能推断出 — Go 语言的任意类型都可以转换成 `interface{}`。
+
+另一个用于表示接口的结构体是 [`runtime.iface`](https://draveness.me/golang/tree/runtime.iface)，这个结构体中有指向原始数据的指针 `data`，不过更重要的是 [`runtime.itab`](https://draveness.me/golang/tree/runtime.itab) 类型的 `tab` 字段。
+
+```go
+type iface struct { // 16 字节
+	tab  *itab
+	data unsafe.Pointer
+}
+```
+
+接下来我们将详细分析 Go 语言接口中的这两个类型，即 [`runtime._type`](https://draveness.me/golang/tree/runtime._type) 和 [`runtime.itab`](https://draveness.me/golang/tree/runtime.itab)。
+
+下面是运行时包中的结构体，其中包含了很多类型的元信息，例如：类型的大小、哈希、对齐以及种类等。
+
+**_type 结构体**
+
+```go
+type _type struct {
+	size       uintptr
+	ptrdata    uintptr
+	hash       uint32
+	tflag      tflag
+	align      uint8
+	fieldAlign uint8
+	kind       uint8
+	equal      func(unsafe.Pointer, unsafe.Pointer) bool
+	gcdata     *byte
+	str        nameOff
+	ptrToThis  typeOff
+}
+```
+
+- `size` 字段存储了类型占用的内存空间，为内存空间的分配提供信息；
+- `hash` 字段能够帮助我们快速确定类型是否相等；
+- `equal` 字段用于判断当前类型的多个对象是否相等，该字段是为了减少 Go 语言二进制包大小从 `typeAlg` 结构体中迁移过来的；
+
+**itab 结构体**
+
+```go
+type itab struct { // 32 字节
+	inter *interfacetype
+	_type *_type
+	hash  uint32
+	_     [4]byte
+	fun   [1]uintptr
+}
+```
+
+## 类型转换
+
+### 指针类型
+
+```go
+package main
+
+type Duck interface {
+	Quack()
+}
+
+type Cat struct {
+	Name string
+}
+
+//go:noinline
+func (c *Cat) Quack() {
+	println(c.Name + " meow")
+}
+
+func main() {
+	var c Duck = &Cat{Name: "draven"}
+	c.Quack()
+}
+```
+
+我们先来分析结构体 `Cat` 的初始化过程：
+
+```go
+LEAQ	type."".Cat(SB), AX                ;; AX = &type."".Cat
+MOVQ	AX, (SP)                           ;; SP = &type."".Cat
+CALL	runtime.newobject(SB)              ;; SP + 8 = &Cat{}
+MOVQ	8(SP), DI                          ;; DI = &Cat{}
+MOVQ	$6, 8(DI)                          ;; StringHeader(DI.Name).Len = 6
+LEAQ	go.string."draven"(SB), AX         ;; AX = &"draven"
+MOVQ	AX, (DI)                           ;; StringHeader(DI.Name).Data = &"draven"
+```
+
+1. 获取 `Cat` 结构体类型指针并将其作为参数放到栈上；
+2. 通过 `CALL` 指定调用 [`runtime.newobject`](https://draveness.me/golang/tree/runtime.newobject) 函数，这个函数会以 `Cat` 结构体类型指针作为入参，分配一片新的内存空间并将指向这片内存空间的指针返回到 SP+8 上；
+3. SP+8 现在存储了一个指向 `Cat` 结构体的指针，我们将栈上的指针拷贝到寄存器 `DI` 上方便操作；
+4. 由于 `Cat` 中只包含一个字符串类型的 `Name` 变量，所以在这里会分别将字符串地址 `&"draven"` 和字符串长度 6 设置到结构体上，最后三行汇编指令等价于 `cat.Name = "draven"`；
+
+### 结构体类型
+
+```go
+package main
+
+type Duck interface {
+	Quack()
+}
+
+type Cat struct {
+	Name string
+}
+
+//go:noinline
+func (c Cat) Quack() {
+	println(c.Name + " meow")
+}
+
+func main() {
+	var c Duck = Cat{Name: "draven"}
+	c.Quack()
+}
+```
+
+## 类型断言
+
+### 非空接口
+
+```go
+func main() {
+	var c Duck = &Cat{Name: "draven"}
+	switch c.(type) {
+	case *Cat:
+		cat := c.(*Cat)
+		cat.Quack()
+	}
+}
+```
+
+我们将编译得到的汇编指令分成两部分分析，第一部分是变量的初始化，第二部分是类型断言，第一部分的代码如下：
+
+```go
+00000 TEXT	"".main(SB), ABIInternal, $32-0
+...
+00029 XORPS	X0, X0
+00032 MOVUPS	X0, ""..autotmp_4+8(SP)
+00037 LEAQ	go.string."draven"(SB), AX
+00044 MOVQ	AX, ""..autotmp_4+8(SP)
+00049 MOVQ	$6, ""..autotmp_4+16(SP)
+```
+
+0037 ~ 0049 三个指令初始化了 `Duck` 变量，`Cat` 结构体初始化在 SP+8 ~ SP+24 上。因为 Go 语言的编译器做了一些优化，所以代码中没有[`runtime.iface`](https://draveness.me/golang/tree/runtime.iface) 的构建过程，不过对于这一节要介绍的类型断言和转换没有太多的影响。下面进入类型转换的部分：
+
+```go
+00058 CMPL  go.itab.*"".Cat,"".Duck+16(SB), $593696792
+                                        ;; if (c.tab.hash != 593696792) {
+00068 JEQ   80                          ;;
+00070 MOVQ  24(SP), BP                  ;;      BP = SP+24
+00075 ADDQ  $32, SP                     ;;      SP += 32
+00079 RET                               ;;      return
+                                        ;; } else {
+00080 LEAQ  ""..autotmp_4+8(SP), AX     ;;      AX = &Cat{Name: "draven"}
+00085 MOVQ  AX, (SP)                    ;;      SP = AX
+00089 CALL  "".(*Cat).Quack(SB)         ;;      SP.Quack()
+00094 JMP   70                          ;;      ...
+                                        ;;      BP = SP+24
+                                        ;;      SP += 32
+                                        ;;      return
+                                        ;; }
+```
+
+switch语句生成的汇编指令会将目标类型的 `hash` 与接口变量中的 `itab.hash` 进行比较：
+
+1. 获取 SP+8 存储的 `Cat` 结构体指针；
+2. 将结构体指针拷贝到栈顶；
+3. 调用 `Quack` 方法；
+4. 恢复函数的栈并返回；
+
+### 空接口
+
+当我们使用空接口类型 `interface{}` 进行类型断言时，如果不关闭 Go 语言编译器的优化选项，生成的汇编指令是差不多的。编译器会省略将 `Cat` 结构体转换成 [`runtime.eface`](https://draveness.me/golang/tree/runtime.eface) 的过程：
+
+```go
+func main() {
+	var c interface{} = &Cat{Name: "draven"}
+	switch c.(type) {
+	case *Cat:
+		cat := c.(*Cat)
+		cat.Quack()
+	}
+}
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+# 结构体
+
+Go的struct声明允许字段附带`Tag`来对字段做一些标记。
+
+## tag 规则
+
+`Tag`本身是一个字符串，但字符串中却是：`以空格分隔的 key:value 对`。
+
+- `key`: 必须是非空字符串，字符串不能包含控制字符、空格、引号、冒号。
+- `value`: 以双引号标记的字符串
+- 注意：冒号前后不能有空格
+
+如下代码所示，如此写没有实际意义，仅用于说明`Tag`规则
+
+```go
+type Server struct {
+    ServerName string `key1: "value1" key11:"value11"`
+    ServerIP   string `key2: "value2"`
+}
+```
+
+## tag是Struct的一部分
+
+```go
+// A StructField describes a single field in a struct.
+type StructField struct {
+    // Name is the field name.
+    Name string
+    ...
+    Type      Type      // field type
+    Tag       StructTag // field tag string
+    ...
+}
+
+```
+
+ ## tag常见用法
+
+常见的tag用法，主要是JSON、Bson数据解析、ORM映射、protobuf、http参数解析（header、query）等。
+
+<div STYLE="page-break-after: always;"></div>
+
+# for 和 Range
+
+range是Golang提供的一种迭代遍历手段，可操作的类型有数组、切片、Map、channel等，实际使用频率非常高。
+
+## range for slice
+
+```go
+// The loop we generate:
+//   for_temp := range
+//   len_temp := len(for_temp)
+//   for index_temp = 0; index_temp < len_temp; index_temp++ {
+//           value_temp = for_temp[index_temp]
+//           index = index_temp
+//           value = value_temp
+//           original body
+//   }
+```
+
+遍历slice前会先获以slice的长度len_temp作为循环次数，循环体中，每次循环会先获取元素值，如果for-range中接收index和value的话，则会对index和value进行一次赋值。
+
+由于循环开始前循环次数就已经确定了，所以循环过程中新添加的元素是没办法遍历到的。
+
+另外，数组与数组指针的遍历过程与slice基本一致，不再赘述。
+
+## range for map
+
+```go
+// The loop we generate:
+//   var hiter map_iteration_struct
+//   for mapiterinit(type, range, &hiter); hiter.key != nil; mapiternext(&hiter) {
+//           index_temp = *hiter.key
+//           value_temp = *hiter.val
+//           index = index_temp
+//           value = value_temp
+//           original body
+//   }
+```
+
+遍历map时没有指定循环次数，循环体与遍历slice类似。由于map底层实现与slice不同，map底层使用hash表实现，插入数据位置是随机的，所以遍历过程中新插入的数据不能保证遍历到。
+
+## range for channel
+
+```go
+// The loop we generate:
+//   for {
+//           index_temp, ok_temp = <-range
+//           if !ok_temp {
+//                   break
+//           }
+//           index = index_temp
+//           original body
+//   }
+```
+
+channel遍历是依次从channel中读取数据,读取前是不知道里面有多少个元素的。如果channel中没有元素，则会阻塞等待，如果channel已被关闭，则会解除阻塞并退出循环。
+
+注：
+
+- 上述注释中index_temp实际上描述是有误的，应该为value_temp，因为index对于channel是没有意义的。
+- 使用for-range遍历channel时只能获取一个返回值。
+
+## range for string
+
+遍历字符串的过程与数组、切片和哈希表非常相似，只是在遍历时会获取字符串中索引对应的字节并将字节转换成 `rune`。我们在遍历字符串时拿到的值都是 `rune` 类型的变量，`for i, r := range s {}` 
+
+<div STYLE="page-break-after: always;"></div>
+
+# defer
+
+## defer数据结构
+
+源码包`src/src/runtime/runtime2.go:_defer`定义了defer的数据结构：
+
+```go
+type _defer struct {
+    sp      uintptr   //函数栈指针
+    pc      uintptr   //程序计数器
+    fn      *funcval  //函数地址
+    link    *_defer   //指向自身结构的指针，用于链接多个defer
+}
+```
+
+我们知道defer后面一定要接一个函数的，所以defer的数据结构跟一般函数类似，也有栈地址、程序计数器、函数地址等等。
+
+## defer的创建和执行
+
+源码包`src/runtime/panic.go`定义了两个方法分别用于创建defer和执行defer。
+
+- deferproc()： 在声明defer处调用，其将defer函数存入goroutine的链表中；
+- deferreturn()：在return指令，准确的讲是在ret指令前调用，其将defer从goroutine链表中取出并执行。
+
+可以简单这么理解，在编译在阶段，声明defer处插入了函数deferproc()，在函数return前插入了函数deferreturn()。
+
+## defer说明
+
+- defer定义的延迟函数参数在defer语句出时就已经确定下来了
+- defer定义顺序与实际执行顺序相反
+- return不是原子操作，执行过程是: 保存返回值(若有)-->执行defer（若有）-->执行ret跳转
+- 申请资源后立即使用defer关闭资源是好习惯
+
+<div STYLE="page-break-after: always;"></div>
+
+# select
+
+select是Golang在语言层面提供的多路IO复用的机制，其可以检测多个channel是否ready(即是否可读或可写)。
+
+## 逻辑实现
+
+源码包`src/runtime/select.go:selectgo()`定义了select选择case的函数：
+
+```go
+func selectgo(cas0 *scase, order0 *uint16, ncases int) (int, bool)
+```
+
+函数参数：
+
+- cas0为scase数组的首地址，selectgo()就是从这些scase中找出一个返回。
+- order0为一个两倍cas0数组长度的buffer，保存scase随机序列pollorder和scase中channel地址序列lockorder
+  - pollorder：每次selectgo执行都会把scase序列打乱，以达到随机检测case的目的。
+  - lockorder：所有case语句中channel序列，以达到去重防止对channel加锁时重复加锁的目的。
+- ncases表示scase数组的长度
+
+函数返回值：
+
+1. int： 选中case的编号，这个case编号跟代码一致
+2. bool: 是否成功从channle中读取了数据，如果选中的case是从channel中读数据，则该返回值表示是否读取成功。
+
+## select 说明
+
+- select语句中除default外，每个case操作一个channel，要么读要么写
+- select语句中除default外，各case执行顺序是随机的
+- select语句中如果没有default语句，则会阻塞等待任一case
+- select语句中读操作要判断是否成功读取，关闭的channel也可以读取
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.Mutex
+
+## Mutex结构体
+
+源码包`src/sync/mutex.go:Mutex`定义了互斥锁的数据结构：
+
+```go
+type Mutex struct {
+    state int32
+    sema  uint32
+}
+```
+
+- Mutex.state表示互斥锁的状态，比如是否被锁定等。
+- Mutex.sema表示信号量，协程阻塞等待该信号量，解锁的协程释放信号量从而唤醒等待信号量的协程。
+
+我们看到Mutex.state是32位的整型变量，内部实现时把该变量分成四份，用于记录Mutex的四种状态。
+
+下图展示Mutex的内存布局：
+
+state: 29bit（Waiter）、1bit（Starving）、1bit（Woken）、1bit（Locked）
+
+- Locked: 表示该Mutex是否已被锁定，0：没有锁定 1：已被锁定。
+- Woken: 表示是否有协程已被唤醒，0：没有协程唤醒 1：已有协程唤醒，正在加锁过程中。
+- Starving：表示该Mutex是否处理饥饿状态， 0：没有饥饿 1：饥饿状态，说明有协程阻塞了超过1ms。
+- Waiter: 表示阻塞等待锁的协程个数，协程解锁时根据此值来判断是否需要释放信号量。
+
+协程之间抢锁实际上是抢给Locked赋值的权利，能给Locked域置1，就说明抢锁成功。抢不到的话就阻塞等待Mutex.sema信号量，一旦持有锁的协程解锁，等待的协程会依次被唤醒。
+
+Woken和Starving主要用于控制协程间的抢锁过程，后面再进行了解。
+
+## Mutex方法
+
+Mutext对外提供两个方法，实际上也只有这两个方法：
+
+- Lock() : 加锁方法
+- Unlock(): 解锁方法
+
+下面我们分析一下加锁和解锁的过程，加锁分成功和失败两种情况，成功的话直接获取锁，失败后当前协程被阻塞，同样，解锁时跟据是否有阻塞协程也有两种处理。
+
+## 加锁
+
+假定当前只有一个协程在加锁，没有其他协程干扰，加锁过程会去判断Locked标志位是否为0，如果是0则把Locked位置1，代表加锁成功。从上图可见，加锁成功后，只是Locked位置1，其他状态位没发生变化。
+
+假定加锁时，锁已被其他协程占用了，当协程B对一个已被占用的锁再次加锁时，Waiter计数器增加了1，此时协程B将被阻塞，直到Locked值变为0后才会被唤醒。
+
+## 解锁
+
+假定解锁时，没有其他协程阻塞，由于没有其他协程阻塞等待加锁，所以此时解锁时只需要把Locked位置为0即可，不需要释放信号量。
+
+假定解锁时，有1个或多个协程阻塞，协程A解锁过程分为两个步骤，一是把Locked位置0，二是查看到Waiter>0，所以释放一个信号量，唤醒一个阻塞的协程，被唤醒的协程B把Locked位置1，于是协程B获得锁。
+
+## 自旋过程
+
+加锁时，如果当前Locked位为1，说明该锁当前由其他协程持有，尝试加锁的协程并不是马上转入阻塞，而是会持续的探测Locked位是否变为0，这个过程即为自旋过程。
+
+自旋的好处是，当加锁失败时不必立即转入阻塞，有一定机会获取到锁，这样可以避免协程的切换。
+
+自旋对应于CPU的"PAUSE"指令，CPU对该指令什么都不做，相当于CPU空转，对程序而言相当于sleep了一小段时间，时间非常短，当前实现是30个时钟周期。
+
+自旋过程中会持续探测Locked是否变为0，连续两次探测间隔就是执行这些PAUSE指令，它不同于sleep，不需要将协程转为睡眠状态。
+
+### 自旋条件
+
+加锁时程序会自动判断是否可以自旋，无限制的自旋将会给CPU带来巨大压力，所以判断是否可以自旋就很重要了。
+
+自旋必须满足以下所有条件：
+
+- 自旋次数要足够小，通常为4，即自旋最多4次
+- CPU核数要大于1，否则自旋没有意义，因为此时不可能有其他协程释放锁
+- 协程调度机制中的Process数量要大于1，比如使用GOMAXPROCS()将处理器设置为1就不能启用自旋
+- 协程调度机制中的可运行队列必须为空，否则会延迟协程调度
+
+可见，自旋的条件是很苛刻的，总而言之就是不忙的时候才会启用自旋。
+
+### 自旋的优势
+
+自旋的优势是更充分的利用CPU，尽量避免协程切换。因为当前申请加锁的协程拥有CPU，如果经过短时间的自旋可以获得锁，当前协程可以继续运行，不必进入阻塞状态。
+
+### 自旋的问题
+
+如果自旋过程中获得锁，那么之前被阻塞的协程将无法获得锁，如果加锁的协程特别多，每次都通过自旋获得锁，那么之前被阻塞的进程将很难获得锁，从而进入饥饿状态。
+
+为了避免协程长时间无法获取锁，自1.8版本以来增加了一个状态，即Mutex的Starving状态。这个状态下不会自旋，一旦有协程释放锁，那么一定会唤醒一个协程并成功加锁。
+
+## Mutex模式
+
+前面分析加锁和解锁过程中只关注了Waiter和Locked位的变化，现在我们看一下Starving位的作用。
+
+每个Mutex都有两个模式，称为Normal和Starving。下面分别说明这两个模式。
+
+### normal模式
+
+默认情况下，Mutex的模式为normal。
+
+该模式下，协程如果加锁不成功不会立即转入阻塞排队，而是判断是否满足自旋的条件，如果满足则会启动自旋过程，尝试抢锁。
+
+### starvation模式
+
+自旋过程中能抢到锁，一定意味着同一时刻有协程释放了锁，我们知道释放锁时如果发现有阻塞等待的协程，还会释放一个信号量来唤醒一个等待协程，被唤醒的协程得到CPU后开始运行，此时发现锁已被抢占了，自己只好再次阻塞，不过阻塞前会判断自上次阻塞到本次阻塞经过了多长时间，如果超过1ms的话，会将Mutex标记为"饥饿"模式，然后再阻塞。
+
+处于饥饿模式下，不会启动自旋过程，也即一旦有协程释放了锁，那么一定会唤醒协程，被唤醒的协程将会成功获取锁，同时也会把等待计数减1。
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.RWMutex
+
+实现读写锁需要解决如下几个问题：
+
+1. 写锁需要阻塞写锁：一个协程拥有写锁时，其他协程写锁定需要阻塞
+2. 写锁需要阻塞读锁：一个协程拥有写锁时，其他协程读锁定需要阻塞
+3. 读锁需要阻塞写锁：一个协程拥有读锁时，其他协程写锁定需要阻塞
+4. 读锁不能阻塞读锁：一个协程拥有读锁时，其他协程也可以拥有读锁
+
+## RWMutex数据结构
+
+源码包`src/sync/rwmutex.go:RWMutex`定义了读写锁数据结构：
+
+```go
+type RWMutex struct {
+    w           Mutex  //用于控制多个写锁，获得写锁首先要获取该锁，如果有一个写锁在进行，那么再到来的写锁将会阻塞于此
+    writerSem   uint32 //写阻塞等待的信号量，最后一个读者释放锁时会释放信号量
+    readerSem   uint32 //读阻塞的协程等待的信号量，持有写锁的协程释放锁后会释放信号量
+    readerCount int32  //记录读者个数
+    readerWait  int32  //记录写阻塞时读者个数
+}
+```
+
+## RWMutex方法
+
+RWMutex提供4个简单的接口来提供服务：
+
+- RLock()：读锁定
+- RUnlock()：解除读锁定
+- Lock(): 写锁定，与Mutex完全一致
+- Unlock()：解除写锁定，与Mutex完全一致
+
+### Lock() 逻辑
+
+写锁定操作需要做两件事：
+
+- 获取互斥锁
+- 阻塞等待所有读操作结束（如果有的话）
+
+### Unlock()实现逻辑
+
+解除写锁定要做两件事：
+
+- 唤醒因读锁定而被阻塞的协程（如果有的话）
+- 解除互斥锁
+
+### RLock()实现逻辑
+
+读锁定需要做两件事：
+
+- 增加读操作计数，即readerCount++
+- 阻塞等待写操作结束(如果有的话)
+
+### RUnlock()实现逻辑
+
+解除读锁定需要做两件事：
+
+- 减少读操作计数，即readerCount--
+- 唤醒等待写操作的协程（如果有的话）
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.Cond
+
+cond 使用场景：单生产者多消费者
+
+## Cond数据结构
+
+`sync.Cond` 的 struct 定义如下：
+
+```go
+type Cond struct {
+	noCopy noCopy
+
+	// L is held while observing or changing the condition
+	L Locker
+
+	notify  notifyList
+	checker copyChecker
+}
+```
+
+其中最核心的就是 `notifyList` 这个数据结构, 其源码在 runtime/sema.go
+
+```go
+type notifyList struct {
+    wait uint32
+	notify uint32
+
+	// List of parked waiters.
+	lock mutex
+	head *sudog
+	tail *sudog
+}
+```
+
+以上代码中，notifyList 包含两类属性：
+
+1. `wait` 和 `notify`。这两个都是ticket值，每次调 Wait 时，ticket 都会递增，作为 goroutine 本次 Wait 的唯一标识，便于下次恢复。 wait 表示下次 `sync.Cond` Wait 的 ticket 值，notify 表示下次要唤醒的 goroutine 的 ticket 的值。这两个值都只增不减的。利用 wait 和 notify 可以实现 goroutine FIFO式的唤醒，具体见下文。
+2. `head` 和 `tail`。等待在这个 `sync.Cond` 上的 goroutine 链表，head -> *sudog -> *sudog -> *sudog ... -> tail
+
+## Cond 方法
+
+我们看下 `sync.Cond` 接口的用法:
+
+1. `sync.NewCond(l Locker)`: 新建一个 sync.Cond 变量。注意该函数需要一个 Locker 作为必填参数，这是因为在 `cond.Wait()` 中底层会涉及到 Locker 的锁操作。
+2. `cond.Wait()`: 等待被唤醒。唤醒期间会解锁并切走 goroutine。
+3. `cond.Signal()`: 只唤醒一个最先 Wait 的 goroutine。对应的另外一个唤醒函数是 `Broadcast`，区别是 `Signa`l 一次只会唤醒一个 goroutine，而 `Broadcast` 会将全部 Wait 的 goroutine 都唤醒。
+
+## Wait 操作
+
+```go
+func (c *Cond) Wait() {
+	c.checker.check()
+	// 获取ticket
+	t := runtime_notifyListAdd(&c.notify)
+	// 注意这里，必须先解锁，因为 runtime_notifyListWait 要切走 goroutine
+	// 所以这里要解锁，要不然其他 goroutine 没法获取到锁了
+	c.L.Unlock()
+	// 将当前 goroutine 加入到 notifyList 里面，然后切走 goroutine
+	runtime_notifyListWait(&c.notify, t)
+	// 这里已经唤醒了，因此需要再度锁上
+	c.L.Lock()
+}
+```
+
+Wait 函数虽然短短几行代码，但里面蕴含了很多重要的逻辑。整个逻辑可以拆分为 4 步：
+
+第一步：调用 `runtime_notifyListAdd` 获取 ticket。ticket 是一次 Wait 操作的唯一标识，可以用来防止重复唤醒以及保证 FIFO 式的唤醒。
+
+第二步：`c.L.Unlock()` 先把用户传进来的 locker 解锁。因为在 `runtime_notifyListWait` 中会调用 `gopark` 切走 goroutine。因此在切走之前，必须先把 Locker 解锁了。要不然其他 goroutine 获取不到这个锁，将会造成死锁问题。
+
+第三步：`runtime_notifyListWait` 将当前 goroutine 加入到 notifyList 里面，然后切走goroutine。
+
+## Signal：唤醒最早 Wait 的 goroutine
+
+```go
+func (c *Cond) Signal() {
+	runtime_notifyListNotifyOne(&c.notify)
+}
+
+func notifyListNotifyOne(l *notifyList) {
+	// 如果二者相等，说明没有需要唤醒的 goroutine
+	if atomic.Load(&l.wait) == atomic.Load(&l.notify) {
+		return
+	}
+
+	lock(&l.lock)
+
+	t := l.notify
+	if t == atomic.Load(&l.wait) {
+		unlock(&l.lock)
+		return
+	}
+
+	// Update the next notify ticket number.
+	atomic.Store(&l.notify, t+1)
+
+	for p, s := (*sudog)(nil), l.head; s != nil; p, s = s, s.next {
+		if s.ticket == t {
+			n := s.next
+			if p != nil {
+				p.next = n
+			} else {
+				l.head = n
+			}
+			if n == nil {
+				l.tail = p
+			}
+			unlock(&l.lock)
+			s.next = nil
+
+			// 唤醒 goroutine
+			readyWithTime(s, 4)
+			return
+		}
+	}
+	unlock(&l.lock)
+}
+```
+
+那么，每次唤醒的时候，也会对应一个 `notify` 属性。例如当前 `notify` 属性等于 1，则去逐个检查 `notifyList` 链表中 元素，找到 `ticket` 等于 1 的 goroutine 并唤醒，同时将 `notify` 属性进行原子递增。
+
+## Cond 的惯用法及使用注意事项
+
+sync.Cond 在使用时还是有一些需要注意的地方，否则使用不当将造成代码错误。
+
+1. sync.Cond不能拷贝，否则将会造成`panic("sync.Cond is copied")`错误
+2. Wait 的调用一定要放在 Lock 和 UnLock 中间，否则将会造成 `panic("sync: unlock of unlocked mutex")` 错误。代码如下:
+
+```go
+c.L.Lock()
+for !condition() {
+       c.Wait()
+}
+... make use of condition ...
+c.L.Unlock()
+```
+
+1. Wait 调用的条件检查一定要放在 for 循环中，代码如上。这是因为当 Boardcast 唤醒时，有可能其他 goroutine 先于当前 goroutine 唤醒并抢到锁，导致轮到当前 goroutine 抢到锁的时候，条件又不再满足了。因此，需要将条件检查放在 for 循环中。
+2. Signal 和 Boardcast 两个唤醒操作不需要加锁。
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.Once
+
+`sync.Once` 是 Go 标准库提供的使函数只执行一次的实现，常应用于单例模式，例如初始化配置、保持数据库连接等
+
+## Once 数据结构
+
+```go
+// 一个 Once 实例在使用之后不能被拷贝继续使用
+type Once struct {
+   done uint32 // done 表明了动作是否已经执行
+   m    Mutex
+}
+```
+
+## once 方法
+
+Once 对外仅暴露了唯一的方法 `Do(f func())`，f 为需要执行的函数。
+
+```go
+func (o *Once) Do(f func()) {
+    if atomic.LoadUint32(&o.done) == 0 {
+      o.doSlow(f)
+   }
+}
+```
+
+- 不要拷贝一个 sync.Once 使用或作为参数传递，然后去执行 `Do`，值传递时 `done` 会归0，无法起到限制一次的效果。
+- 不要在 `Do` 的 `f` 中嵌套调用 `Do`
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.Pool 
+
+sync.Pool 是 Golang 内置的对象池技术，可用于缓存临时对象，避免因频繁建立临时对象所带来的消耗以及对 GC 造成的压力。
+
+在许多知名的开源库中，都可以看到 sync.Pool 的大量使用。例如，HTTP 框架 Gin 用 sync.Pool 来复用每个请求都会创建的 `gin.Context` 对象。
+
+> sync.Pool 不仅是并发安全的，而且实现了 lock free
+
+## Pool 的数据结构
+
+sync.Pool 的 代码定义如下sync/pool.go
+
+```go
+type Pool struct {
+	noCopy noCopy
+
+	local     unsafe.Pointer // local fixed-size per-P pool, actual type is [P]poolLocal
+	localSize uintptr        // size of the local array
+
+	victim     unsafe.Pointer // local from previous cycle
+	victimSize uintptr        // size of victims array
+
+	New func() interface{}
+}
+```
+
+在 GMP 调度模型中，M 代表了系统线程，而同一时间一个 M 上只能同时运行一个 P。那么也就意味着，从线程维度来看，在 P 上的逻辑都是单线程执行的。
+
+sync.Pool 就是充分利用了 GMP 这一特点。对于同一个 sync.Pool ，每个 P 都有一个自己的本地对象池 `poolLocal`。
+
+其中，我们需要着重关注以下三个字段：
+
+- `local` 是个数组，长度为 P 的个数。其元素类型是 `poolLocal`。这里面存储着各个 P 对应的本地对象池。可以近似的看做 `[P]poolLocal`。
+- `localSize`。代表 local 数组的长度。因为 P 可以在运行时通过调用 runtime.GOMAXPROCS 进行修改, 因此我们还是得通过 `localSize` 来对应 `local` 数组的长度。
+- `New` 就是用户提供的创建对象的函数。这个选项也不是必需。当不填的时候，Get 有可能返回 nil。
+
+我们再看下本地对象池 `poolLocal` 的定义，如下：
+
+```go
+// 每个 P 都会有一个 poolLocal 的本地
+type poolLocal struct {
+	poolLocalInternal
+
+	pad [128 - unsafe.Sizeof(poolLocalInternal{})%128]byte
+}
+
+type poolLocalInternal struct {
+	private interface{}
+	shared  poolChain
+}
+```
+
+`pad` 变量的作用在下文会讲到，这里暂时不展开讨论。我们可以直接看 poolLocalInternal 的定义，其中每个本地对象池，都会包含两项：
+
+- `private` 私有变量。Get 和 Put 操作都会优先存取 private 变量，如果 private 变量可以满足情况，则不再深入进行其他的复杂操作。
+- `shared`。其类型为 poolChain，从名字不难看出这个是链表结构，这个就是 P 的本地对象池了。
+
+## poolChain 的实现
+
+poolChain 是个链表结构，其链表头 HEAD 指向最新分配的元素项。链表中的每一项是一个 poolDequeue 对象。poolDequeue 本质上是一个 ring buffer 结构。其对应的代码定义如下：
+
+```go
+type poolChain struct {
+	head *poolChainElt
+	tail *poolChainElt
+}
+
+type poolChainElt struct {
+	poolDequeue
+	next, prev *poolChainElt
+}
+
+type poolDequeue struct {
+	headTail uint64
+	vals []eface
+}
+```
+
+为什么 poolChain 是这么一个链表 + ring buffer 的复杂结构呢？简单的每个链表项为单一元素不行吗？
+
+使用 ring buffer 是因为它有以下优点：
+
+1. 预先分配好内存，且分配的内存项可不断复用。
+2. 由于ring buffer 本质上是个数组，是连续内存结构，非常利于 CPU Cache。在访问poolDequeue 某一项时，其附近的数据项都有可能加载到统一 Cache Line 中，访问速度更快。
+
+## Put 的实现
+
+```go
+func (p *Pool) Put(x interface{}) {
+	if x == nil {
+		return
+	}
+
+	l, _ := p.pin()
+
+	if l.private == nil {
+		l.private = x
+		x = nil
+	}
+
+	if x != nil {
+		l.shared.pushHead(x)
+	}
+
+	runtime_procUnpin()
+}
+```
+
+在 Put 函数中首先调用了 `pin()`。`pin` 函数非常重要，它有三个作用：
+
+1. **初始化或者重新创建local数组。** 当 local 数组为空，或者和当前的 `runtime.GOMAXPROCS` 不一致时，将触发重新创建 local 数组，以和 P 的个数保持一致。
+2. 取当前 P 对应的本地缓存池 poolLocal。其实代码逻辑很简单，就是从 local 数组中根据索引取元素。
+3. **防止当前 P 被抢占。** 这点非常重要。
+
+## Get 的实现
+
+```go
+func (p *Pool) Get() interface{} {
+	l, pid := p.pin()
+
+	x := l.private
+	l.private = nil
+
+	if x == nil {
+		x, _ = l.shared.popHead()
+
+		if x == nil {
+			x = p.getSlow(pid)
+		}
+	}
+	runtime_procUnpin()
+
+	if x == nil && p.New != nil {
+		x = p.New()
+	}
+	return x
+}
+```
+
+其中 `pin()` 的作用和 `private` 对象的作用，和 PUT 操作中的一致
+
+**从当前 P 的 poolChain 中取数据时，是从链表头部开始取数据。** 具体来说，先取位于链表头的 poolDequeue，然后从 poolDequeue 的头部开始取数据。
+
+## 对象的清理
+
+sync.Pool 没有对外开放对象清理策略和清理接口,当窃取其他 P 的对象时，会逐步淘汰已经为空的 poolDequeue。但除此之外，sync.Pool 一定也还有其他的对象清理机制.
+
+Golang 对 sync.Pool 的清理逻辑非常简单粗暴。首先每个被使用的 sync.Pool，都会在初始化阶段被添加到全局变量 `allPools []*Pool` 对象中。Golang 的 runtime 将会在 **每轮 GC 前**，触发调用 poolCleanup 函数，清理 allPools。
+
+```go
+func poolCleanup() {
+	for _, p := range oldPools {
+		p.victim = nil
+		p.victimSize = 0
+	}
+
+	for _, p := range allPools {
+		p.victim = p.local
+		p.victimSize = p.localSize
+		p.local = nil
+		p.localSize = 0
+	}
+
+	oldPools, allPools = allPools, nil
+}
+```
+
+## 性能之道
+
+回顾下 sync.Pool 的实现细节，总结来说，sync.Pool 利用以下手段将程序性能做到了极致：
+
+1. 利用 GMP 的特性，为每个 P 创建了一个本地对象池 poolLocal，尽量减少并发冲突。
+2. 每个 poolLocal 都有一个 private 对象，优先存取 private 对象，可以避免进入复杂逻辑。
+3. 在 Get 和 Put 期间，利用 `pin` 锁定当前 P，防止 goroutine 被抢占，造成程序混乱。
+4. 在获取对象期间，利用对象窃取的机制，从其他 P 的本地对象池以及 victim 中获取对象。
+5. 充分利用 CPU Cache 特性，提升程序性能。
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.Map
+
+Go 的内建 `map` 是不支持并发写操作的，原因是 `map` 写操作不是并发安全的，当你尝试多个 Goroutine 操作同一个 `map`，会产生报错：`fatal error: concurrent map writes`。
+
+`sync.Map` 的实现原理可概括为：
+
+- 通过 read 和 dirty 两个字段将读写分离，读的数据存在只读字段 read 上，将最新写入的数据则存在 dirty 字段上
+- 读取时会先查询 read，不存在再查询 dirty，写入时则只写入 dirty
+- 读取 read 并不需要加锁，而读或写 dirty 都需要加锁
+- 另外有 misses 字段来统计 read 被穿透的次数（被穿透指需要读 dirty 的情况），超过一定次数则将 dirty 数据同步到 read 上
+- 对于删除数据则直接通过标记来延迟删除
+
+## sync.Map数据结构
+
+```go
+type Map struct {
+    // 加锁作用，保护 dirty 字段
+    mu Mutex
+    // 只读的数据，实际数据类型为 readOnly
+    read atomic.Value
+    // 最新写入的数据
+    dirty map[interface{}]*entry
+    // 计数器，每次需要读 dirty 则 +1
+    misses int
+}
+```
+
+**readOnly** 的数据结构
+
+```go
+type readOnly struct {
+    // 内建 map
+    m  map[interface{}]*entry
+    // 表示 dirty 里存在 read 里没有的 key，通过该字段决定是否加锁读 dirty
+    amended bool
+}
+```
+
+**entry** 数据结构则用于存储值的指针
+
+```go
+type entry struct {
+    p unsafe.Pointer  // 等同于 *interface{}
+}
+```
+
+## sync.Map 常用的有以下方法：
+
+- `Load`：读取指定 key 返回 value
+- `Store`： 存储（增或改）key-value
+- `Delete`： 删除指定 key
+- `Range`：遍历所有键值对，参数是回调函数
+- `LoadOrStore`：读取数据，若不存在则保存再读取
+
+### Load
+
+```go
+func (m *Map) Load(key interface{}) (value interface{}, ok bool) {
+    // 首先尝试从 read 中读取 readOnly 对象
+    read, _ := m.read.Load().(readOnly)
+    e, ok := read.m[key]
+
+    // 如果不存在则尝试从 dirty 中获取
+    if !ok && read.amended {
+        m.mu.Lock()
+        // 由于上面 read 获取没有加锁，为了安全再检查一次
+        read, _ = m.read.Load().(readOnly)
+        e, ok = read.m[key]
+
+        // 确实不存在则从 dirty 获取
+        if !ok && read.amended {
+            e, ok = m.dirty[key]
+            // 调用 miss 的逻辑
+            m.missLocked()
+        }
+        m.mu.Unlock()
+    }
+
+    if !ok {
+        return nil, false
+    }
+    // 从 entry.p 读取值
+    return e.load()
+}
+
+func (m *Map) missLocked() {
+    m.misses++
+    if m.misses < len(m.dirty) {
+        return
+    }
+    // 当 miss 积累过多，会将 dirty 存入 read，然后 将 amended = false，且 m.dirty = nil
+    m.read.Store(readOnly{m: m.dirty})
+    m.dirty = nil
+    m.misses = 0
+}
+```
+
+### Store
+
+```go
+func (m *Map) Store(key, value interface{}) {
+    read, _ := m.read.Load().(readOnly)
+    // 如果 read 里存在，则尝试存到 entry 里
+    if e, ok := read.m[key]; ok && e.tryStore(&value) {
+        return
+    }
+
+    // 如果上一步没执行成功，则要分情况处理
+    m.mu.Lock()
+    read, _ = m.read.Load().(readOnly)
+    // 和 Load 一样，重新从 read 获取一次
+    if e, ok := read.m[key]; ok {
+        // 情况 1：read 里存在
+        if e.unexpungeLocked() {
+            // 如果 p == expunged，则需要先将 entry 赋值给 dirty（因为 expunged 数据不会留在 dirty）
+            m.dirty[key] = e
+        }
+        // 用值更新 entry
+        e.storeLocked(&value)
+    } else if e, ok := m.dirty[key]; ok {
+        // 情况 2：read 里不存在，但 dirty 里存在，则用值更新 entry
+        e.storeLocked(&value)
+    } else {
+        // 情况 3：read 和 dirty 里都不存在
+        if !read.amended {
+            // 如果 amended == false，则调用 dirtyLocked 将 read 拷贝到 dirty（除了被标记删除的数据）
+            m.dirtyLocked()
+            // 然后将 amended 改为 true
+            m.read.Store(readOnly{m: read.m, amended: true})
+        }
+        // 将新的键值存入 dirty
+        m.dirty[key] = newEntry(value)
+    }
+    m.mu.Unlock()
+}
+
+func (e *entry) tryStore(i *interface{}) bool {
+    for {
+        p := atomic.LoadPointer(&e.p)
+        if p == expunged {
+            return false
+        }
+        if atomic.CompareAndSwapPointer(&e.p, p, unsafe.Pointer(i)) {
+            return true
+        }
+    }
+}
+
+func (e *entry) unexpungeLocked() (wasExpunged bool) {
+    return atomic.CompareAndSwapPointer(&e.p, expunged, nil)
+}
+
+func (e *entry) storeLocked(i *interface{}) {
+    atomic.StorePointer(&e.p, unsafe.Pointer(i))
+}
+
+func (m *Map) dirtyLocked() {
+    if m.dirty != nil {
+        return
+    }
+
+    read, _ := m.read.Load().(readOnly)
+    m.dirty = make(map[interface{}]*entry, len(read.m))
+    for k, e := range read.m {
+        // 判断 entry 是否被删除，否则就存到 dirty 中
+        if !e.tryExpungeLocked() {
+            m.dirty[k] = e
+        }
+    }
+}
+
+func (e *entry) tryExpungeLocked() (isExpunged bool) {
+    p := atomic.LoadPointer(&e.p)
+    for p == nil {
+        // 如果有 p == nil（即键值对被 delete），则会在这个时机被置为 expunged
+        if atomic.CompareAndSwapPointer(&e.p, nil, expunged) {
+            return true
+        }
+        p = atomic.LoadPointer(&e.p)
+    }
+    return p == expunged
+}
+```
+
+### Delete
+
+```go
+func (m *Map) Delete(key interface{}) {
+    m.LoadAndDelete(key)
+}
+
+// LoadAndDelete 作用等同于 Delete，并且会返回值与是否存在
+func (m *Map) LoadAndDelete(key interface{}) (value interface{}, loaded bool) {
+    // 获取逻辑和 Load 类似，read 不存在则查询 dirty
+    read, _ := m.read.Load().(readOnly)
+    e, ok := read.m[key]
+    if !ok && read.amended {
+        m.mu.Lock()
+        read, _ = m.read.Load().(readOnly)
+        e, ok = read.m[key]
+        if !ok && read.amended {
+            e, ok = m.dirty[key]
+            m.missLocked()
+        }
+        m.mu.Unlock()
+    }
+    // 查询到 entry 后执行删除
+    if ok {
+        // 将 entry.p 标记为 nil，数据并没有实际删除
+        // 真正删除数据并被被置为 expunged，是在 Store 的 tryExpungeLocked 中
+        return e.delete()
+    }
+    return nil, false
+}
+```
+
+## 总结
+
+可见，通过这种读写分离的设计，解决了并发情况的写入安全，又使读取速度在大部分情况可以接近内建 `map`，非常适合读多写少的情况。
+
+<div STYLE="page-break-after: always;"></div>
+
+# sync.WaitGroup
+
+## WaitGroup 数据结构
+
+```go
+type WaitGroup struct {
+    // 避免复制使用的一个技巧，可以告诉vet工具违反了复制使用的规则
+    noCopy noCopy
+    // 64bit(8bytes)的值分成两段，高32bit是计数值，低32bit是waiter的计数
+    // 另外32bit是用作信号量的
+    // 因为64bit值的原子操作需要64bit对齐，但是32bit编译器不支持，所以数组中的元素在不同的架构中不一样，具体处理看下面的方法
+    // 总之，会找到对齐的那64bit作为state，其余的32bit做信号量
+    state1 [3]uint32
+}
+```
+
+`state1` 长度为 3 的 uint32 数组，Golang 内存对齐的概念
+
+*当 `state1` 是 32 位对齐：`state1` 数组的第一位是 sema，第二位是 counter，第三位是 waiter。*
+
+当 `state1` 是 64 位对齐：`state1` 数组的第一位是 counter，第二位是 waiter，第三位是 sema。
+
+- *`counter` 代表目前尚未完成的个数。`WaitGroup.Add(n)` 将会导致 `counter += n`, 而 `WaitGroup.Done()` 将导致 `counter--`。*
+- `waiter` 代表目前已调用 `WaitGroup.Wait` 的 goroutine 的个数。
+- `sema` 对应于 golang 中 runtime 内部的信号量的实现。
+
+## WaitGroup方法
+
+- Add(int)
+- Done()
+- Wait()
+
+### Add(delta int)
+
+```go
+func (wg *WaitGroup) Add(delta int) {
+  // statep表示wait数和计数值
+  // 低32位表示wait数，高32位表示计数值
+   statep, semap := wg.state()
+   // uint64(delta)<<32 将delta左移32位
+    // 因为高32位表示计数值，所以将delta左移32，增加到技术上
+   state := atomic.AddUint64(statep, uint64(delta)<<32)
+   // 当前计数值
+   v := int32(state >> 32)
+   // 阻塞在检查点的wait数
+   w := uint32(state)
+   if v > 0 || w == 0 {
+      return
+   }
+
+   // 如果计数值v为0并且waiter的数量w不为0，那么state的值就是waiter的数量
+    // 将waiter的数量设置为0，因为计数值v也是0,所以它们俩的组合*statep直接设置为0即可。此时需要并唤醒所有的waiter
+   *statep = 0
+   for ; w != 0; w-- {
+      runtime_Semrelease(semap, false, 0)
+   }
+}
+```
+
+WaitGroup里还对使用逻辑进行了严格的检查，比如Wait()一旦开始不能Add().
+
+### Done
+
+```go
+// Done decrements the WaitGroup counter by one.
+func (wg *WaitGroup) Done() {
+    wg.Add(-1)
+}
+```
+
+### Wait
+
+```go
+// Wait blocks until the WaitGroup counter is zero.
+func (wg *WaitGroup) Wait() {
+    statep := wg.state()
+        for {
+        state := atomic.LoadUint64(statep)
+        v := int32(state >> 32)
+        w := uint32(state)
+        if v == 0 {
+            // Counter is 0, no need to wait.
+            if race.Enabled {
+                race.Enable()
+                race.Acquire(unsafe.Pointer(wg))
+            }
+            return
+        }
+        // Increment waiters count.
+        // 如果statep和state相等，则增加等待计数，同时进入if等待信号量
+        // 此处做CAS，主要是防止多个goroutine里进行Wait()操作，每有一个goroutine进行了wait，等待计数就加1
+        // 如果这里不相等，说明statep，在 从读出来 到 CAS比较 的这个时间区间内，被别的goroutine改写了，那么不进入if，回去再读一次，这样写避免用锁，更高效些
+        if atomic.CompareAndSwapUint64(statep, state, state+1) {
+            if race.Enabled && w == 0 {
+                // Wait must be synchronized with the first Add.
+                // Need to model this is as a write to race with the read in Add.
+                // As a consequence, can do the write only for the first waiter,
+                // otherwise concurrent Waits will race with each other.
+                race.Write(unsafe.Pointer(&wg.sema))
+            }
+            // 等待信号量
+            runtime_Semacquire(&wg.sema)
+            // 信号量来了，代表所有Add都已经Done
+            if *statep != 0 {
+                // 走到这里，说明在所有Add都已经Done后，触发信号量后，又被执行了Add
+                panic("sync: WaitGroup is reused before previous Wait has returned")
+            }
+            return
+        }
+    }
+}
+```
+
+<div STYLE="page-break-after: always;"></div>
+
+# channel
+
+Channel 是支撑 Go 语言高性能并发编程模型的重要结构
+
+**先入先出** FIFO队列思想
+
+目前的 Channel 收发操作均遵循了先进先出的设计，具体规则如下：
+
+- 先从 Channel 读取数据的 Goroutine 会先接收到数据；
+- 先向 Channel 发送数据的 Goroutine 会得到先发送数据的权利；
+
+无锁队列
+
+无锁（lock-free）队列更准确的描述是使用乐观并发控制的队列。
+
+## channel数据结构
+
+Go 语言的 Channel 在运行时使用 [`runtime.hchan`](https://draveness.me/golang/tree/runtime.hchan) 结构体表示。
+
+```go
+type hchan struct {
+	qcount   uint
+	dataqsiz uint
+	buf      unsafe.Pointer
+	elemsize uint16
+	closed   uint32
+	elemtype *_type
+	sendx    uint
+	recvx    uint
+	recvq    waitq
+	sendq    waitq
+
+	lock mutex
+}
+```
+
+- `qcount` — Channel 中的元素个数；
+- `dataqsiz` — Channel 中的循环队列的长度；
+- `buf` — Channel 的缓冲区数据指针；
+- `sendx` — Channel 的发送操作处理到的位置；
+- `recvx` — Channel 的接收操作处理到的位置；
+
+`elemsize` 和 `elemtype` 分别表示当前 Channel 能够收发的元素类型和大小；`sendq` 和 `recvq` 存储了当前 Channel 由于缓冲区空间不足而阻塞的 Goroutine 列表，这些等待队列使用双向链表 [`runtime.waitq`](https://draveness.me/golang/tree/runtime.waitq) 表示，链表中所有的元素都是 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 结构
+
+```go
+type waitq struct {
+	first *sudog
+	last  *sudog
+}
+```
+
+## 创建管道
+
+使用 `make` 关键字创建channel。编译器会将 `make(chan int, 10)` 表达式转换成 `OMAKE` 类型的节点，并在类型检查阶段将 `OMAKE` 类型的节点转换成 `OMAKECHAN` 类型：
+
+```go
+func typecheck1(n *Node, top int) (res *Node) {
+	switch n.Op {
+	case OMAKE:
+		...
+		switch t.Etype {
+		case TCHAN:
+			l = nil
+			if i < len(args) { // 带缓冲区的异步 Channel
+				...
+				n.Left = l
+			} else { // 不带缓冲区的同步 Channel
+				n.Left = nodintconst(0)
+			}
+			n.Op = OMAKECHAN
+		}
+	}
+}
+```
+
+`OMAKECHAN` 类型的节点最终都会在 SSA 中间代码生成阶段之前被转换成调用 [`runtime.makechan`](https://draveness.me/golang/tree/runtime.makechan) 或者 [`runtime.makechan64`](https://draveness.me/golang/tree/runtime.makechan64) 的函数：
+
+```go
+func makechan(t *chantype, size int) *hchan {
+	elem := t.elem
+	mem, _ := math.MulUintptr(elem.size, uintptr(size))
+
+	var c *hchan
+	switch {
+	case mem == 0:
+		c = (*hchan)(mallocgc(hchanSize, nil, true))
+		c.buf = c.raceaddr()
+	case elem.kind&kindNoPointers != 0:
+		c = (*hchan)(mallocgc(hchanSize+mem, nil, true))
+		c.buf = add(unsafe.Pointer(c), hchanSize)
+	default:
+		c = new(hchan)
+		c.buf = mallocgc(mem, elem, true)
+	}
+	c.elemsize = uint16(elem.size)
+	c.elemtype = elem
+	c.dataqsiz = uint(size)
+	return c
+}
+```
+
+
+
+<div STYLE="page-break-after: always;"></div>
+
+# 泛型原理
+
+泛型的实现方式，通常有： 
+
+- 模版（stenciling）：为每次调用生成代码实例，即便类型参数相同。 
+- 字典（dictionaries）：单份代码实例，以字典传递类型参数信息。
+
+模版方式性能最佳，但编译时间较长，且生成文件较大。 
+
+字典方式代码最少，但复杂度较高，且性能最差。 
+
+> Go 泛型实现介于两者之间，一种称作 “GCShape stenciling with Dictionaries” 概念。 
+>
+> 任意指针类型，或具有相同底层类型（underlying type）的类型，属于同一 GCShape 组。
+
+:point_right:每一个唯一的shape会产生一份代码，每份代码携带一个字典，包含了实例化类型的信息（带了shape、dict的标志）。
+
+```go
+type Tester interface {
+    *A | *B
+    test()
+}
+
+func test[T Tester](a T) {
+	a.test()
+}
+// -----------------------------
+func main() {
+    var a A = 1
+    var b B = 2
+    test(&a)
+    test(&b)
+}
+```
+
+编译后可以使用 `go tool objdump -S -s "main\.main" ./file` 反编译查看汇编情况
+
+```bash
+go build -gcflags "-l"
+go tool objdump -S -s "main\.main" ./test
+TEXT main.main(SB)
+func main() {
+test(1)
+ 0x455214 LEAQ main..dict.test[int](SB), AX
+ 0x45521b MOVL $0x1, BX
+ 0x455220 CALL main.test[go.shape.int_0](SB)
+
+test(X(2))
+ 0x455225 LEAQ main..dict.test[main.X.1](SB), AX ; 字典不同。
+ 0x45522c MOVL $0x2, BX
+ 0x455231 CALL main.test[go.shape.int_0](SB) ; 函数相同。
+
+test("abc")
+ 0x455236 LEAQ main..dict.test[string](SB), AX
+ 0x45523d LEAQ 0xc84c(IP), BX
+ 0x455244 MOVL $0x3, CX
+ 0x455249 CALL main.test[go.shape.string_0](SB) ; 新实例。
+}
+```
+
+> 指针版本存在内存逃逸
+
+## 性能问题：
+
+1.18 的泛型实现中，大多数只会让代码运行速度变得更慢,可能引发 动态调用、无法内联、内存逃逸 等性能问题
+
+注意使用场景
+
+- 要在数据结构中使用泛型，这也是泛型目前最理想的用例。能实现实现未装箱类型，就能让这些数据结构更易用、运行更快。（以往使用 interface{}实现的泛型）
+- **在任何情况下，都不要将接口传递给泛型函数**。如果对性能比较敏感，请保证只在泛型中使用指针、不用接
+
+- 不要重写基于接口的 API 来使用泛型。受制于当前实现，只要继续使用接口，所有使用非空接口的代码都将更简单、并带来更可预测的性能。在方法调用方面，泛型会将指针转化为两次间接接口，再把接口转换成……总之，特别麻烦、也毫无必要。
 
 <div STYLE="page-break-after: always;"></div>
 
