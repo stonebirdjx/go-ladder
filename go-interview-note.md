@@ -11,6 +11,7 @@
 - [写操作是如何阻止读操作的](#%E5%86%99%E6%93%8D%E4%BD%9C%E6%98%AF%E5%A6%82%E4%BD%95%E9%98%BB%E6%AD%A2%E8%AF%BB%E6%93%8D%E4%BD%9C%E7%9A%84)
 - [读操作是如何阻止写操作的](#%E8%AF%BB%E6%93%8D%E4%BD%9C%E6%98%AF%E5%A6%82%E4%BD%95%E9%98%BB%E6%AD%A2%E5%86%99%E6%93%8D%E4%BD%9C%E7%9A%84)
 - [为什么写锁定不会被饿死](#%E4%B8%BA%E4%BB%80%E4%B9%88%E5%86%99%E9%94%81%E5%AE%9A%E4%B8%8D%E4%BC%9A%E8%A2%AB%E9%A5%BF%E6%AD%BB)
+- [函数传递指针真的比传值效率高吗](#%E5%87%BD%E6%95%B0%E4%BC%A0%E9%80%92%E6%8C%87%E9%92%88%E7%9C%9F%E7%9A%84%E6%AF%94%E4%BC%A0%E5%80%BC%E6%95%88%E7%8E%87%E9%AB%98%E5%90%97)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -126,3 +127,9 @@ RWMutex.readerCount是个整型值，用于表示读者数量，不考虑写操�
 写操作到来时，会把RWMutex.readerCount值拷贝到RWMutex.readerWait中，用于标记排在写操作前面的读者个数。
 
 前面的读操作结束后，除了会递减RWMutex.readerCount，还会递减RWMutex.readerWait值，当RWMutex.readerWait值变为0时唤醒写操作。
+
+# 函数传递指针真的比传值效率高吗
+
+传递指针可以减少底层值的拷贝，可以提高效率，但是如果拷贝的数据量小，由于指针传递会产生逃逸，可能会使用堆，也可能会增加GC的负担，所以传递指针不一定是高效的。
+
+> golang都是值传递，引用类型或者指针也只是加了一层引用而已

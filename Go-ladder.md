@@ -59,9 +59,12 @@
   - [defer数据结构](#defer%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
   - [defer的创建和执行](#defer%E7%9A%84%E5%88%9B%E5%BB%BA%E5%92%8C%E6%89%A7%E8%A1%8C)
   - [defer说明](#defer%E8%AF%B4%E6%98%8E)
-- [select](#select)
-  - [逻辑实现](#%E9%80%BB%E8%BE%91%E5%AE%9E%E7%8E%B0)
-  - [select 说明](#select-%E8%AF%B4%E6%98%8E)
+- [panic 和 recover](#panic-%E5%92%8C-recover)
+  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-1)
+  - [程序崩溃](#%E7%A8%8B%E5%BA%8F%E5%B4%A9%E6%BA%83)
+  - [崩溃恢复](#%E5%B4%A9%E6%BA%83%E6%81%A2%E5%A4%8D)
+  - [小结](#%E5%B0%8F%E7%BB%93)
+- [make 和 new](#make-%E5%92%8C-new)
 - [sync.Mutex](#syncmutex)
   - [Mutex结构体](#mutex%E7%BB%93%E6%9E%84%E4%BD%93)
   - [Mutex方法](#mutex%E6%96%B9%E6%B3%95)
@@ -113,6 +116,64 @@
 - [channel](#channel)
   - [channel数据结构](#channel%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
   - [创建管道](#%E5%88%9B%E5%BB%BA%E7%AE%A1%E9%81%93)
+  - [发送数据](#%E5%8F%91%E9%80%81%E6%95%B0%E6%8D%AE)
+    - [直接发送](#%E7%9B%B4%E6%8E%A5%E5%8F%91%E9%80%81)
+    - [缓冲区](#%E7%BC%93%E5%86%B2%E5%8C%BA)
+    - [阻塞发送](#%E9%98%BB%E5%A1%9E%E5%8F%91%E9%80%81)
+    - [总结](#%E6%80%BB%E7%BB%93-1)
+  - [接收数据](#%E6%8E%A5%E6%94%B6%E6%95%B0%E6%8D%AE)
+    - [直接接收](#%E7%9B%B4%E6%8E%A5%E6%8E%A5%E6%94%B6)
+    - [缓冲区](#%E7%BC%93%E5%86%B2%E5%8C%BA-1)
+    - [阻塞接收](#%E9%98%BB%E5%A1%9E%E6%8E%A5%E6%94%B6)
+    - [小结](#%E5%B0%8F%E7%BB%93-1)
+  - [关闭管道](#%E5%85%B3%E9%97%AD%E7%AE%A1%E9%81%93)
+- [Select](#select)
+  - [数据结构](#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-2)
+  - [初始化](#%E5%88%9D%E5%A7%8B%E5%8C%96-3)
+  - [轮询事件](#%E8%BD%AE%E8%AF%A2%E4%BA%8B%E4%BB%B6)
+- [context](#context)
+  - [接口定义](#%E6%8E%A5%E5%8F%A3%E5%AE%9A%E4%B9%89)
+  - [设计原理](#%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86-1)
+  - [默认上下文](#%E9%BB%98%E8%AE%A4%E4%B8%8A%E4%B8%8B%E6%96%87)
+  - [取消信号](#%E5%8F%96%E6%B6%88%E4%BF%A1%E5%8F%B7)
+  - [传值方法](#%E4%BC%A0%E5%80%BC%E6%96%B9%E6%B3%95)
+- [goroutine调度](#goroutine%E8%B0%83%E5%BA%A6)
+  - [调度器启动](#%E8%B0%83%E5%BA%A6%E5%99%A8%E5%90%AF%E5%8A%A8)
+  - [创建 Goroutine](#%E5%88%9B%E5%BB%BA-goroutine)
+  - [线程管理](#%E7%BA%BF%E7%A8%8B%E7%AE%A1%E7%90%86)
+  - [线程生命周期](#%E7%BA%BF%E7%A8%8B%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
+- [系统监控](#%E7%B3%BB%E7%BB%9F%E7%9B%91%E6%8E%A7)
+  - [监控循环](#%E7%9B%91%E6%8E%A7%E5%BE%AA%E7%8E%AF)
+    - [检查死锁](#%E6%A3%80%E6%9F%A5%E6%AD%BB%E9%94%81)
+    - [运行计时器](#%E8%BF%90%E8%A1%8C%E8%AE%A1%E6%97%B6%E5%99%A8)
+    - [轮询网络 #](#%E8%BD%AE%E8%AF%A2%E7%BD%91%E7%BB%9C-)
+    - [抢占处理器 #](#%E6%8A%A2%E5%8D%A0%E5%A4%84%E7%90%86%E5%99%A8-)
+    - [垃圾回收](#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6)
+- [内存管理](#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86)
+  - [分配方法](#%E5%88%86%E9%85%8D%E6%96%B9%E6%B3%95)
+  - [内存分配](#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D)
+    - [span](#span)
+    - [class](#class)
+    - [总结](#%E6%80%BB%E7%BB%93-2)
+  - [垃圾回收](#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6-1)
+    - [内存标记(Mark)](#%E5%86%85%E5%AD%98%E6%A0%87%E8%AE%B0mark)
+    - [三色标记法](#%E4%B8%89%E8%89%B2%E6%A0%87%E8%AE%B0%E6%B3%95)
+    - [Stop The World](#stop-the-world)
+    - [垃圾回收优化](#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E4%BC%98%E5%8C%96)
+      - [写屏障(Write Barrier)](#%E5%86%99%E5%B1%8F%E9%9A%9Cwrite-barrier)
+      - [辅助GC(Mutator Assist)](#%E8%BE%85%E5%8A%A9gcmutator-assist)
+    - [垃圾回收触发时机](#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E8%A7%A6%E5%8F%91%E6%97%B6%E6%9C%BA)
+      - [内存分配量达到阀值触发GC](#%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E9%87%8F%E8%BE%BE%E5%88%B0%E9%98%80%E5%80%BC%E8%A7%A6%E5%8F%91gc)
+      - [定期触发GC](#%E5%AE%9A%E6%9C%9F%E8%A7%A6%E5%8F%91gc)
+      - [手动触发](#%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91)
+    - [GC性能优化](#gc%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96)
+  - [内存逃逸](#%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8)
+    - [指针逃逸](#%E6%8C%87%E9%92%88%E9%80%83%E9%80%B8)
+    - [栈空间不足逃逸](#%E6%A0%88%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E9%80%83%E9%80%B8)
+    - [动态类型逃逸](#%E5%8A%A8%E6%80%81%E7%B1%BB%E5%9E%8B%E9%80%83%E9%80%B8)
+    - [闭包引用对象逃逸](#%E9%97%AD%E5%8C%85%E5%BC%95%E7%94%A8%E5%AF%B9%E8%B1%A1%E9%80%83%E9%80%B8)
+    - [总结](#%E6%80%BB%E7%BB%93-3)
+- [代码生成](#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90)
 - [泛型原理](#%E6%B3%9B%E5%9E%8B%E5%8E%9F%E7%90%86)
   - [性能问题：](#%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98)
 - [SSA代码](#ssa%E4%BB%A3%E7%A0%81)
@@ -1437,37 +1498,249 @@ type _defer struct {
 
 <div STYLE="page-break-after: always;"></div>
 
-# select
+# panic 和 recover
 
-select是Golang在语言层面提供的多路IO复用的机制，其可以检测多个channel是否ready(即是否可读或可写)。
+- `panic` 能够改变程序的控制流，调用 `panic` 后会立刻停止执行当前函数的剩余代码，并在当前 Goroutine 中递归执行调用方的 `defer`；
+- `recover` 可以中止 `panic` 造成的程序崩溃。它是一个只能在 `defer` 中发挥作用的函数，在其他作用域中调用不会发挥作用；
 
-## 逻辑实现
+程序多次调用 `panic` 也不会影响 `defer` 函数的正常执行，所以使用 `defer` 进行收尾工作一般来说都是安全的。
 
-源码包`src/runtime/select.go:selectgo()`定义了select选择case的函数：
+## 数据结构 
+
+`panic` 关键字在 Go 语言的源代码是由数据结构 [`runtime._panic`](https://draveness.me/golang/tree/runtime._panic) 表示的。每当我们调用 `panic` 都会创建一个如下所示的数据结构存储相关信息：
 
 ```go
-func selectgo(cas0 *scase, order0 *uint16, ncases int) (int, bool)
+type _panic struct {
+	argp      unsafe.Pointer
+	arg       interface{}
+	link      *_panic
+	recovered bool
+	aborted   bool
+	pc        uintptr
+	sp        unsafe.Pointer
+	goexit    bool
+}
 ```
 
-函数参数：
+1. `argp` 是指向 `defer` 调用时参数的指针；
+2. `arg` 是调用 `panic` 时传入的参数；
+3. `link` 指向了更早调用的 [`runtime._panic`](https://draveness.me/golang/tree/runtime._panic) 结构；
+4. `recovered` 表示当前 [`runtime._panic`](https://draveness.me/golang/tree/runtime._panic) 是否被 `recover` 恢复；
+5. `aborted` 表示当前的 `panic` 是否被强行终止；
 
-- cas0为scase数组的首地址，selectgo()就是从这些scase中找出一个返回。
-- order0为一个两倍cas0数组长度的buffer，保存scase随机序列pollorder和scase中channel地址序列lockorder
-  - pollorder：每次selectgo执行都会把scase序列打乱，以达到随机检测case的目的。
-  - lockorder：所有case语句中channel序列，以达到去重防止对channel加锁时重复加锁的目的。
-- ncases表示scase数组的长度
+从数据结构中的 `link` 字段我们就可以推测出以下的结论：`panic` 函数可以被连续多次调用，它们之间通过 `link` 可以组成链表。
 
-函数返回值：
+## 程序崩溃
 
-1. int： 选中case的编号，这个case编号跟代码一致
-2. bool: 是否成功从channle中读取了数据，如果选中的case是从channel中读数据，则该返回值表示是否读取成功。
+这里先介绍分析 `panic` 函数是终止程序的实现原理。编译器会将关键字 `panic` 转换成 `runtime.gopanic`
 
-## select 说明
+该函数的执行过程包含以下几个步骤：
 
-- select语句中除default外，每个case操作一个channel，要么读要么写
-- select语句中除default外，各case执行顺序是随机的
-- select语句中如果没有default语句，则会阻塞等待任一case
-- select语句中读操作要判断是否成功读取，关闭的channel也可以读取
+1. 创建新的 [`runtime._panic`](https://draveness.me/golang/tree/runtime._panic) 并添加到所在 Goroutine 的 `_panic` 链表的最前面；
+2. 在循环中不断从当前 Goroutine 的 `_defer` 中链表获取 [`runtime._defer`](https://draveness.me/golang/tree/runtime._defer) 并调用 [`runtime.reflectcall`](https://draveness.me/golang/tree/runtime.reflectcall) 运行延迟调用函数；
+3. 调用 [`runtime.fatalpanic`](https://draveness.me/golang/tree/runtime.fatalpanic) 中止整个程序；
+
+```go
+func gopanic(e interface{}) {
+	gp := getg()
+	...
+	var p _panic
+	p.arg = e
+	p.link = gp._panic
+	gp._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
+
+	for {
+		d := gp._defer
+		if d == nil {
+			break
+		}
+
+		d._panic = (*_panic)(noescape(unsafe.Pointer(&p)))
+
+		reflectcall(nil, unsafe.Pointer(d.fn), deferArgs(d), uint32(d.siz), uint32(d.siz))
+
+		d._panic = nil
+		d.fn = nil
+		gp._defer = d.link
+
+		freedefer(d)
+		if p.recovered {
+			...
+		}
+	}
+
+	fatalpanic(gp._panic)
+	*(*int)(nil) = 0
+}
+```
+
+[`runtime.fatalpanic`](https://draveness.me/golang/tree/runtime.fatalpanic) 实现了无法被恢复的程序崩溃，它在中止程序之前会通过 [`runtime.printpanics`](https://draveness.me/golang/tree/runtime.printpanics) 打印出全部的 `panic` 消息以及调用时传入的参数：
+
+```go
+func fatalpanic(msgs *_panic) {
+	pc := getcallerpc()
+	sp := getcallersp()
+	gp := getg()
+
+	if startpanic_m() && msgs != nil {
+		atomic.Xadd(&runningPanicDefers, -1)
+		printpanics(msgs)
+	}
+	if dopanic_m(gp, pc, sp) {
+		crash()
+	}
+
+	exit(2)
+}
+```
+
+## 崩溃恢复
+
+编译器会将关键字 `recover` 转换成 [`runtime.gorecover`](https://draveness.me/golang/tree/runtime.gorecover)：
+
+```go
+func gorecover(argp uintptr) interface{} {
+	gp := getg()
+	p := gp._panic
+	if p != nil && !p.recovered && argp == uintptr(p.argp) {
+		p.recovered = true
+		return p.arg
+	}
+	return nil
+}
+```
+
+该函数的实现很简单，如果当前 Goroutine 没有调用 `panic`，那么该函数会直接返回 `nil`，这也是崩溃恢复在非 `defer` 中调用会失效的原因。
+
+[`runtime.gorecover`](https://draveness.me/golang/tree/runtime.gorecover) 函数中并不包含恢复程序的逻辑，程序的恢复是由 [`runtime.gopanic`](https://draveness.me/golang/tree/runtime.gopanic) 函数负责的：
+
+```go
+func gopanic(e interface{}) {
+	...
+
+	for {
+		// 执行延迟调用函数，可能会设置 p.recovered = true
+		...
+
+		pc := d.pc
+		sp := unsafe.Pointer(d.sp)
+
+		...
+		if p.recovered {
+			gp._panic = p.link
+			for gp._panic != nil && gp._panic.aborted {
+				gp._panic = gp._panic.link
+			}
+			if gp._panic == nil {
+				gp.sig = 0
+			}
+			gp.sigcode0 = uintptr(sp)
+			gp.sigcode1 = pc
+			mcall(recovery)
+			throw("recovery failed")
+		}
+	}
+	...
+}
+```
+
+上述这段代码也省略了 `defer` 的内联优化，它从 [`runtime._defer`](https://draveness.me/golang/tree/runtime._defer) 中取出了程序计数器 `pc` 和栈指针 `sp` 并调用 [`runtime.recovery`](https://draveness.me/golang/tree/runtime.recovery) 函数触发 Goroutine 的调度，调度之前会准备好 `sp`、`pc` 以及函数的返回值：
+
+```go
+func recovery(gp *g) {
+	sp := gp.sigcode0
+	pc := gp.sigcode1
+
+	gp.sched.sp = sp
+	gp.sched.pc = pc
+	gp.sched.lr = 0
+	gp.sched.ret = 1
+	gogo(&gp.sched)
+}
+```
+
+当我们在调用 `defer` 关键字时，调用时的栈指针 `sp` 和程序计数器 `pc` 就已经存储到了 [`runtime._defer`](https://draveness.me/golang/tree/runtime._defer) 结构体中，这里的 [`runtime.gogo`](https://draveness.me/golang/tree/runtime.gogo) 函数会跳回 `defer` 关键字调用的位置。
+
+[`runtime.recovery`](https://draveness.me/golang/tree/runtime.recovery) 在调度过程中会将函数的返回值设置成 1。从 [`runtime.deferproc`](https://draveness.me/golang/tree/runtime.deferproc) 的注释中我们会发现，当 [`runtime.deferproc`](https://draveness.me/golang/tree/runtime.deferproc) 函数的返回值是 1 时，编译器生成的代码会直接跳转到调用方函数返回之前并执行 [`runtime.deferreturn`](https://draveness.me/golang/tree/runtime.deferreturn)：
+
+```go
+func deferproc(siz int32, fn *funcval) {
+	...
+	return0()
+}
+```
+
+跳转到 [`runtime.deferreturn`](https://draveness.me/golang/tree/runtime.deferreturn) 函数之后，程序就已经从 `panic` 中恢复了并执行正常的逻辑，而 [`runtime.gorecover`](https://draveness.me/golang/tree/runtime.gorecover) 函数也能从 [`runtime._panic`](https://draveness.me/golang/tree/runtime._panic) 结构中取出了调用 `panic` 时传入的 `arg` 参数并返回给调用方。
+
+##  小结
+
+1. 将 `panic` 和 `recover` 分别转换成 [`runtime.gopanic`](https://draveness.me/golang/tree/runtime.gopanic) 和 [`runtime.gorecover`](https://draveness.me/golang/tree/runtime.gorecover)；
+2. 将 `defer` 转换成 [`runtime.deferproc`](https://draveness.me/golang/tree/runtime.deferproc) 函数；
+3. 在调用 `defer` 的函数末尾调用 [`runtime.deferreturn`](https://draveness.me/golang/tree/runtime.deferreturn) 函数；
+
+<div STYLE="page-break-after: always;"></div>
+
+# make 和 new
+
+- `make` 的作用是初始化内置的数据结构，也就是我们在前面提到的切片、哈希表和 Channel；
+- `new` 的作用是根据传入的类型分配一片内存空间并返回指向这片内存空间的指针；
+
+Go 语言会将代表 `make` 关键字的 `OMAKE` 节点根据参数类型的不同转换成了 `OMAKESLICE`、`OMAKEMAP` 和 `OMAKECHAN` 三种不同类型的节点，这些节点会调用不同的运行时函数来初始化相应的数据结构。
+
+如果通过 `var` 或者 `new` 创建的变量不需要在当前作用域外生存，例如不用作为返回值返回给调用方，那么就不需要初始化在堆上。
+
+```go
+func callnew(t *types.Type) *Node {
+	...
+	n := nod(ONEWOBJ, typename(t), nil)
+	...
+	return n
+}
+
+func (s *state) expr(n *Node) *ssa.Value {
+	switch n.Op {
+	case ONEWOBJ:
+		if n.Type.Elem().Size() == 0 {
+			return s.newValue1A(ssa.OpAddr, n.Type, zerobaseSym, s.sb)
+		}
+		typ := s.expr(n.Left)
+		vv := s.rtcall(newobject, true, []*types.Type{n.Type}, typ)
+		return vv[0]
+	}
+}
+```
+
+需要注意的是，无论是直接使用 `new`，还是使用 `var` 初始化变量，它们在编译器看来都是 `ONEW` 和 `ODCL` 节点。如果变量会逃逸到堆上，这些节点在这一阶段都会被 [`cmd/compile/internal/gc.walkstmt`](https://draveness.me/golang/tree/cmd/compile/internal/gc.walkstmt) 转换成通过 [`runtime.newobject`](https://draveness.me/golang/tree/runtime.newobject) 函数并在堆上申请内存：
+
+```go
+func walkstmt(n *Node) *Node {
+	switch n.Op {
+	case ODCL:
+		v := n.Left
+		if v.Class() == PAUTOHEAP {
+			if prealloc[v] == nil {
+				prealloc[v] = callnew(v.Type)
+			}
+			nn := nod(OAS, v.Name.Param.Heapaddr, prealloc[v])
+			nn.SetColas(true)
+			nn = typecheck(nn, ctxStmt)
+			return walkstmt(nn)
+		}
+	case ONEW:
+		if n.Esc == EscNone {
+			r := temp(n.Type.Elem())
+			r = nod(OAS, r, nil)
+			r = typecheck(r, ctxStmt)
+			init.Append(r)
+			r = nod(OADDR, r.Left, nil)
+			r = typecheck(r, ctxExpr)
+			n = r
+		} else {
+			n = callnew(n.Type.Elem())
+		}
+	}
+}
+```
 
 <div STYLE="page-break-after: always;"></div>
 
@@ -2428,7 +2701,1659 @@ func makechan(t *chantype, size int) *hchan {
 }
 ```
 
+## 发送数据
 
+当我们想要向 Channel 发送数据时，就需要使用 `ch <- i` 语句，编译器会将它解析成 `OSEND` 节点并在 [`cmd/compile/internal/gc.walkexpr`](https://draveness.me/golang/tree/cmd/compile/internal/gc.walkexpr) 中转换成 [`runtime.chansend1`](https://draveness.me/golang/tree/runtime.chansend1)：
+
+```go
+func walkexpr(n *Node, init *Nodes) *Node {
+	switch n.Op {
+	case OSEND:
+		n1 := n.Right
+		n1 = assignconv(n1, n.Left.Type.Elem(), "chan send")
+		n1 = walkexpr(n1, init)
+		n1 = nod(OADDR, n1, nil)
+		n = mkcall1(chanfn("chansend1", 2, n.Left.Type), nil, init, n.Left, n1)
+	}
+}
+```
+
+[`runtime.chansend1`](https://draveness.me/golang/tree/runtime.chansend1) 只是调用了 [`runtime.chansend`](https://draveness.me/golang/tree/runtime.chansend) 并传入 Channel 和需要发送的数据。[`runtime.chansend`](https://draveness.me/golang/tree/runtime.chansend) 是向 Channel 中发送数据时一定会调用的函数，该函数包含了发送数据的全部逻辑，如果我们在调用时将 `block` 参数设置成 `true`，那么表示当前发送操作是阻塞的：
+
+```go
+func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
+	lock(&c.lock)
+
+	if c.closed != 0 {
+		unlock(&c.lock)
+		panic(plainError("send on closed channel"))
+	}
+```
+
+在发送数据的逻辑执行之前会先为当前 Channel 加锁，防止多个线程并发修改数据。如果 Channel 已经关闭，那么向该 Channel 发送数据时会报 “send on closed channel” 错误并中止程序。
+
+因为 [`runtime.chansend`](https://draveness.me/golang/tree/runtime.chansend) 函数的实现比较复杂，所以我们这里将该函数的执行过程分成以下的三个部分：
+
+- 当存在等待的接收者时，通过 [`runtime.send`](https://draveness.me/golang/tree/runtime.send) 直接将数据发送给阻塞的接收者；
+- 当缓冲区存在空余空间时，将发送的数据写入 Channel 的缓冲区；
+- 当不存在缓冲区或者缓冲区已满时，等待其他 Goroutine 从 Channel 接收数据；
+
+### 直接发送
+
+如果目标 Channel 没有被关闭并且已经有处于读等待的 Goroutine，那么 [`runtime.chansend`](https://draveness.me/golang/tree/runtime.chansend) 会从接收队列 `recvq` 中取出最先陷入等待的 Goroutine 并直接向它发送数据：
+
+```go
+	if sg := c.recvq.dequeue(); sg != nil {
+		send(c, sg, ep, func() { unlock(&c.lock) }, 3)
+		return true
+	}
+```
+
+直接发送数据时会调用 [`runtime.send`](https://draveness.me/golang/tree/runtime.send)，该函数的执行可以分成两个部分：
+
+1. 调用 [`runtime.sendDirect`](https://draveness.me/golang/tree/runtime.sendDirect) 将发送的数据直接拷贝到 `x = <-c` 表达式中变量 `x` 所在的内存地址上；
+2. 调用 [`runtime.goready`](https://draveness.me/golang/tree/runtime.goready) 将等待接收数据的 Goroutine 标记成可运行状态 `Grunnable` 并把该 Goroutine 放到发送方所在的处理器的 `runnext` 上等待执行，该处理器在下一次调度时会立刻唤醒数据的接收方；
+
+```go
+func send(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
+	if sg.elem != nil {
+		sendDirect(c.elemtype, sg, ep)
+		sg.elem = nil
+	}
+	gp := sg.g
+	unlockf()
+	gp.param = unsafe.Pointer(sg)
+	goready(gp, skip+1)
+}
+```
+
+需要注意的是，发送数据的过程只是将接收方的 Goroutine 放到了处理器的 `runnext` 中，程序没有立刻执行该 Goroutine。
+
+### 缓冲区
+
+如果创建的 Channel 包含缓冲区并且 Channel 中的数据没有装满，会执行下面这段代码：
+
+```go
+func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
+	...
+	if c.qcount < c.dataqsiz {
+		qp := chanbuf(c, c.sendx)
+		typedmemmove(c.elemtype, qp, ep)
+		c.sendx++
+		if c.sendx == c.dataqsiz {
+			c.sendx = 0
+		}
+		c.qcount++
+		unlock(&c.lock)
+		return true
+	}
+	...
+}
+```
+
+在这里我们首先会使用 [`runtime.chanbuf`](https://draveness.me/golang/tree/runtime.chanbuf) 计算出下一个可以存储数据的位置，然后通过 [`runtime.typedmemmove`](https://draveness.me/golang/tree/runtime.typedmemmove) 将发送的数据拷贝到缓冲区中并增加 `sendx` 索引和 `qcount` 计数器。
+
+如果当前 Channel 的缓冲区未满，向 Channel 发送的数据会存储在 Channel 的 `sendx` 索引所在的位置并将 `sendx` 索引加一。因为这里的 `buf` 是一个循环数组，所以当 `sendx` 等于 `dataqsiz` 时会重新回到数组开始的位置。
+
+### 阻塞发送
+
+当 Channel 没有接收者能够处理数据时，向 Channel 发送数据会被下游阻塞，当然使用 `select` 关键字可以向 Channel 非阻塞地发送消息。向 Channel 阻塞地发送数据会执行下面的代码，我们可以简单梳理一下这段代码的逻辑：
+
+```go
+func chansend(c *hchan, ep unsafe.Pointer, block bool, callerpc uintptr) bool {
+	...
+	if !block {
+		unlock(&c.lock)
+		return false
+	}
+
+	gp := getg()
+	mysg := acquireSudog()
+	mysg.elem = ep
+	mysg.g = gp
+	mysg.c = c
+	gp.waiting = mysg
+	c.sendq.enqueue(mysg)
+	goparkunlock(&c.lock, waitReasonChanSend, traceEvGoBlockSend, 3)
+
+	gp.waiting = nil
+	gp.param = nil
+	mysg.c = nil
+	releaseSudog(mysg)
+	return true
+}
+```
+
+1. 调用 [`runtime.getg`](https://draveness.me/golang/tree/runtime.getg) 获取发送数据使用的 Goroutine；
+2. 执行 [`runtime.acquireSudog`](https://draveness.me/golang/tree/runtime.acquireSudog) 获取 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 结构并设置这一次阻塞发送的相关信息，例如发送的 Channel、是否在 select 中和待发送数据的内存地址等；
+3. 将刚刚创建并初始化的 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 加入发送等待队列，并设置到当前 Goroutine 的 `waiting` 上，表示 Goroutine 正在等待该 `sudog` 准备就绪；
+4. 调用 [`runtime.goparkunlock`](https://draveness.me/golang/tree/runtime.goparkunlock) 将当前的 Goroutine 陷入沉睡等待唤醒；
+5. 被调度器唤醒后会执行一些收尾工作，将一些属性置零并且释放 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 结构体；
+
+### 总结
+
+我们在这里可以简单梳理和总结一下使用 `ch <- i` 表达式向 Channel 发送数据时遇到的几种情况：
+
+1. 如果当前 Channel 的 `recvq` 上存在已经被阻塞的 Goroutine，那么会直接将数据发送给当前 Goroutine 并将其设置成下一个运行的 Goroutine；
+2. 如果 Channel 存在缓冲区并且其中还有空闲的容量，我们会直接将数据存储到缓冲区 `sendx` 所在的位置上；
+3. 如果不满足上面的两种情况，会创建一个 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 结构并将其加入 Channel 的 `sendq` 队列中，当前 Goroutine 也会陷入阻塞等待其他的协程从 Channel 接收数据；
+
+发送数据的过程中包含几个会触发 Goroutine 调度的时机：
+
+1. 发送数据时发现 Channel 上存在等待接收数据的 Goroutine，立刻设置处理器的 `runnext` 属性，但是并不会立刻触发调度；
+2. 发送数据时并没有找到接收方并且缓冲区已经满了，这时会将自己加入 Channel 的 `sendq` 队列并调用 [`runtime.goparkunlock`](https://draveness.me/golang/tree/runtime.goparkunlock) 触发 Goroutine 的调度让出处理器的使用权；
+
+## 接收数据
+
+我们接下来继续介绍 Channel 操作的另一方：接收数据。Go 语言中可以使用两种不同的方式去接收 Channel 中的数据：
+
+```go
+i <- ch
+i, ok <- ch
+```
+
+### 直接接收
+
+当 Channel 的 `sendq` 队列中包含处于等待状态的 Goroutine 时，该函数会取出队列头等待的 Goroutine，处理的逻辑和发送时相差无几，只是发送数据时调用的是 [`runtime.send`](https://draveness.me/golang/tree/runtime.send) 函数，而接收数据时使用 [`runtime.recv`](https://draveness.me/golang/tree/runtime.recv)：
+
+```go
+	if sg := c.sendq.dequeue(); sg != nil {
+		recv(c, sg, ep, func() { unlock(&c.lock) }, 3)
+		return true, true
+	}
+```
+
+[`runtime.recv`](https://draveness.me/golang/tree/runtime.recv) 的实现比较复杂：
+
+```go
+func recv(c *hchan, sg *sudog, ep unsafe.Pointer, unlockf func(), skip int) {
+	if c.dataqsiz == 0 {
+		if ep != nil {
+			recvDirect(c.elemtype, sg, ep)
+		}
+	} else {
+		qp := chanbuf(c, c.recvx)
+		if ep != nil {
+			typedmemmove(c.elemtype, ep, qp)
+		}
+		typedmemmove(c.elemtype, qp, sg.elem)
+		c.recvx++
+		c.sendx = c.recvx // c.sendx = (c.sendx+1) % c.dataqsiz
+	}
+	gp := sg.g
+	gp.param = unsafe.Pointer(sg)
+	goready(gp, skip+1)
+}
+```
+
+该函数会根据缓冲区的大小分别处理不同的情况：
+
+- 如果 Channel 不存在缓冲区；
+  1. 调用 [`runtime.recvDirect`](https://draveness.me/golang/tree/runtime.recvDirect) 将 Channel 发送队列中 Goroutine 存储的 `elem` 数据拷贝到目标内存地址中；
+- 如果 Channel 存在缓冲区；
+  1. 将队列中的数据拷贝到接收方的内存地址；
+  2. 将发送队列头的数据拷贝到缓冲区中，释放一个阻塞的发送方；
+
+### 缓冲区
+
+当 Channel 的缓冲区中已经包含数据时，从 Channel 中接收数据会直接从缓冲区中 `recvx` 的索引位置中取出数据进行处理：
+
+```go
+func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool) {
+	...
+	if c.qcount > 0 {
+		qp := chanbuf(c, c.recvx)
+		if ep != nil {
+			typedmemmove(c.elemtype, ep, qp)
+		}
+		typedmemclr(c.elemtype, qp)
+		c.recvx++
+		if c.recvx == c.dataqsiz {
+			c.recvx = 0
+		}
+		c.qcount--
+		return true, true
+	}
+	...
+}
+```
+
+如果接收数据的内存地址不为空，那么会使用 [`runtime.typedmemmove`](https://draveness.me/golang/tree/runtime.typedmemmove) 将缓冲区中的数据拷贝到内存中、清除队列中的数据并完成收尾工作。
+
+收尾工作包括递增 `recvx`，一旦发现索引超过了 Channel 的容量时，会将它归零重置循环队列的索引；除此之外，该函数还会减少 `qcount` 计数器并释放持有 Channel 的锁。
+
+### 阻塞接收
+
+当 Channel 的发送队列中不存在等待的 Goroutine 并且缓冲区中也不存在任何数据时，从管道中接收数据的操作会变成阻塞的，然而不是所有的接收操作都是阻塞的，与 `select` 语句结合使用时就可能会使用到非阻塞的接收操作：
+
+```go
+func chanrecv(c *hchan, ep unsafe.Pointer, block bool) (selected, received bool) {
+	...
+	if !block {
+		unlock(&c.lock)
+		return false, false
+	}
+
+	gp := getg()
+	mysg := acquireSudog()
+	mysg.elem = ep
+	gp.waiting = mysg
+	mysg.g = gp
+	mysg.c = c
+	c.recvq.enqueue(mysg)
+	goparkunlock(&c.lock, waitReasonChanReceive, traceEvGoBlockRecv, 3)
+
+	gp.waiting = nil
+	closed := gp.param == nil
+	gp.param = nil
+	releaseSudog(mysg)
+	return true, !closed
+}
+```
+
+Go
+
+在正常的接收场景中，我们会使用 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 将当前 Goroutine 包装成一个处于等待状态的 Goroutine 并将其加入到接收队列中。
+
+完成入队之后，上述代码还会调用 [`runtime.goparkunlock`](https://draveness.me/golang/tree/runtime.goparkunlock) 立刻触发 Goroutine 的调度，让出处理器的使用权并等待调度器的调度。
+
+### 小结
+
+我们梳理一下从 Channel 中接收数据时可能会发生的五种情况：
+
+1. 如果 Channel 为空，那么会直接调用 [`runtime.gopark`](https://draveness.me/golang/tree/runtime.gopark) 挂起当前 Goroutine；
+2. 如果 Channel 已经关闭并且缓冲区没有任何数据，[`runtime.chanrecv`](https://draveness.me/golang/tree/runtime.chanrecv) 会直接返回；
+3. 如果 Channel 的 `sendq` 队列中存在挂起的 Goroutine，会将 `recvx` 索引所在的数据拷贝到接收变量所在的内存空间上并将 `sendq` 队列中 Goroutine 的数据拷贝到缓冲区；
+4. 如果 Channel 的缓冲区中包含数据，那么直接读取 `recvx` 索引对应的数据；
+5. 在默认情况下会挂起当前的 Goroutine，将 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 结构加入 `recvq` 队列并陷入休眠等待调度器的唤醒；
+
+我们总结一下从 Channel 接收数据时，会触发 Goroutine 调度的两个时机：
+
+1. 当 Channel 为空时；
+2. 当缓冲区中不存在数据并且也不存在数据的发送者时；
+
+## 关闭管道
+
+编译器会将用于关闭管道的 `close` 关键字转换成 `OCLOSE` 节点以及 [`runtime.closechan`](https://draveness.me/golang/tree/runtime.closechan) 函数。
+
+当 Channel 是一个空指针或者已经被关闭时，Go 语言运行时都会直接崩溃并抛出异常：
+
+```go
+func closechan(c *hchan) {
+	if c == nil {
+		panic(plainError("close of nil channel"))
+	}
+
+	lock(&c.lock)
+	if c.closed != 0 {
+		unlock(&c.lock)
+		panic(plainError("close of closed channel"))
+	}
+```
+
+Go
+
+处理完了这些异常的情况之后就可以开始执行关闭 Channel 的逻辑了，下面这段代码的主要工作就是将 `recvq` 和 `sendq` 两个队列中的数据加入到 Goroutine 列表 `gList` 中，与此同时该函数会清除所有 [`runtime.sudog`](https://draveness.me/golang/tree/runtime.sudog) 上未被处理的元素：
+
+```go
+	c.closed = 1
+
+	var glist gList
+	for {
+		sg := c.recvq.dequeue()
+		if sg == nil {
+			break
+		}
+		if sg.elem != nil {
+			typedmemclr(c.elemtype, sg.elem)
+			sg.elem = nil
+		}
+		gp := sg.g
+		gp.param = nil
+		glist.push(gp)
+	}
+
+	for {
+		sg := c.sendq.dequeue()
+		...
+	}
+	for !glist.empty() {
+		gp := glist.pop()
+		gp.schedlink = 0
+		goready(gp, 3)
+	}
+}
+```
+
+该函数在最后会为所有被阻塞的 Goroutine 调用 [`runtime.goready`](https://draveness.me/golang/tree/runtime.goready) 触发调度。
+
+<div STYLE="page-break-after: always;"></div>
+
+# Select
+
+I/O 多路复用被用来处理同一个事件循环中的多个 I/O 事件。I/O 多路复用需要使用特定的系统调用，最常见的系统调用是 [`select`](https://github.com/torvalds/linux/blob/f757165705e92db62f85a1ad287e9251d1f2cd82/fs/select.c#L722)，该函数可以同时监听最多 1024 个文件描述符的可读或者可写状态：
+
+**几大特点**
+
+- 可以实现两种收发操作，阻塞收发和非阻塞收发
+- 当多个case ready的情况下会随机选择一个执行，不是顺序执行
+- 没有ready的case时，有default语句，执行default语句;没有default语句，阻塞直到某个case ready
+- select中的case必须是channel操作
+- default语句总是可运行的
+
+**几大用处**
+
+- 超时处理，一旦超时就返回，不再等待
+- 生产，消费者通信、
+- 非阻塞读写
+
+## 数据结构
+
+select 中的case用runtime.scase结构体来表示，具体如下
+
+```go
+type scase struct {
+	c           *hchan         // 除了default其他都是channel操作，所以需要一个channel变量存储通道信息
+	elem        unsafe.Pointer // data element
+	kind        uint16//case类型 default语句是caseDefault类型，接收通道是caseRecv，发送通道是caseSend
+	pc          uintptr // race pc (for race detector / msan)
+	releasetime int64
+}
+```
+
+通道类型具体代码定义如下
+
+```js
+const (
+	caseNil = iota
+	caseRecv
+	caseSend
+	caseDefault
+)
+```
+
+编译器在中间代码生成期间会根据 select 中 case 的不同对控制语句进行优化，这一过程都发在 cmd/compile/internal/gc.walkselectcases 函数中，常规编译之后，调用方法runtime.selectgo，具体操作都在这个方法里面，传入的参数是scase数组，传出的参数是随机选择的ready的scase下标，如下
+
+```go
+func selectgo(cas0 *scase, order0 *uint16, ncases int) (int, bool) {
+	if debugSelect {
+		print("select: cas0=", cas0, "\n")
+	}
+...
+```
+
+## 初始化
+
+因为文件 I/O、网络 I/O 以及计时器都依赖网络轮询器，所以 Go 语言会通过以下两条不同路径初始化网络轮询器：
+
+1. [`internal/poll.pollDesc.init`](https://draveness.me/golang/tree/internal/poll.pollDesc.init) — 通过 [`net.netFD.init`](https://draveness.me/golang/tree/net.netFD.init) 和 [`os.newFile`](https://draveness.me/golang/tree/os.newFile) 初始化网络 I/O 和文件 I/O 的轮询信息时；
+2. [`runtime.doaddtimer`](https://draveness.me/golang/tree/runtime.doaddtimer) — 向处理器中增加新的计时器时；
+
+网络轮询器的初始化会使用 [`runtime.poll_runtime_pollServerInit`](https://draveness.me/golang/tree/runtime.poll_runtime_pollServerInit) 和 [`runtime.netpollGenericInit`](https://draveness.me/golang/tree/runtime.netpollGenericInit) 两个函数：
+
+```go
+func poll_runtime_pollServerInit() {
+	netpollGenericInit()
+}
+
+func netpollGenericInit() {
+	if atomic.Load(&netpollInited) == 0 {
+		lock(&netpollInitLock)
+		if netpollInited == 0 {
+			netpollinit()
+			atomic.Store(&netpollInited, 1)
+		}
+		unlock(&netpollInitLock)
+	}
+}
+```
+
+[`runtime.netpollGenericInit`](https://draveness.me/golang/tree/runtime.netpollGenericInit) 会调用平台上特定实现的 [`runtime.netpollinit`](https://draveness.me/golang/tree/runtime.netpollinit)，即 Linux 上的 `epoll`，它主要做了以下几件事情：
+
+1. 是调用 `epollcreate1` 创建一个新的 `epoll` 文件描述符，这个文件描述符会在整个程序的生命周期中使用；
+2. 通过 [`runtime.nonblockingPipe`](https://draveness.me/golang/tree/runtime.nonblockingPipe) 创建一个用于通信的管道；
+3. 使用 `epollctl` 将用于读取数据的文件描述符打包成 `epollevent` 事件加入监听；
+
+```go
+var (
+	epfd int32 = -1
+	netpollBreakRd, netpollBreakWr uintptr
+)
+
+func netpollinit() {
+	epfd = epollcreate1(_EPOLL_CLOEXEC)
+	r, w, _ := nonblockingPipe()
+	ev := epollevent{
+		events: _EPOLLIN,
+	}
+	*(**uintptr)(unsafe.Pointer(&ev.data)) = &netpollBreakRd
+	epollctl(epfd, _EPOLL_CTL_ADD, r, &ev)
+	netpollBreakRd = uintptr(r)
+	netpollBreakWr = uintptr(w)
+}
+```
+
+初始化的管道为我们提供了中断多路复用等待文件描述符中事件的方法，[`runtime.netpollBreak`](https://draveness.me/golang/tree/runtime.netpollBreak) 会向管道中写入数据唤醒 `epoll`：
+
+```go
+func netpollBreak() {
+	for {
+		var b byte
+		n := write(netpollBreakWr, unsafe.Pointer(&b), 1)
+		if n == 1 {
+			break
+		}
+		if n == -_EINTR {
+			continue
+		}
+		if n == -_EAGAIN {
+			return
+		}
+	}
+}
+```
+
+因为目前的计时器由网络轮询器管理和触发，它能够让网络轮询器立刻返回并让运行时检查是否有需要触发的计时器。
+
+## 轮询事件
+
+调用 [`internal/poll.pollDesc.init`](https://draveness.me/golang/tree/internal/poll.pollDesc.init) 初始化文件描述符时不止会初始化网络轮询器，还会通过 [`runtime.poll_runtime_pollOpen`](https://draveness.me/golang/tree/runtime.poll_runtime_pollOpen) 重置轮询信息 [`runtime.pollDesc`](https://draveness.me/golang/tree/runtime.pollDesc) 并调用 [`runtime.netpollopen`](https://draveness.me/golang/tree/runtime.netpollopen) 初始化轮询事件：
+
+```go
+func poll_runtime_pollOpen(fd uintptr) (*pollDesc, int) {
+	pd := pollcache.alloc()
+	lock(&pd.lock)
+	if pd.wg != 0 && pd.wg != pdReady {
+		throw("runtime: blocked write on free polldesc")
+	}
+	...
+	pd.fd = fd
+	pd.closing = false
+	pd.everr = false
+	...
+	pd.wseq++
+	pd.wg = 0
+	pd.wd = 0
+	unlock(&pd.lock)
+
+	var errno int32
+	errno = netpollopen(fd, pd)
+	return pd, int(errno)
+}
+```
+
+[`runtime.netpollopen`](https://draveness.me/golang/tree/runtime.netpollopen) 的实现非常简单，它会调用 `epollctl` 向全局的轮询文件描述符 `epfd` 中加入新的轮询事件监听文件描述符的可读和可写状态：
+
+```go
+func netpollopen(fd uintptr, pd *pollDesc) int32 {
+	var ev epollevent
+	ev.events = _EPOLLIN | _EPOLLOUT | _EPOLLRDHUP | _EPOLLET
+	*(**pollDesc)(unsafe.Pointer(&ev.data)) = pd
+	return -epollctl(epfd, _EPOLL_CTL_ADD, int32(fd), &ev)
+}
+```
+
+从全局的 `epfd` 中删除待监听的文件描述符可以使用 [`runtime.netpollclose`](https://draveness.me/golang/tree/runtime.netpollclose)，因为该函数的实现与 [`runtime.netpollopen`](https://draveness.me/golang/tree/runtime.netpollopen) 比较相似，所以这里不展开分析了。
+
+
+
+# context
+
+Go 语言中用来设置截止日期、同步信号，传递请求相关值的结构体。上下文与 Goroutine 有比较密切的关系，是 Go 语言中独特的设计，在其他编程语言中我们很少见到类似的概念。
+
+## 接口定义
+
+源码包中src/context/context.go:Context 定义了该接口：
+
+```go
+type Context interface {
+    Deadline() (deadline time.Time, ok bool)
+    Done() <-chan struct{}
+    Err() error
+    Value(key interface{}) interface{}
+}
+
+```
+
+[`context.Context`](https://draveness.me/golang/tree/context.Context) 是 Go 语言在 1.7 版本中引入标准库的接口[1](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-context/#fn:1)，该接口定义了四个需要实现的方法，其中包括：
+
+1. `Deadline` — 返回 [`context.Context`](https://draveness.me/golang/tree/context.Context) 被取消的时间，也就是完成工作的截止日期；
+2. `Done` — 返回一个 Channel，这个 Channel 会在当前工作完成或者上下文被取消后关闭，多次调用 `Done` 方法会返回同一个 Channel；
+3. Err — 返回`context.Context`结束的原因，它只会在Done方法对应的 Channel 关闭时返回非空的值；
+   1. 如果 [`context.Context`](https://draveness.me/golang/tree/context.Context) 被取消，会返回 `Canceled` 错误；
+   2. 如果 [`context.Context`](https://draveness.me/golang/tree/context.Context) 超时，会返回 `DeadlineExceeded` 错误；
+4. `Value` — 从 [`context.Context`](https://draveness.me/golang/tree/context.Context) 中获取键对应的值，对于同一个上下文来说，多次调用 `Value` 并传入相同的 `Key` 会返回相同的结果，该方法可以用来传递请求特定的数据；
+
+## 设计原理
+
+在 Goroutine 构成的树形结构中对信号进行同步以减少计算资源的浪费是 [`context.Context`](https://draveness.me/golang/tree/context.Context) 的最大作用。每一个 [`context.Context`](https://draveness.me/golang/tree/context.Context) 都会从最顶层的 Goroutine 一层一层传递到最下层。
+
+我们可以通过一个代码片段了解 [`context.Context`](https://draveness.me/golang/tree/context.Context) 是如何对信号进行同步的。在这段代码中，我们创建了一个过期时间为 1s 的上下文，并向上下文传入 `handle` 函数，该方法会使用 500ms 的时间处理传入的请求：
+
+```go
+func main() {
+	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
+	defer cancel()
+
+	go handle(ctx, 500*time.Millisecond)
+	select {
+	case <-ctx.Done():
+		fmt.Println("main", ctx.Err())
+	}
+}
+
+func handle(ctx context.Context, duration time.Duration) {
+	select {
+	case <-ctx.Done():
+		fmt.Println("handle", ctx.Err())
+	case <-time.After(duration):
+		fmt.Println("process request with", duration)
+	}
+}
+```
+
+## 默认上下文
+
+[`context`](https://github.com/golang/go/tree/master/src/context) 包中最常用的方法还是 [`context.Background`](https://draveness.me/golang/tree/context.Background)、[`context.TODO`](https://draveness.me/golang/tree/context.TODO)，这两个方法都会返回预先初始化好的私有变量 `background` 和 `todo`，它们会在同一个 Go 程序中被复用：
+
+```go
+func Background() Context {
+	return background
+}
+
+func TODO() Context {
+	return todo
+}
+```
+
+这两个私有变量都是通过 `new(emptyCtx)` 语句初始化的，它们是指向私有结构体 [`context.emptyCtx`](https://draveness.me/golang/tree/context.emptyCtx) 的指针，这是最简单、最常用的上下文类型：
+
+```go
+type emptyCtx int
+
+func (*emptyCtx) Deadline() (deadline time.Time, ok bool) {
+	return
+}
+
+func (*emptyCtx) Done() <-chan struct{} {
+	return nil
+}
+
+func (*emptyCtx) Err() error {
+	return nil
+}
+
+func (*emptyCtx) Value(key interface{}) interface{} {
+	return nil
+}
+```
+
+从源代码来看，[`context.Background`](https://draveness.me/golang/tree/context.Background) 和 [`context.TODO`](https://draveness.me/golang/tree/context.TODO) 也只是互为别名，没有太大的差别，只是在使用和语义上稍有不同：
+
+- [`context.Background`](https://draveness.me/golang/tree/context.Background) 是上下文的默认值，所有其他的上下文都应该从它衍生出来；
+- [`context.TODO`](https://draveness.me/golang/tree/context.TODO) 应该仅在不确定应该使用哪种上下文时使用；
+
+## 取消信号
+
+[`context.WithCancel`](https://draveness.me/golang/tree/context.WithCancel) 函数能够从 [`context.Context`](https://draveness.me/golang/tree/context.Context) 中衍生出一个新的子上下文并返回用于取消该上下文的函数。一旦我们执行返回的取消函数，当前上下文以及它的子上下文都会被取消，所有的 Goroutine 都会同步收到这一取消信号。
+
+```go
+func WithCancel(parent Context) (ctx Context, cancel CancelFunc) {
+	c := newCancelCtx(parent)
+	propagateCancel(parent, &c)
+	return &c, func() { c.cancel(true, Canceled) }
+}
+```
+
+- [`context.newCancelCtx`](https://draveness.me/golang/tree/context.newCancelCtx) 将传入的上下文包装成私有结构体 [`context.cancelCtx`](https://draveness.me/golang/tree/context.cancelCtx)；
+- [`context.propagateCancel`](https://draveness.me/golang/tree/context.propagateCancel) 会构建父子上下文之间的关联，当父上下文被取消时，子上下文也会被取消：
+
+```go
+func propagateCancel(parent Context, child canceler) {
+	done := parent.Done()
+	if done == nil {
+		return // 父上下文不会触发取消信号
+	}
+	select {
+	case <-done:
+		child.cancel(false, parent.Err()) // 父上下文已经被取消
+		return
+	default:
+	}
+
+	if p, ok := parentCancelCtx(parent); ok {
+		p.mu.Lock()
+		if p.err != nil {
+			child.cancel(false, p.err)
+		} else {
+			p.children[child] = struct{}{}
+		}
+		p.mu.Unlock()
+	} else {
+		go func() {
+			select {
+			case <-parent.Done():
+				child.cancel(false, parent.Err())
+			case <-child.Done():
+			}
+		}()
+	}
+}
+```
+
+[`context.cancelCtx`](https://draveness.me/golang/tree/context.cancelCtx) 实现的几个接口方法也没有太多值得分析的地方，该结构体最重要的方法是 [`context.cancelCtx.cancel`](https://draveness.me/golang/tree/context.cancelCtx.cancel)，该方法会关闭上下文中的 Channel 并向所有的子上下文同步取消信号：
+
+```go
+func (c *cancelCtx) cancel(removeFromParent bool, err error) {
+	c.mu.Lock()
+	if c.err != nil {
+		c.mu.Unlock()
+		return
+	}
+	c.err = err
+	if c.done == nil {
+		c.done = closedchan
+	} else {
+		close(c.done)
+	}
+	for child := range c.children {
+		child.cancel(false, err)
+	}
+	c.children = nil
+	c.mu.Unlock()
+
+	if removeFromParent {
+		removeChild(c.Context, c)
+	}
+}
+```
+
+除了 [`context.WithCancel`](https://draveness.me/golang/tree/context.WithCancel) 之外，[`context`](https://github.com/golang/go/tree/master/src/context) 包中的另外两个函数 [`context.WithDeadline`](https://draveness.me/golang/tree/context.WithDeadline) 和 [`context.WithTimeout`](https://draveness.me/golang/tree/context.WithTimeout) 也都能创建可以被取消的计时器上下文 [`context.timerCtx`](https://draveness.me/golang/tree/context.timerCtx)：
+
+```go
+func WithTimeout(parent Context, timeout time.Duration) (Context, CancelFunc) {
+	return WithDeadline(parent, time.Now().Add(timeout))
+}
+
+func WithDeadline(parent Context, d time.Time) (Context, CancelFunc) {
+	if cur, ok := parent.Deadline(); ok && cur.Before(d) {
+		return WithCancel(parent)
+	}
+	c := &timerCtx{
+		cancelCtx: newCancelCtx(parent),
+		deadline:  d,
+	}
+	propagateCancel(parent, c)
+	dur := time.Until(d)
+	if dur <= 0 {
+		c.cancel(true, DeadlineExceeded) // 已经过了截止日期
+		return c, func() { c.cancel(false, Canceled) }
+	}
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if c.err == nil {
+		c.timer = time.AfterFunc(dur, func() {
+			c.cancel(true, DeadlineExceeded)
+		})
+	}
+	return c, func() { c.cancel(true, Canceled) }
+}
+```
+
+[`context.WithDeadline`](https://draveness.me/golang/tree/context.WithDeadline) 在创建 [`context.timerCtx`](https://draveness.me/golang/tree/context.timerCtx) 的过程中判断了父上下文的截止日期与当前日期，并通过 [`time.AfterFunc`](https://draveness.me/golang/tree/time.AfterFunc) 创建定时器，当时间超过了截止日期后会调用 [`context.timerCtx.cancel`](https://draveness.me/golang/tree/context.timerCtx.cancel) 同步取消信号。
+
+[`context.timerCtx`](https://draveness.me/golang/tree/context.timerCtx) 内部不仅通过嵌入 [`context.cancelCtx`](https://draveness.me/golang/tree/context.cancelCtx) 结构体继承了相关的变量和方法，还通过持有的定时器 `timer` 和截止时间 `deadline` 实现了定时取消的功能：
+
+```go
+type timerCtx struct {
+	cancelCtx
+	timer *time.Timer // Under cancelCtx.mu.
+
+	deadline time.Time
+}
+
+func (c *timerCtx) Deadline() (deadline time.Time, ok bool) {
+	return c.deadline, true
+}
+
+func (c *timerCtx) cancel(removeFromParent bool, err error) {
+	c.cancelCtx.cancel(false, err)
+	if removeFromParent {
+		removeChild(c.cancelCtx.Context, c)
+	}
+	c.mu.Lock()
+	if c.timer != nil {
+		c.timer.Stop()
+		c.timer = nil
+	}
+	c.mu.Unlock()
+}
+```
+
+[`context.timerCtx.cancel`](https://draveness.me/golang/tree/context.timerCtx.cancel) 方法不仅调用了 [`context.cancelCtx.cancel`](https://draveness.me/golang/tree/context.cancelCtx.cancel)，还会停止持有的定时器减少不必要的资源浪费。
+
+##  传值方法
+
+，[`context`](https://github.com/golang/go/tree/master/src/context) 包中的 [`context.WithValue`](https://draveness.me/golang/tree/context.WithValue) 能从父上下文中创建一个子上下文，传值的子上下文使用 [`context.valueCtx`](https://draveness.me/golang/tree/context.valueCtx) 类型：
+
+```go
+func WithValue(parent Context, key, val interface{}) Context {
+	if key == nil {
+		panic("nil key")
+	}
+	if !reflectlite.TypeOf(key).Comparable() {
+		panic("key is not comparable")
+	}
+	return &valueCtx{parent, key, val}
+}
+```
+
+Go
+
+[`context.valueCtx`](https://draveness.me/golang/tree/context.valueCtx) 结构体会将除了 `Value` 之外的 `Err`、`Deadline` 等方法代理到父上下文中，它只会响应 [`context.valueCtx.Value`](https://draveness.me/golang/tree/context.valueCtx.Value) 方法，该方法的实现也很简单：
+
+```go
+type valueCtx struct {
+	Context
+	key, val interface{}
+}
+
+func (c *valueCtx) Value(key interface{}) interface{} {
+	if c.key == key {
+		return c.val
+	}
+	return c.Context.Value(key)
+}
+```
+
+如果 [`context.valueCtx`](https://draveness.me/golang/tree/context.valueCtx) 中存储的键值对与 [`context.valueCtx.Value`](https://draveness.me/golang/tree/context.valueCtx.Value) 方法中传入的参数不匹配，就会从父上下文中查找该键对应的值直到某个父上下文中返回 `nil` 或者查找到对应的值。
+
+<div STYLE="page-break-after: always;"></div>
+
+# goroutine调度
+
+Goroutine主要概念如下：
+
+- G（Goroutine）: 即Go协程，每个go关键字都会创建一个协程。
+- M（Machine）： 工作线程，在Go中称为Machine。
+- P(Processor): 处理器（Go中定义的一个摡念，不是指CPU），包含运行Go代码的必要资源，也有调度goroutine的能力。
+
+> P的个数默认等于CPU核数，每个M必须持有一个P才可以执行G，一般情况下M的个数会略大于P的个数，这多出来的M将会在G产生系统调用时发挥作用。
+
+## 调度器启动
+
+```go
+func schedinit() {
+	_g_ := getg()
+	...
+
+	sched.maxmcount = 10000
+
+	...
+	sched.lastpoll = uint64(nanotime())
+	procs := ncpu
+	if n, ok := atoi32(gogetenv("GOMAXPROCS")); ok && n > 0 {
+		procs = n
+	}
+	if procresize(procs) != nil {
+		throw("unknown runnable goroutine during bootstrap")
+	}
+}
+```
+
+##  创建 Goroutine
+
+想要启动一个新的 Goroutine 来执行任务时，我们需要使用 Go 语言的 `go` 关键字，编译器会通过 [`cmd/compile/internal/gc.state.stmt`](https://draveness.me/golang/tree/cmd/compile/internal/gc.state.stmt) 和 [`cmd/compile/internal/gc.state.call`](https://draveness.me/golang/tree/cmd/compile/internal/gc.state.call) 两个方法将该关键字转换成 [`runtime.newproc`](https://draveness.me/golang/tree/runtime.newproc) 函数调用：
+
+```go
+func (s *state) call(n *Node, k callKind) *ssa.Value {
+	if k == callDeferStack {
+		...
+	} else {
+		switch {
+		case k == callGo:
+			call = s.newValue1A(ssa.OpStaticCall, types.TypeMem, newproc, s.mem())
+		default:
+		}
+	}
+	...
+}
+```
+
+## 线程管理
+
+Go 语言的运行时会通过调度器改变线程的所有权，它也提供了 [`runtime.LockOSThread`](https://draveness.me/golang/tree/runtime.LockOSThread) 和 [`runtime.UnlockOSThread`](https://draveness.me/golang/tree/runtime.UnlockOSThread) 让我们有能力绑定 Goroutine 和线程完成一些比较特殊的操作。Goroutine 应该在调用操作系统服务或者依赖线程状态的非 Go 语言库时调用 [`runtime.LockOSThread`](https://draveness.me/golang/tree/runtime.LockOSThread) 函数，例如：C 语言图形库等。
+
+[`runtime.LockOSThread`](https://draveness.me/golang/tree/runtime.LockOSThread) 会通过如下所示的代码绑定 Goroutine 和当前线程：
+
+该方法的作用是可以让当前协程绑定并独立一个线程 M。
+
+```go
+func LockOSThread() {
+	if atomic.Load(&newmHandoff.haveTemplateThread) == 0 && GOOS != "plan9" {
+		startTemplateThread()
+	}
+	_g_ := getg()
+	_g_.m.lockedExt++
+	dolockOSThread()
+}
+
+func dolockOSThread() {
+	_g_ := getg()
+	_g_.m.lockedg.set(_g_)
+	_g_.lockedm.set(_g_.m)
+}
+```
+
+[`runtime.dolockOSThread`](https://draveness.me/golang/tree/runtime.dolockOSThread) 会分别设置线程的 `lockedg` 字段和 Goroutine 的 `lockedm` 字段，这两行代码会绑定线程和 Goroutine。
+
+当 Goroutine 完成了特定的操作之后，会调用以下函数 [`runtime.UnlockOSThread`](https://draveness.me/golang/tree/runtime.UnlockOSThread) 分离 Goroutine 和线程：
+
+```go
+func UnlockOSThread() {
+	_g_ := getg()
+	if _g_.m.lockedExt == 0 {
+		return
+	}
+	_g_.m.lockedExt--
+	dounlockOSThread()
+}
+
+func dounlockOSThread() {
+	_g_ := getg()
+	if _g_.m.lockedInt != 0 || _g_.m.lockedExt != 0 {
+		return
+	}
+	_g_.m.lockedg = 0
+	_g_.lockedm = 0
+}
+```
+
+函数执行的过程与 [`runtime.LockOSThread`](https://draveness.me/golang/tree/runtime.LockOSThread) 正好相反。在多数的服务中，我们都用不到这一对函数，不过使用 CGO 或者经常与操作系统打交道的读者可能会见到它们的身影。
+
+## 线程生命周期
+
+Go 语言的运行时会通过 [`runtime.startm`](https://draveness.me/golang/tree/runtime.startm) 启动线程来执行处理器 P，如果我们在该函数中没能从闲置列表中获取到线程 M 就会调用 [`runtime.newm`](https://draveness.me/golang/tree/runtime.newm) 创建新的线程：
+
+```go
+func newm(fn func(), _p_ *p, id int64) {
+	mp := allocm(_p_, fn, id)
+	mp.nextp.set(_p_)
+	mp.sigmask = initSigmask
+	...
+	newm1(mp)
+}
+
+func newm1(mp *m) {
+	if iscgo {
+		...
+	}
+	newosproc(mp)
+}
+```
+
+创建新的线程需要使用如下所示的 [`runtime.newosproc`](https://draveness.me/golang/tree/runtime.newosproc)，该函数在 Linux 平台上会通过系统调用 `clone` 创建新的操作系统线程，它也是创建线程链路上距离操作系统最近的 Go 语言函数：
+
+```go
+func newosproc(mp *m) {
+	stk := unsafe.Pointer(mp.g0.stack.hi)
+	...
+	ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
+	...
+}
+```
+
+使用系统调用 `clone` 创建的线程会在线程主动调用 `exit`、或者传入的函数 [`runtime.mstart`](https://draveness.me/golang/tree/runtime.mstart) 返回会主动退出，[`runtime.mstart`](https://draveness.me/golang/tree/runtime.mstart) 会执行调用 [`runtime.newm`](https://draveness.me/golang/tree/runtime.newm) 时传入的匿名函数 `fn`，到这里也就完成了从线程创建到销毁的整个闭环。
+
+<div STYLE="page-break-after: always;"></div>
+
+# 系统监控
+
+很多系统中都有守护进程，它们能够在后台监控系统的运行状态，在出现意外情况时及时响应。系统监控是 Go 语言运行时的重要组成部分，它会每隔一段时间检查 Go 语言运行时，确保程序没有进入异常状态。
+
+Go 语言的系统监控也起到了很重要的作用，它在内部启动了一个不会中止的循环，在循环的内部会轮询网络、抢占长期运行或者处于系统调用的 Goroutine 以及触发垃圾回收，通过这些行为，它能够让系统的运行状态变得更健康。
+
+## 监控循环
+
+当 Go 语言程序启动时，运行时会在第一个 Goroutine 中调用 [`runtime.main`](https://draveness.me/golang/tree/runtime.main) 启动主程序，该函数会在系统栈中创建新的线程：
+
+```go
+func main() {
+	...
+	if GOARCH != "wasm" {
+		systemstack(func() {
+			newm(sysmon, nil)
+		})
+	}
+	...
+}
+```
+
+[`runtime.newm`](https://draveness.me/golang/tree/runtime.newm) 会创建一个存储待执行函数和处理器的新结构体 [`runtime.m`](https://draveness.me/golang/tree/runtime.m)。运行时执行系统监控不需要处理器，系统监控的 Goroutine 会直接在创建的线程上运行：
+
+```go
+func newm(fn func(), _p_ *p) {
+	mp := allocm(_p_, fn)
+	mp.nextp.set(_p_)
+	mp.sigmask = initSigmask
+	...
+	newm1(mp)
+}
+```
+
+[`runtime.newm1`](https://draveness.me/golang/tree/runtime.newm1) 会调用特定平台的 [`runtime.newosproc`](https://draveness.me/golang/tree/runtime.newosproc) 通过系统调用 `clone` 创建一个新的线程并在新的线程中执行 [`runtime.mstart`](https://draveness.me/golang/tree/runtime.mstart)：
+
+```go
+func newosproc(mp *m) {
+	stk := unsafe.Pointer(mp.g0.stack.hi)
+	var oset sigset
+	sigprocmask(_SIG_SETMASK, &sigset_all, &oset)
+	ret := clone(cloneFlags, stk, unsafe.Pointer(mp), unsafe.Pointer(mp.g0), unsafe.Pointer(funcPC(mstart)))
+	sigprocmask(_SIG_SETMASK, &oset, nil)
+	...
+}
+```
+
+在新创建的线程中，我们会执行存储在 [`runtime.m`](https://draveness.me/golang/tree/runtime.m) 中的 [`runtime.sysmon`](https://draveness.me/golang/tree/runtime.sysmon) 启动系统监控：
+
+```go
+func sysmon() {
+	sched.nmsys++
+	checkdead()
+
+	lasttrace := int64(0)
+	idle := 0
+	delay := uint32(0)
+	for {
+		if idle == 0 {
+			delay = 20
+		} else if idle > 50 {
+			delay *= 2
+		}
+		if delay > 10*1000 {
+			delay = 10 * 1000
+		}
+		usleep(delay)
+		...
+	}
+}
+```
+
+当运行时刚刚调用上述函数时，会先通过 [`runtime.checkdead`](https://draveness.me/golang/tree/runtime.checkdead) 检查是否存在死锁，然后进入核心的监控循环；系统监控在每次循环开始时都会通过 `usleep` 挂起当前线程，该函数的参数是微秒，运行时会遵循以下的规则决定休眠时间：
+
+- 初始的休眠时间是 20μs；
+- 最长的休眠时间是 10ms；
+- 当系统监控在 50 个循环中都没有唤醒 Goroutine 时，休眠时间在每个循环都会倍增；
+
+当程序趋于稳定之后，系统监控的触发时间就会稳定在 10ms。它除了会检查死锁之外，还会在循环中完成以下的工作：
+
+- 运行计时器 — 获取下一个需要被触发的计时器；
+- 轮询网络 — 获取需要处理的到期文件描述符；
+- 抢占处理器 — 抢占运行时间较长的或者处于系统调用的 Goroutine；
+- 垃圾回收 — 在满足条件时触发垃圾收集回收内存；
+
+我们在这一节中会依次介绍系统监控是如何完成上述几种不同工作的。
+
+### 检查死锁
+
+系统监控通过 [`runtime.checkdead`](https://draveness.me/golang/tree/runtime.checkdead) 检查运行时是否发生了死锁，我们可以将检查死锁的过程分成以下三个步骤：
+
+1. 检查是否存在正在运行的线程；
+2. 检查是否存在正在运行的 Goroutine；
+3. 检查处理器上是否存在计时器；
+
+该函数首先会检查 Go 语言运行时中正在运行的线程数量，我们通过调度器中的多个字段计算该值的结果：
+
+```go
+func checkdead() {
+	var run0 int32
+	run := mcount() - sched.nmidle - sched.nmidlelocked - sched.nmsys
+	if run > run0 {
+		return
+	}
+	if run < 0 {
+		print("runtime: checkdead: nmidle=", sched.nmidle, " nmidlelocked=", sched.nmidlelocked, " mcount=", mcount(), " nmsys=", sched.nmsys, "\n")
+		throw("checkdead: inconsistent counts")
+	}
+	...
+}
+```
+
+1. [`runtime.mcount`](https://draveness.me/golang/tree/runtime.mcount) 根据下一个待创建的线程 id 和释放的线程数得到系统中存在的线程数；
+2. `nmidle` 是处于空闲状态的线程数量；
+3. `nmidlelocked` 是处于锁定状态的线程数量；
+4. `nmsys` 是处于系统调用的线程数量；
+
+利用上述几个线程相关数据，我们可以得到正在运行的线程数，如果线程数量大于 0，说明当前程序不存在死锁；如果线程数小于 0，说明当前程序的状态不一致；如果线程数等于 0，我们需要进一步检查程序的运行状态：
+
+```go
+func checkdead() {
+	...
+	grunning := 0
+	for i := 0; i < len(allgs); i++ {
+		gp := allgs[i]
+		if isSystemGoroutine(gp, false) {
+			continue
+		}
+		s := readgstatus(gp)
+		switch s &^ _Gscan {
+		case _Gwaiting, _Gpreempted:
+			grunning++
+		case _Grunnable, _Grunning, _Gsyscall:
+			print("runtime: checkdead: find g ", gp.goid, " in status ", s, "\n")
+			throw("checkdead: runnable g")
+		}
+	}
+	unlock(&allglock)
+	if grunning == 0 {
+		throw("no goroutines (main called runtime.Goexit) - deadlock!")
+	}
+	...
+}
+```
+
+1. 当存在 Goroutine 处于 `_Grunnable`、`_Grunning` 和 `_Gsyscall` 状态时，意味着程序发生了死锁；
+2. 当所有的 Goroutine 都处于 `_Gidle`、`_Gdead` 和 `_Gcopystack` 状态时，意味着主程序调用了 [`runtime.goexit`](https://draveness.me/golang/tree/runtime.goexit)；
+
+当运行时存在等待的 Goroutine 并且不存在正在运行的 Goroutine 时，我们会检查处理器中存在的计时器[：
+
+```go
+func checkdead() {
+	...
+	for _, _p_ := range allp {
+		if len(_p_.timers) > 0 {
+			return
+		}
+	}
+
+	throw("all goroutines are asleep - deadlock!")
+}
+```
+
+如果处理器中存在等待的计时器，那么所有的 Goroutine 陷入休眠状态是合理的，不过如果不存在等待的计时器，运行时会直接报错并退出程序。
+
+### 运行计时器
+
+系统监控的循环中，我们通过 [`runtime.nanotime`](https://draveness.me/golang/tree/runtime.nanotime) 和 [`runtime.timeSleepUntil`](https://draveness.me/golang/tree/runtime.timeSleepUntil) 获取当前时间和计时器下一次需要唤醒的时间；当前调度器需要执行垃圾回收或者所有处理器都处于闲置状态时，如果没有需要触发的计时器，那么系统监控可以暂时陷入休眠：
+
+```go
+func sysmon() {
+	...
+	for {
+		...
+		now := nanotime()
+		next, _ := timeSleepUntil()
+		if debug.schedtrace <= 0 && (sched.gcwaiting != 0 || atomic.Load(&sched.npidle) == uint32(gomaxprocs)) {
+			lock(&sched.lock)
+			if atomic.Load(&sched.gcwaiting) != 0 || atomic.Load(&sched.npidle) == uint32(gomaxprocs) {
+				if next > now {
+					atomic.Store(&sched.sysmonwait, 1)
+					unlock(&sched.lock)
+					sleep := forcegcperiod / 2
+					if next-now < sleep {
+						sleep = next - now
+					}
+					...
+					notetsleep(&sched.sysmonnote, sleep)
+					...
+					now = nanotime()
+					next, _ = timeSleepUntil()
+					lock(&sched.lock)
+					atomic.Store(&sched.sysmonwait, 0)
+					noteclear(&sched.sysmonnote)
+				}
+				idle = 0
+				delay = 20
+			}
+			unlock(&sched.lock)
+		}
+		...
+		if next < now {
+			startm(nil, false)
+		}
+	}
+}
+```
+
+休眠的时间会依据强制 GC 的周期 `forcegcperiod` 和计时器下次触发的时间确定，[`runtime.notesleep`](https://draveness.me/golang/tree/runtime.notesleep) 会使用信号量同步系统监控即将进入休眠的状态。当系统监控被唤醒之后，我们会重新计算当前时间和下一个计时器需要触发的时间、调用 [`runtime.noteclear`](https://draveness.me/golang/tree/runtime.noteclear) 通知系统监控被唤醒并重置休眠的间隔。
+
+如果在这之后，我们发现下一个计时器需要触发的时间小于当前时间，这也说明所有的线程可能正在忙于运行 Goroutine，系统监控会启动新的线程来触发计时器，避免计时器的到期时间有较大的偏差。
+
+### 轮询网络 [#](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sysmon/#轮询网络)
+
+如果上一次轮询网络已经过去了 10ms，那么系统监控还会在循环中轮询网络，检查是否有待执行的文件描述符：
+
+```go
+func sysmon() {
+	...
+	for {
+		...
+		lastpoll := int64(atomic.Load64(&sched.lastpoll))
+		if netpollinited() && lastpoll != 0 && lastpoll+10*1000*1000 < now {
+			atomic.Cas64(&sched.lastpoll, uint64(lastpoll), uint64(now))
+			list := netpoll(0)
+			if !list.empty() {
+				incidlelocked(-1)
+				injectglist(&list)
+				incidlelocked(1)
+			}
+		}
+		...
+	}
+}
+```
+
+上述函数会非阻塞地调用 [`runtime.netpoll`](https://draveness.me/golang/tree/runtime.netpoll) 检查待执行的文件描述符并通过 [`runtime.injectglist`](https://draveness.me/golang/tree/runtime.injectglist) 将所有处于就绪状态的 Goroutine 加入全局运行队列中：
+
+```go
+func injectglist(glist *gList) {
+	if glist.empty() {
+		return
+	}
+	lock(&sched.lock)
+	var n int
+	for n = 0; !glist.empty(); n++ {
+		gp := glist.pop()
+		casgstatus(gp, _Gwaiting, _Grunnable)
+		globrunqput(gp)
+	}
+	unlock(&sched.lock)
+	for ; n != 0 && sched.npidle != 0; n-- {
+		startm(nil, false)
+	}
+	*glist = gList{}
+}
+```
+
+该函数会将所有 Goroutine 的状态从 `_Gwaiting` 切换至 `_Grunnable` 并加入全局运行队列等待运行，如果当前程序中存在空闲的处理器，会通过 [`runtime.startm`](https://draveness.me/golang/tree/runtime.startm) 启动线程来执行这些任务。
+
+### 抢占处理器 [#](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sysmon/#抢占处理器)
+
+系统监控会在循环中调用 [`runtime.retake`](https://draveness.me/golang/tree/runtime.retake) 抢占处于运行或者系统调用中的处理器，该函数会遍历运行时的全局处理器，每个处理器都存储了一个 [`runtime.sysmontick`](https://draveness.me/golang/tree/runtime.sysmontick)：
+
+```go
+type sysmontick struct {
+	schedtick   uint32
+	schedwhen   int64
+	syscalltick uint32
+	syscallwhen int64
+}
+```
+
+该结构体中的四个字段分别存储了处理器的调度次数、处理器上次调度时间、系统调用的次数以及系统调用的时间。[`runtime.retake`](https://draveness.me/golang/tree/runtime.retake) 的循环包含了两种不同的抢占逻辑：
+
+```go
+func retake(now int64) uint32 {
+	n := 0
+	for i := 0; i < len(allp); i++ {
+		_p_ := allp[i]
+		pd := &_p_.sysmontick
+		s := _p_.status
+		if s == _Prunning || s == _Psyscall {
+			t := int64(_p_.schedtick)
+			if pd.schedwhen+forcePreemptNS <= now {
+				preemptone(_p_)
+			}
+		}
+
+		if s == _Psyscall {
+			if runqempty(_p_) && atomic.Load(&sched.nmspinning)+atomic.Load(&sched.npidle) > 0 && pd.syscallwhen+10*1000*1000 > now {
+				continue
+			}
+			if atomic.Cas(&_p_.status, s, _Pidle) {
+				n++
+				_p_.syscalltick++
+				handoffp(_p_)
+			}
+		}
+	}
+	return uint32(n)
+}
+```
+
+1. 当处理器处于 `_Prunning` 或者 `_Psyscall` 状态时，如果上一次触发调度的时间已经过去了 10ms，我们会通过 [`runtime.preemptone`](https://draveness.me/golang/tree/runtime.preemptone) 抢占当前处理器；
+2. 当处理器处于_Psyscall状态时，在满足以下两种情况下会调用`runtime.handoffp`,让出处理器的使用权：
+   1. 当处理器的运行队列不为空或者不存在空闲处理器时；
+   2. 当系统调用时间超过了 10ms 时；
+
+系统监控通过在循环中抢占处理器来避免同一个 Goroutine 占用线程太长时间造成饥饿问题。
+
+### 垃圾回收
+
+在最后，系统监控还会决定是否需要触发强制垃圾回收，[`runtime.sysmon`](https://draveness.me/golang/tree/runtime.sysmon) 会构建 [`runtime.gcTrigger`](https://draveness.me/golang/tree/runtime.gcTrigger) 并调用 [`runtime.gcTrigger.test`](https://draveness.me/golang/tree/runtime.gcTrigger.test) 方法判断是否需要触发垃圾回收：
+
+```go
+func sysmon() {
+	...
+	for {
+		...
+		if t := (gcTrigger{kind: gcTriggerTime, now: now}); t.test() && atomic.Load(&forcegc.idle) != 0 {
+			lock(&forcegc.lock)
+			forcegc.idle = 0
+			var list gList
+			list.push(forcegc.g)
+			injectglist(&list)
+			unlock(&forcegc.lock)
+		}
+		...
+	}
+}
+```
+
+如果需要触发垃圾回收，我们会将用于垃圾回收的 Goroutine 加入全局队列，让调度器选择合适的处理器去执行。
+
+<div STYLE="page-break-after: always;"></div>
+
+# 内存管理
+
+内存管理一般包含三个不同的组件，分别是用户程序（Mutator）、分配器（Allocator）和收集器（Collector
+
+## 分配方法
+
+一种是线性分配器（Sequential Allocator，Bump Allocator），另一种是空闲链表分配器（Free-List Allocator）
+
+**线性分配**（Bump Allocator）是一种高效的内存分配方法，但是有较大的局限性。当我们使用线性分配器时，只需要在内存中维护一个指向内存特定位置的指针，如果用户程序向分配器申请内存，分配器只需要检查剩余的空闲内存、返回分配的内存区域并修改指针在内存中的位置，虽然线性分配器实现为它带来了较快的执行速度以及较低的实现复杂度，但是线性分配器无法在内存被释放时重用内存。
+
+**空闲链表分配器**（Free-List Allocator）可以重用已经被释放的内存，它在内部会维护一个类似链表的数据结构。当用户程序申请内存时，空闲链表分配器会依次遍历空闲的内存块，找到足够大的内存，然后申请新的资源并修改链表。
+
+空闲链表分配器可以选择不同的策略在链表中的内存块中进行选择，最常见的是以下四种：
+
+- 首次适应（First-Fit）— 从链表头开始遍历，选择第一个大小大于申请内存的内存块；
+- 循环首次适应（Next-Fit）— 从上次遍历的结束位置开始遍历，选择第一个大小大于申请内存的内存块；
+- 最优适应（Best-Fit）— 从链表头遍历整个链表，选择最合适的内存块；
+- 隔离适应（Segregated-Fit）— 将内存分割成多个链表，每个链表中的内存块大小相同，申请内存时先找到满足条件的链表，再从链表中选择合适的内存块；
+
+## 内存分配
+
+堆上所有的对象都会通过调用 [`runtime.newobject`](https://draveness.me/golang/tree/runtime.newobject) 函数分配内存，该函数会调用 [`runtime.mallocgc`](https://draveness.me/golang/tree/runtime.mallocgc) 分配指定大小的内存空间，这也是用户程序向堆上申请内存空间的必经函数：
+
+```go
+func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
+	mp := acquirem()
+	mp.mallocing = 1
+
+	c := gomcache()
+	var x unsafe.Pointer
+	noscan := typ == nil || typ.ptrdata == 0
+	if size <= maxSmallSize {
+		if noscan && size < maxTinySize {
+			// 微对象分配
+		} else {
+			// 小对象分配
+		}
+	} else {
+		// 大对象分配
+	}
+
+	publicationBarrier()
+	mp.mallocing = 0
+	releasem(mp)
+
+	return x
+}
+```
+
+ **三种对象**
+
+- 微对象 `(0, 16B)` — 先使用微型分配器，再依次尝试线程缓存、中心缓存和堆分配内存；
+- 小对象 `[16B, 32KB]` — 依次尝试使用线程缓存、中心缓存和堆分配内存；
+- 大对象 `(32KB, +∞)` — 直接在堆上分配内存；
+
+为了方便自主管理内存，做法便是先向系统申请一块内存，然后将内存切割成小块，通过一定的内存分配算法管理内存。 
+
+- arena的大小为512G，为了方便管理把arena区域划分成一个个的page，每个page为8KB,一共有512GB/8KB个页；
+- spans区域存放span的指针，每个指针对应一个page，所以span区域的大小为(512GB/8KB)*指针大小8byte = 512M
+- bitmap区域大小也是通过arena计算出来，不过主要用于GC。
+
+### span
+
+span是用于管理arena页的关键数据结构，每个span中包含1个或多个连续页，为了满足小对象分配，span中的一页会划分更小的粒度，而对于大对象比如超过页大小，则通过多页实现。
+
+```go
+type mspan struct {
+    next *mspan            //链表前向指针，用于将span链接起来
+    prev *mspan            //链表前向指针，用于将span链接起来
+    startAddr uintptr // 起始地址，也即所管理页的地址
+    npages    uintptr // 管理的页数
+
+    nelems uintptr // 块个数，也即有多少个块可供分配
+
+    allocBits  *gcBits //分配位图，每一位代表一个块是否已分配
+
+    allocCount  uint16     // 已分配块的个数
+    spanclass   spanClass  // class表中的class ID
+
+    elemsize    uintptr    // class表中的对象大小，也即块大小
+}
+```
+
+### class
+
+跟据对象大小，划分了一系列class，每个class都代表一个固定大小的对象，以及每个span的大小。如下表所示：
+
+```go
+// class  bytes/obj  bytes/span  objects  waste bytes
+//     1          8        8192     1024            0
+//     2         16        8192      512            0
+//     3         32        8192      256            0
+//     4         48        8192      170           32
+//     5         64        8192      128            0
+...
+//    65      28672       57344        2            0
+//    66      32768       32768        1            0
+```
+
+上表中每列含义如下：
+
+- class： class ID，每个span结构中都有一个class ID, 表示该span可处理的对象类型
+- bytes/obj：该class代表对象的字节数
+- bytes/span：每个span占用堆的字节数，也即页数*页大小
+- objects: 每个span可分配的对象个数，也即（bytes/spans）/（bytes/obj）
+- waste bytes: 每个span产生的内存碎片，也即（bytes/spans）%（bytes/obj）
+
+上表可见最大的对象是32K大小，超过32K大小的由特殊的class表示，该class ID为0，每个class只包含一个对象。
+
+### 总结
+
+Golang内存分配是个相当复杂的过程，其中还掺杂了GC的处理，这里仅仅对其关键数据结构进行了说明，了解其原理而又不至于深陷实现细节。
+
+1. Golang程序启动时申请一大块内存，并划分成spans、bitmap、arena区域
+2. arena区域按页划分成一个个小块
+3. span管理一个或多个页
+4. mcentral管理多个span供线程申请使用
+5. mcache作为线程私有资源，资源来源于mcentral
+
+## 垃圾回收
+
+业界常见的垃圾回收算法有以下几种：
+
+- 引用计数：对每个对象维护一个引用计数，当引用该对象的对象被销毁时，引用计数减1，当引用计数器为0是回收该对象。
+  - 优点：对象可以很快的被回收，不会出现内存耗尽或达到某个阀值时才回收。
+  - 缺点：不能很好的处理循环引用，而且实时维护引用计数，有也一定的代价。
+  - 代表语言：Python、PHP、Swift
+- 标记-清除：从根变量开始遍历所有引用的对象，引用的对象标记为"被引用"，没有被标记的进行回收。
+  - 优点：解决了引用计数的缺点。
+  - 缺点：需要STW，即要暂时停掉程序运行。
+  - 代表语言：Golang(其采用三色标记法)
+- 分代收集：按照对象生命周期长短划分不同的代空间，生命周期长的放入老年代，而短的放入新生代，不同代有不能的回收算法和回收频率。
+  - 优点：回收性能好
+  - 缺点：算法复杂
+  - 代表语言： JAVA
+
+### 内存标记(Mark)
+
+span中维护了一个个内存块，并由一个位图allocBits表示每个内存块的分配情况。allocBits记录了每块内存分配情况，而gcmarkBits记录了每块内存标记情况。标记阶段对每块内存进行标记，有对象引用的的内存标记为1(如图中灰色所示)，没有引用到的保持默认为0.
+
+allocBits和gcmarkBits数据结构是完全一样的，标记结束就是内存回收，回收时将allocBits指向gcmarkBits，则代表标记过的才是存活的，gcmarkBits则会在下次标记时重新分配内存，非常的巧妙。
+
+### 三色标记法
+
+这里的三色，对应了垃圾回收过程中对象的三种状态：
+
+- 灰色：对象还在标记队列中等待
+- 黑色：对象已被标记，gcmarkBits对应的位为1（该对象不会在本次GC中被清理）
+- 白色：对象未被标记，gcmarkBits对应的位为0（该对象将会在本次GC中被清理）
+
+初始状态下所有对象都是白色的。
+
+接着开始扫描根对象，由于根对象引用了对象A、B,那么A、B变为灰色对象，接下来就开始分析灰色对象，分析A时，A没有引用其他对象很快就转入黑色，B引用了D，则B转入黑色的同时还需要将D转为灰色，进行接下来的分析。
+
+由于D没有引用其他对象，所以D转入黑色。
+
+最终，黑色的对象会被保留下来，白色对象会被回收掉
+
+### Stop The World
+
+Golang中的STW（Stop The World）就是停掉所有的goroutine，专心做垃圾回收，待垃圾回收结束后再恢复goroutine。
+
+### 垃圾回收优化
+
+#### 写屏障(Write Barrier)
+
+STW目的是防止GC扫描时内存变化而停掉goroutine，而写屏障就是让goroutine与GC同时运行的手段。虽然写屏障不能完全消除STW，但是可以大大减少STW的时间。
+
+写屏障类似一种开关，在GC的特定时机开启，开启后指针传递时会把指针标记，即本轮不回收，下次GC时再确定。
+
+GC过程中新分配的内存会被立即标记，用的并不是写屏障技术，也即GC过程中分配的内存不会在本轮GC中回收。
+
+#### 辅助GC(Mutator Assist)
+
+为了防止内存分配过快，在GC执行过程中，如果goroutine需要分配内存，那么这个goroutine会参与一部分GC的工作，即帮助GC做一部分工作，这个机制叫作Mutator Assist。
+
+### 垃圾回收触发时机
+
+#### 内存分配量达到阀值触发GC
+
+每次内存分配时都会检查当前内存分配量是否已达到阀值，如果达到阀值则立即启动GC。
+
+```
+阀值 = 上次GC内存分配量 * 内存增长率
+```
+
+内存增长率由环境变量`GOGC`控制，默认为100，即每当内存扩大一倍时启动GC。
+
+#### 定期触发GC
+
+默认情况下，最长2分钟触发一次GC，这个间隔在`src/runtime/proc.go:forcegcperiod`变量中被声明：
+
+```go
+// forcegcperiod is the maximum time in nanoseconds between garbage
+// collections. If we go this long without a garbage collection, one
+// is forced to run.
+//
+// This is a variable for testing purposes. It normally doesn't change.
+var forcegcperiod int64 = 2 * 60 * 1e9
+```
+
+#### 手动触发
+
+程序代码中也可以使用`runtime.GC()`来手动触发GC。这主要用于GC性能测试和统计。
+
+### GC性能优化
+
+GC性能与对象数量负相关，对象越多GC性能越差，对程序影响越大。
+
+所以GC性能优化的思路之一就是减少对象分配个数，比如对象复用或使用大对象组合多个小对象等等。
+
+另外，由于内存逃逸现象，有些隐式的内存分配也会产生，也有可能成为GC的负担。
+
+## 内存逃逸
+
+通过编译参数-gcflags=-m可以查年编译过程中的逃逸分析：
+
+`go build -gcflags=-m`
+
+### 指针逃逸
+
+```go
+package main
+
+type Student struct {
+    Name string
+    Age  int
+}
+
+func StudentRegister(name string, age int) *Student {
+    s := new(Student) //局部变量s逃逸到堆
+
+    s.Name = name
+    s.Age = age
+
+    return s
+}
+
+func main() {
+    StudentRegister("Jim", 18)
+}
+
+//.\main.go:9: new(Student) escapes to heap
+//.\main.go:18: main new(Student) does not escape
+```
+
+> 不管是不是指针，在被引用的情况下都会逃逸到堆上
+
+### 栈空间不足逃逸
+
+一般的栈空间是2M
+
+```go
+package main
+
+func Slice() {
+    s := make([]int, 1000, 1000)
+
+    for index, _ := range s {
+        s[index] = index
+    }
+}
+
+func main() {
+    Slice()
+}
+
+//.\main.go:4: Slice make([]int, 1000, 1000) does not escape
+```
+
+### 动态类型逃逸
+
+interface传参
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s := "Escape"
+    fmt.Println(s)
+}
+//.\main.go:7: s escapes to heap
+//.\main.go:7: main ... argument does not escape
+```
+
+### 闭包引用对象逃逸
+
+> 匿名函数也会逃逸
+
+```go
+func Fibonacci() func() int {
+    a, b := 0, 1
+    return func() int {
+        a, b = b, a+b
+        return a
+    }
+}
+
+// .\main.go:7: func literal escapes to heap
+// .\main.go:7: func literal escapes to heap
+```
+
+### 总结
+
+- 栈上分配内存比在堆中分配内存有更高的效率
+- 栈上分配的内存不需要GC处理
+- 堆上分配的内存使用完毕会交给GC处理
+- 逃逸分析目的是决定内分配地址是栈还是堆
+- 逃逸分析在编译阶段完成
+
+> 在有引用的情况下都会逃逸到堆上
+
+<div STYLE="page-break-after: always;"></div>
+
+# 代码生成
+
+> 可以把实现的的步骤放在别处
+>
+> 或者执行一些generate 代码
+
+Go 语言的代码生成机制会读取包含预编译指令的注释，然后执行注释中的命令读取包中的文件，它们将文件解析成抽象语法树并根据语法树生成新的 Go 语言代码和文件，生成的代码会在项目的编译期间与其他代码一起编译和运行。
+
+```go
+//go:generate command argument...
+```
+
+`go generate` 不会被 `go build` 等命令自动执行，该命令需要显式的触发，手动执行该命令时会在文件中扫描上述形式的注释并执行后面的执行命令
+
+```go
+package main
+
+import "fmt"
+
+//go:generate echo hello
+//go:generate go run main.go
+//go:generate  echo file=$GOFILE pkg=$GOPACKAGE
+func main() {
+    fmt.Println("main func")
+}
+
+// go generate
+// hello
+// main func
+// file=main.go pkg=main
+```
+
+我们可以用go generate来实现String()
+
+```go
+//go:generate stringer -type=Pill
+package painkiller
+
+type Pill int
+
+const (
+    Placebo Pill = iota
+    Aspirin
+    Ibuprofen
+    Paracetamol
+    Acetaminophen = Paracetamol
+)
+```
+
+**在运行"go generate"命令前，我们需要安装stringer工具**，命令如下：
+
+
+
+```shell
+$ go get golang.org/x/tools/cmd/stringer
+```
+
+- 然后，在painkiller.go所在的目录下面运行"go generate"命令：
+
+
+
+```shell
+$ go generate
+```
+
+我们会发现当前目录下面生成一个pill_string.go文件，里面实现了我们需要的String()方法，文件内容如下：
+
+
+
+```go
+// Code generated by "stringer -type=Pill"; DO NOT EDIT.
+
+package painkiller
+
+import "fmt"
+
+const _Pill_name = "PlaceboAspirinIbuprofenParacetamol"
+
+var _Pill_index = [...]uint8{0, 7, 14, 23, 34}
+
+func (i Pill) String() string {
+    if i < 0 || i >= Pill(len(_Pill_index)-1) {
+        return fmt.Sprintf("Pill(%d)", i)
+    }
+    return _Pill_name[_Pill_index[i]:_Pill_index[i+1]]
+}
+```
+
+
+
+作者：发仔很忙
+链接：https://www.jianshu.com/p/a866147021da
+来源：简书
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
 <div STYLE="page-break-after: always;"></div>
 
