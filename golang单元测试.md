@@ -230,7 +230,28 @@ go tool pprof -text -nodecount=10 ./http.test cpu.out
 - 基于种子构造的随机数据，称作 随机语料（random corpus）。
 
 ```go
+func FuzzAdd(f *testing.F) {
+    // 添加种子。（可选）
+    f.Add(1, 1)
+    f.Add(1, 2)
+    f.Add(1, 3)
+    
+     // 随机测试。（第一参数为 *T，后续和测试目标函数相同）
+    f.Fuzz(func(t *testing.T, x, y int) {
+    	add(x, y)
+    })
+    
+    // f.Fuzz(func(t *testing.T, i int, s string) {
+        // out, err := Foo(i, s)
+        // if err != nil && out != "" {
+        //     t.Errorf("%q, %v", out, err)
+        // }
+	// })
+}
+```
 
+```bash
+go test -v -fuzz Add -fuzztime 20s ./mylib
 ```
 
 ## 常用参数
@@ -239,6 +260,44 @@ go tool pprof -text -nodecount=10 ./http.test cpu.out
 - `-fuzztime` : 时长或次数。（ 1m20s , 100x ）
 
 # Example文档测试
+
+示例函数一般以`example_test.go`为测试文件。一般用于go doc 做文档输出
+
+```go
+// 检测单行输出
+func ExampleSayHello() {
+    gotest.SayHello()
+    // OutPut: Hello World
+}
+
+// 检测多行输出
+func ExampleSayGoodbye() {
+    gotest.SayGoodbye()
+    // OutPut:
+    // Hello,
+    // goodbye
+}
+
+// 检测乱序输出
+func ExamplePrintNames() {
+    gotest.PrintNames()
+    // Unordered output:
+    // Jim
+    // Bob
+    // Tom
+    // Sue
+}
+```
+
+示例行数总结
+
+- 例子测试函数名需要以"Example"开头；
+- 检测单行输出格式为“// Output: <期望字符串>”；
+- 检测多行输出格式为“// Output: \ <期望字符串> \ <期望字符串>”，每个期望字符串占一行；
+- 检测无序输出格式为"// Unordered output: \ <期望字符串> \ <期望字符串>"，每个期望字符串占一行；
+- 测试字符串时会自动忽略字符串前后的空白字符；
+- 如果测试函数中没有“Output”标识，则该测试函数不会被执行；
+- 执行测试可以使用`go test <xxx_test.go>`，此时仅执行特定文件中的测试函数；
 
 # uber/mock
 
