@@ -4,19 +4,19 @@
 
 - [Overview](#overview)
 - [大端序和小端序](#%E5%A4%A7%E7%AB%AF%E5%BA%8F%E5%92%8C%E5%B0%8F%E7%AB%AF%E5%BA%8F)
-  - [func AppendUvarint(buf []byte, x uint64) []byte](#func-appenduvarintbuf-byte-x-uint64-byte)
-  - [func AppendVarint(buf []byte, x int64) []byte](#func-appendvarintbuf-byte-x-int64-byte)
-  - [func PutUvarint(buf []byte, x uint64) int](#func-putuvarintbuf-byte-x-uint64-int)
-  - [func PutVarint(buf []byte, x int64) int](#func-putvarintbuf-byte-x-int64-int)
-  - [-> func Read(r io.Reader, order ByteOrder, data any) error](#--func-readr-ioreader-order-byteorder-data-any-error)
-  - [func ReadUvarint(r io.ByteReader) (uint64, error)](#func-readuvarintr-iobytereader-uint64-error)
-  - [func ReadVarint(r io.ByteReader) (int64, error)](#func-readvarintr-iobytereader-int64-error)
-  - [func Size(v any) int](#func-sizev-any-int)
-  - [func Uvarint(buf []byte) (uint64, int)](#func-uvarintbuf-byte-uint64-int)
-  - [func Varint(buf []byte) (int64, int)](#func-varintbuf-byte-int64-int)
-  - [func Write(w io.Writer, order ByteOrder, data any) error](#func-writew-iowriter-order-byteorder-data-any-error)
-  - [type AppendByteOrder interfacer](#type-appendbyteorder-interfacer)
-  - [type ByteOrder interface](#type-byteorder-interface)
+- [func AppendUvarint(buf []byte, x uint64) []byte](#func-appenduvarintbuf-byte-x-uint64-byte)
+- [func AppendVarint(buf []byte, x int64) []byte](#func-appendvarintbuf-byte-x-int64-byte)
+- [func PutUvarint(buf []byte, x uint64) int](#func-putuvarintbuf-byte-x-uint64-int)
+- [func PutVarint(buf []byte, x int64) int](#func-putvarintbuf-byte-x-int64-int)
+- [:point_right: func Read(r io.Reader, order ByteOrder, data any) error](#point_right-func-readr-ioreader-order-byteorder-data-any-error)
+- [func ReadUvarint(r io.ByteReader) (uint64, error)](#func-readuvarintr-iobytereader-uint64-error)
+- [func ReadVarint(r io.ByteReader) (int64, error)](#func-readvarintr-iobytereader-int64-error)
+- [func Size(v any) int](#func-sizev-any-int)
+- [func Uvarint(buf []byte) (uint64, int)](#func-uvarintbuf-byte-uint64-int)
+- [func Varint(buf []byte) (int64, int)](#func-varintbuf-byte-int64-int)
+- [func Write(w io.Writer, order ByteOrder, data any) error](#func-writew-iowriter-order-byteorder-data-any-error)
+- [type AppendByteOrder interfacer](#type-appendbyteorder-interfacer)
+- [type ByteOrder interface](#type-byteorder-interface)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -92,15 +92,15 @@ j =  280
 */
 ```
 
-## func AppendUvarint(buf []byte, x uint64) []byte
+# func AppendUvarint(buf []byte, x uint64) []byte
 
 AppendUvarint 将 PutUvarint 生成的 x 的 varint 编码形式附加到 buf 并返回扩展缓冲区。
 
-## func AppendVarint(buf []byte, x int64) []byte
+# func AppendVarint(buf []byte, x int64) []byte
 
 AppendVarint 将 PutVarint 生成的 x 的 varint 编码形式附加到 buf 并返回扩展缓冲区。
 
-## func PutUvarint(buf []byte, x uint64) int
+#  func PutUvarint(buf []byte, x uint64) int
 
 PutUvarint 将 uint64 编码为 buf 并返回写入的字节数。 如果缓冲区太小，PutUvarint 会出现panic。
 
@@ -122,11 +122,11 @@ func main() {
 }
 ```
 
-## func PutVarint(buf []byte, x int64) int
+# func PutVarint(buf []byte, x int64) int
 
 PutVarint 将 int64 编码到 buf 中并返回写入的字节数。 如果缓冲区太小，PutVarint 将会出现panic。
 
-## -> func Read(r io.Reader, order ByteOrder, data any) error
+# :point_right: func Read(r io.Reader, order ByteOrder, data any) error
 
 Read 将结构化二进制数据从 r 读取到 data 中。 数据必须是指向固定大小值或固定大小值切片的指针。 使用指定的字节顺序对从 r 读取的字节进行解码，并将其写入数据的连续字段。 解码布尔值时，零字节被解码为假，任何其他非零字节被解码为真。 读入结构体时，会跳过字段名称为空白 (_) 的字段的字段数据； 即，空白字段名称可用于填充。 读入结构时，必须导出所有非空白字段，否则读取可能会出现恐慌。
 
@@ -154,19 +154,19 @@ func main() {
 // 3.141592653589793
 ```
 
-## func ReadUvarint(r io.ByteReader) (uint64, error)
+# func ReadUvarint(r io.ByteReader) (uint64, error)
 
 ReadUvarint 从 r 读取编码的无符号整数并将其作为 uint64 返回。 仅当未读取任何字节时，错误才为 EOF。 如果在读取部分而非全部字节后发生 EOF，则 ReadUvarint 返回 io.ErrUnexpectedEOF。
 
-## func ReadVarint(r io.ByteReader) (int64, error)
+# func ReadVarint(r io.ByteReader) (int64, error)
 
 ReadVarint 从 r 读取编码的有符号整数并将其作为 int64 返回。 仅当未读取任何字节时，错误才为 EOF。 如果在读取部分而非全部字节后发生 EOF，则 ReadVarint 返回 io.ErrUnexpectedEOF。
 
-## func Size(v any) int
+# func Size(v any) int
 
 Size 返回 Write 将生成多少字节来编码值 v，该值必须是固定大小值或固定大小值的切片，或者指向此类数据的指针。 如果 v 不是其中任何一个，则 Size 返回 -1。
 
-## func Uvarint(buf []byte) (uint64, int)
+# func Uvarint(buf []byte) (uint64, int)
 
 Uvarint 从 buf 解码 uint64 并返回该值和读取的字节数 (> 0)。
 
@@ -205,11 +205,11 @@ func main() {
 */
 ```
 
-## func Varint(buf []byte) (int64, int)
+# func Varint(buf []byte) (int64, int)
 
 Varint 从 buf 解码 int64 并返回该值和读取的字节数 (> 0)。
 
-## func Write(w io.Writer, order ByteOrder, data any) error
+# func Write(w io.Writer, order ByteOrder, data any) error
 
 Write 将数据的二进制表示形式写入 w 中。 数据必须是固定大小的值或固定大小值的切片，或者指向此类数据的指针。 布尔值编码为一个字节：1 表示 true，0 表示 false。 写入 w 的字节使用指定的字节顺序进行编码，并从数据的连续字段中读取。 编写结构时，将为具有空白 (_) 字段名称的字段写入零值。
 
@@ -234,7 +234,7 @@ func main() {
 }
 ```
 
-## type AppendByteOrder interfacer
+# type AppendByteOrder interfacer
 
 ```Go
 type AppendByteOrder interface {
@@ -247,7 +247,7 @@ type AppendByteOrder interface {
 
 AppendByteOrder 指定如何将 16 位、32 位或 64 位无符号整数附加到字节片中。
 
-## type ByteOrder interface
+# type ByteOrder interface
 
 ```Go
 package main
