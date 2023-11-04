@@ -65,6 +65,34 @@
 - [60. 下面这段代码输出什么？为什么](#60-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88)
 - [61. 下面这段代码输出什么](#61-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 - [62. 下面这段代码输出什么？为什么](#62-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88)
+- [63. 下面这段代码输出什么](#63-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [64. 下面代码输出什么](#64-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [65. 下面的代码有什么问题](#65-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [66. 下面这段代码输出什么？如果编译错误的话，为什么](#66-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E5%A6%82%E6%9E%9C%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF%E7%9A%84%E8%AF%9D%E4%B8%BA%E4%BB%80%E4%B9%88)
+- [67. 下面这段代码能否正常结束](#67-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%83%BD%E5%90%A6%E6%AD%A3%E5%B8%B8%E7%BB%93%E6%9D%9F)
+- [68. 下面这段代码输出什么？为什么](#68-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88)
+- [69. 下面这段代码输出什么](#69-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [70. 下面这段代码输出什么](#70-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [71. 下面这段代码输出什么](#71-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [72. 下面这段代码输出什么](#72-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [73. 下面这段代码输出结果正确吗](#73-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E6%AD%A3%E7%A1%AE%E5%90%97)
+- [74. 下面代码里的 counter 的输出值](#74-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E9%87%8C%E7%9A%84-counter-%E7%9A%84%E8%BE%93%E5%87%BA%E5%80%BC)
+- [75. 关于协程，下面说法正确是](#75-%E5%85%B3%E4%BA%8E%E5%8D%8F%E7%A8%8B%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E6%98%AF)
+- [76. 关于循环语句，下面说法正确的有](#76-%E5%85%B3%E4%BA%8E%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%9C%89)
+- [77. 下面代码输出正确的是](#77-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [78. 关于类型转化，下面选项正确的是](#78-%E5%85%B3%E4%BA%8E%E7%B1%BB%E5%9E%8B%E8%BD%AC%E5%8C%96%E4%B8%8B%E9%9D%A2%E9%80%89%E9%A1%B9%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [79. 关于switch语句，下面说法正确的有](#79-%E5%85%B3%E4%BA%8Eswitch%E8%AF%AD%E5%8F%A5%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%9C%89)
+- [80. 如果 Add() 函数的调用代码为](#80-%E5%A6%82%E6%9E%9C-add-%E5%87%BD%E6%95%B0%E7%9A%84%E8%B0%83%E7%94%A8%E4%BB%A3%E7%A0%81%E4%B8%BA)
+- [81. 关于 bool 变量 b 的赋值，下面错误的用法是](#81-%E5%85%B3%E4%BA%8E-bool-%E5%8F%98%E9%87%8F-b-%E7%9A%84%E8%B5%8B%E5%80%BC%E4%B8%8B%E9%9D%A2%E9%94%99%E8%AF%AF%E7%9A%84%E7%94%A8%E6%B3%95%E6%98%AF)
+- [82. 关于变量的自增和自减操作，下面语句正确的是](#82-%E5%85%B3%E4%BA%8E%E5%8F%98%E9%87%8F%E7%9A%84%E8%87%AA%E5%A2%9E%E5%92%8C%E8%87%AA%E5%87%8F%E6%93%8D%E4%BD%9C%E4%B8%8B%E9%9D%A2%E8%AF%AD%E5%8F%A5%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [83. 关于GetPodAction定义,下面赋值正确的是](#83-%E5%85%B3%E4%BA%8Egetpodaction%E5%AE%9A%E4%B9%89%E4%B8%8B%E9%9D%A2%E8%B5%8B%E5%80%BC%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [84. 关于函数声明，下面语法正确的是](#84-%E5%85%B3%E4%BA%8E%E5%87%BD%E6%95%B0%E5%A3%B0%E6%98%8E%E4%B8%8B%E9%9D%A2%E8%AF%AD%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [85. 关于整型切片的初始化，下面正确的是](#85-%E5%85%B3%E4%BA%8E%E6%95%B4%E5%9E%8B%E5%88%87%E7%89%87%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%8B%E9%9D%A2%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [86. 下面代码会触发异常吗？请说明。](#86-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E4%BC%9A%E8%A7%A6%E5%8F%91%E5%BC%82%E5%B8%B8%E5%90%97%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [87. 关于channel的特性，下面说法正确的是](#87-%E5%85%B3%E4%BA%8Echannel%E7%9A%84%E7%89%B9%E6%80%A7%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [88. 下面代码有什么问题？](#88-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [89. 下面代码能否编译通过？如果通过，输出什么](#89-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%83%BD%E5%90%A6%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%A6%82%E6%9E%9C%E9%80%9A%E8%BF%87%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [90. 关于异常的触发，下面说法正确的是](#90-%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A6%E5%8F%91%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1547,3 +1575,695 @@ p is not nil
 ```
 
 我们分配给变量 p 的值明明是 nil，然而 p 却不是 nil。记住一点，**当且仅当动态值和动态类型都为 nil 时，接口类型值才为 nil**。<font color="red">给变量 p 赋值之后，p 的动态值是 nil，但是动态类型却是 *Student，是一个 nil 指针</font>，所以相等条件不成立。
+
+# 63. 下面这段代码输出什么
+
+```go
+type Direction int
+
+const (
+    North Direction = iota
+    East
+    South
+    West
+)
+
+func (d Direction) String() string {
+    return [...]string{"North", "East", "South", "West"}[d]
+}
+
+func main() {
+    fmt.Println(South)
+}
+```
+
+South
+
+<font color="red">iota 的用法、类型的 String() 方法</font>。
+
+# 64. 下面代码输出什么
+
+```go
+type Math struct {
+    x, y int
+}
+
+var m = map[string]Math{
+    "foo": Math{2, 3},
+}
+
+func main() {
+    m["foo"].x = 4
+    fmt.Println(m["foo"].x)
+}
+```
+
+ compilation error
+
+ map 的 value 本身是不可寻址的,有两个解决办法：
+
+**使用临时变量**
+
+```go
+type Math struct {
+    x, y int
+}
+
+var m = map[string]Math{
+    "foo": Math{2, 3},
+}
+
+func main() {
+    tmp := m["foo"]
+    tmp.x = 4
+    m["foo"] = tmp
+    fmt.Println(m["foo"].x)
+}
+```
+
+**修改数据结构,使用指针**
+
+```go
+type Math struct {
+    x, y int
+}
+
+var m = map[string]*Math{
+    "foo": &Math{2, 3},
+}
+
+func main() {
+    m["foo"].x = 4
+    fmt.Println(m["foo"].x)
+    fmt.Printf("%#v", m["foo"])   // %#v 格式化输出详细信息
+}
+```
+
+# 65. 下面的代码有什么问题
+
+```go
+func main() {
+    fmt.Println([...]int{1} == [2]int{1}) // 数组类型不同，不能比较
+    fmt.Println([]int{1} == []int{1}) // 引用类型不能比较
+}
+```
+
+# 66. 下面这段代码输出什么？如果编译错误的话，为什么
+
+```go
+var p *int
+
+func foo() (*int, error) {
+    var i int = 5
+    return &i, nil
+}
+
+func bar() {
+    //use p
+    fmt.Println(*p) // 全局变量的p
+}
+
+func main() {
+    p, err := foo() // 重新声明了一个p
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    bar() // p==nil 解析*p 报错
+    fmt.Println(*p)
+}
+```
+
+runtime error
+
+main() 函数里的 p 是新定义的变量，会遮住全局变量 p，导致执行到`bar()`时程序，全局变量 p 依然还是 nil，程序随即 Crash
+
+正确的做法是将 main() 函数修改为：
+
+```go
+func main() {
+    var err error
+    p, err = foo()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    bar()
+    fmt.Println(*p)
+}
+```
+
+# 67. 下面这段代码能否正常结束
+
+```go
+func main() {
+    v := []int{1, 2, 3}
+    for i := range v {
+        v = append(v, i)
+    }
+}
+```
+
+不会出现死循环，能正常结束
+
+循环次数在循环开始前就已经确定，循环内改变切片的长度，不影响循环次数。
+
+<font color="red">切片循环前会保留一份副本，改变切片对循环次数没有影响，对map的增删改查影响循环次数</font>>
+
+# 68. 下面这段代码输出什么？为什么
+
+```go
+func main() {
+
+    var m = [...]int{1, 2, 3}
+
+    for i, v := range m {
+        go func() {
+            fmt.Println(i, v)
+        }()
+    }
+
+    time.Sleep(time.Second * 3)
+}
+```
+
+output
+
+```go
+// 大概率上是
+2 3
+2 3
+2 3
+```
+
+for range 使用短变量声明(:=)的形式迭代变量，需要注意的是，变量 i、v 在每次循环体中都会被重用，而不是重新声明。两种解决办法
+
+**使用函数变量传递**
+
+```go
+for i, v := range m {
+    go func(i,v int) {
+        fmt.Println(i, v)
+    }(i,v)
+}
+```
+
+**使用零食变量**
+
+```go
+for i, v := range m {
+    i := i           // 这里的 := 会重新声明变量，而不是重用
+    v := v
+    go func() {
+        fmt.Println(i, v)
+    }()
+}
+```
+
+# 69. 下面这段代码输出什么
+
+```go
+func f(n int) (r int) {
+    defer func() {
+        r += n  // r = r+4
+        recover()
+    }()
+
+    var f func()
+
+    defer f() // panic
+    f = func() {
+        r += 2
+    }
+    return n + 1 // r = n + 1 =4
+}
+
+func main() {
+    fmt.Println(f(3))
+}
+```
+
+Output
+
+```go
+7
+```
+
+第一步执行`r = n +1`，接着执行第二个 defer，由于此时 f() 未定义，引发异常，随即执行第一个 defer，异常被 recover()，程序正常执行，最后 return。
+
+#  70. 下面这段代码输出什么
+
+```go
+func main() {
+    var a = [5]int{1, 2, 3, 4, 5}
+    var r [5]int
+
+    for i, v := range a {
+        if i == 0 {
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
+    fmt.Println("r = ", r)
+    fmt.Println("a = ", a)
+}
+```
+
+output
+
+```bash
+r =  [1 2 3 4 5]
+a =  [1 12 13 4 5]
+```
+
+range 数组表达式是副本参与循环，就是说例子中参与循环的是 a 的副本，而不是真正的 a。
+
+如果想要 r 和 a 一样输出，修复办法：
+
+```go
+// 使用指针
+func main() {
+    var a = [5]int{1, 2, 3, 4, 5}
+    var r [5]int
+
+    for i, v := range &a {
+        if i == 0 {
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
+    fmt.Println("r = ", r)
+    fmt.Println("a = ", a)
+}
+
+// 重新取值
+func main() {
+	var a = [5]int{1, 2, 3, 4, 5}
+	var r [5]int
+
+	for i := range a {
+		if i == 0 {
+			a[1] = 12
+			a[2] = 13
+		}
+		r[i] = a[i]
+	}
+	fmt.Println("r = ", r)
+	fmt.Println("a = ", a)
+}
+```
+
+# 71. 下面这段代码输出什么
+
+```go
+func change(s ...int) {
+    s = append(s,3)
+}
+
+func main() {
+    slice := make([]int,5,5)
+    slice[0] = 1
+    slice[1] = 2
+    change(slice...)
+    fmt.Println(slice)
+    change(slice[0:2]...) // slice[0:2]用得是底层地址
+    fmt.Println(slice)
+}
+```
+
+Output:
+
+```bash
+[1 2 0 0 0]
+[1 2 3 0 0]
+```
+
+# 72. 下面这段代码输出什么
+
+```go
+func main() {
+    var a = []int{1, 2, 3, 4, 5}
+    var r [5]int
+
+    for i, v := range a {
+        if i == 0 {
+            // a = a[:2]  range a中的a没有影响
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
+    fmt.Println("r = ", r)
+    fmt.Println("a = ", a)
+```
+
+Output:
+
+```bash
+r =  [1 12 13 4 5]
+a =  [1 12 13 4 5]
+```
+
+<font color="red">当 range 切片表达式发生修改时，副本的指针依旧指向原底层数组，所以对切片的修改都会反应到底层数组上，所以通过 v 可以获得修改后的数组元素</font>
+
+<font color="red">当 range 切片表达式发生删除时，对range a中的a没有影响</font>
+
+# 73. 下面这段代码输出结果正确吗
+
+```go
+type Foo struct {
+    bar string
+}
+func main() {
+    s1 := []Foo{
+        {"A"},
+        {"B"},
+        {"C"},
+    }
+    s2 := make([]*Foo, len(s1))
+    for i, value := range s1 {
+        s2[i] = &value
+    }
+    fmt.Println(s1[0], s1[1], s1[2])
+    fmt.Println(s2[0], s2[1], s2[2])
+}
+
+// output
+{A} {B} {C}
+&{A} &{B} &{C} // 应该是&{C} &{C} &{C}
+```
+
+s2 的输出结果错误 for range 使用短变量声明(:=)的形式迭代变量时，变量 i、value 在每次循环体中都会被重用，而不是重新声明。所以 s2 每次填充的都是临时变量 value 的地址,s2 输出的时候显示出了三个 &{c}。
+
+# 74. 下面代码里的 counter 的输出值
+
+```go
+func main() {
+    var m = map[string]int{
+        "A": 21,
+        "B": 22,
+        "C": 23,
+    }
+    counter := 0
+    for k, v := range m {
+        if counter == 0 {
+            delete(m, "A")
+        }
+        counter++
+        fmt.Println(k, v)
+    }
+    fmt.Println("counter is ", counter)
+}
+```
+
+ `2 或 3`
+
+for range map 是无序的，如果第一次循环到 A，则输出 3；否则输出 2。
+
+# 75. 关于协程，下面说法正确是
+
+```go
+A. 协程和线程都可以实现程序的并发执行；
+B. 线程比协程更轻量级；
+C. 协程不存在死锁问题；
+D. 通过 channel 来进行协程间的通信；
+```
+
+A D
+
+# 76. 关于循环语句，下面说法正确的有
+
+```go
+A. 循环语句既支持 for 关键字，也支持 while 和 do-while；
+B. 关键字 for 的基本使用方法与 C/C++ 中没有任何差异；
+C. for 循环支持 continue 和 break 来控制循环，但是它提供了一个更高级的 break，可以选择中断哪一个循环；
+D. for 循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量；
+```
+
+C D
+
+# 77. 下面代码输出正确的是
+
+```go
+func main() {
+    i := 1
+    s := []string{"A", "B", "C"}
+    i, s[i-1] = 2, "Z" // `i, s[0] = 2, "Z"`
+    fmt.Printf("s: %v \n", s)
+}
+```
+
+Output:
+
+```go
+s: [Z,B,C]
+```
+
+多重赋值分为两个步骤，有先后顺序：
+
+- 计算等号左边的索引表达式和取址表达式，接着计算等号右边的表达式
+
+- 赋值；
+
+# 78. 关于类型转化，下面选项正确的是
+
+```go
+A.
+type MyInt int
+var i int = 1
+var j MyInt = i
+
+B.
+type MyInt int
+var i int = 1
+var j MyInt = (MyInt)i
+
+C.
+type MyInt int
+var i int = 1
+var j MyInt = MyInt(i)
+
+D.
+type MyInt int
+var i int = 1
+var j MyInt = i.(MyInt)
+```
+
+C
+
+# 79. 关于switch语句，下面说法正确的有
+
+```go
+A. 条件表达式必须为常量或者整数；
+B. 单个case中，可以出现多个结果选项；
+C. 需要用break来明确退出一个case；
+D. 只有在case中明确添加fallthrough关键字，才会继续执行紧跟的下一个case；
+```
+
+B D
+
+# 80. 如果 Add() 函数的调用代码为
+
+则Add函数定义正确的是()
+
+```go
+func main() {
+    var a Integer = 1
+    var b Integer = 2
+    var i interface{} = &a
+    sum := i.(*Integer).Add(b)
+    fmt.Println(sum)
+}
+
+A.
+type Integer int
+func (a Integer) Add(b Integer) Integer {
+        return a + b
+}
+
+B.
+type Integer int
+func (a Integer) Add(b *Integer) Integer {
+        return a + *b
+}
+
+C.
+type Integer int
+func (a *Integer) Add(b Integer) Integer {
+        return *a + b
+}
+
+D.
+type Integer int
+func (a *Integer) Add(b *Integer) Integer {
+        return *a + *b
+}
+```
+
+A C
+
+类型断言、方法集。
+
+# 81. 关于 bool 变量 b 的赋值，下面错误的用法是
+
+```go
+A. b = true
+B. b = 1
+C. b = bool(1)
+D. b = (1 == 2)
+```
+
+B C
+
+# 82. 关于变量的自增和自减操作，下面语句正确的是
+
+```go
+A.
+i := 1
+i++
+
+B.
+i := 1
+j = i++
+
+C.
+i := 1
+++i
+
+D.
+i := 1
+i--
+```
+
+A D 
+
+i++ 和 i-- 在 Go 语言中是语句，不是表达式，因此不能赋值给另外的变量。此外没有 ++i 和 --i。
+
+# 83. 关于GetPodAction定义,下面赋值正确的是
+
+```go
+type Fragment interface {
+        Exec(transInfo *TransInfo) error
+}
+type GetPodAction struct {
+}
+func (g GetPodAction) Exec(transInfo *TransInfo) error {
+        ...
+        return nil
+}
+
+A. var fragment Fragment = new(GetPodAction)
+B. var fragment Fragment = GetPodAction
+C. var fragment Fragment = &GetPodAction{}
+D. var fragment Fragment = GetPodAction{}
+```
+
+A C D
+
+# 84. 关于函数声明，下面语法正确的是
+
+```go
+A. func f(a, b int) (value int, err error)
+B. func f(a int, b int) (value int, err error)
+C. func f(a, b int) (value int, error)
+D. func f(a int, b int) (int, int, error)
+```
+
+A B D
+
+# 85. 关于整型切片的初始化，下面正确的是
+
+```go
+A. s := make([]int) // make 声明slice要指定长度
+B. s := make([]int, 0)
+C. s := make([]int, 5, 10)
+D. s := []int{1, 2, 3, 4, 5}
+```
+
+B C D
+
+# 86. 下面代码会触发异常吗？请说明。
+
+```go
+func main() {
+    runtime.GOMAXPROCS(1)
+    int_chan := make(chan int, 1)
+    string_chan := make(chan string, 1)
+    int_chan <- 1
+    string_chan <- "hello"
+    select {
+    case value := <-int_chan:
+        fmt.Println(value)
+    case value := <-string_chan:
+        panic(value)
+    }
+}
+```
+
+`select` 会随机选择一个可用通道做收发操作，所以可能触发异常，也可能不会。
+
+# 87. 关于channel的特性，下面说法正确的是
+
+```go
+A. 给一个 nil channel 发送数据，造成永远阻塞
+B. 从一个 nil channel 接收数据，造成永远阻塞
+C. 给一个已经关闭的 channel 发送数据，引起 panic
+D. 从一个已经关闭的 channel 接收数据，如果缓冲区中为空，则返回一个零值
+E. 无缓冲的channel 是同步的, 有缓冲的channel是异步的
+```
+
+A B C D E
+
+<font color="red">nil chan 会永远阻塞</font>
+
+# 88. 下面代码有什么问题？
+
+```go
+const i = 100
+var j = 123
+
+func main() {
+    fmt.Println(&j, j)
+    fmt.Println(&i, i) // 常量不能取地址
+}
+```
+
+编译报错
+
+常量不同于变量的在运行期分配内存，常量通常会被编译器在预处理阶段直接展开，作为指令数据使用，所以常量无法寻址
+
+# 89. 下面代码能否编译通过？如果通过，输出什么
+
+```go
+func GetValue(m map[int]string, id int) (string, bool) {
+    if _, exist := m[id]; exist {
+        return "exist", true
+    }
+    return nil, false // string 默认值不是nil
+}
+func main() {
+    intmap := map[int]string{
+        1: "a",
+        2: "b",
+        3: "c",
+    }
+
+    v, err := GetValue(intmap, 3)
+    fmt.Println(v, err)
+}
+```
+
+不能通过编译，nil 可以用作 interface、function、pointer、map、slice 和 channel 的“空值”
+
+# 90. 关于异常的触发，下面说法正确的是
+
+```go
+A. 空指针解析；
+B. 下标越界；
+C. 除数为0；
+D. 调用panic函数；
+```
+
+A B C D
