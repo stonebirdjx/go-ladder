@@ -93,6 +93,36 @@
 - [88. 下面代码有什么问题？](#88-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
 - [89. 下面代码能否编译通过？如果通过，输出什么](#89-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%83%BD%E5%90%A6%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%A6%82%E6%9E%9C%E9%80%9A%E8%BF%87%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 - [90. 关于异常的触发，下面说法正确的是](#90-%E5%85%B3%E4%BA%8E%E5%BC%82%E5%B8%B8%E7%9A%84%E8%A7%A6%E5%8F%91%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [91. 下面代码输出什么](#91-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [92. 下面这段代码能否编译通过？如果通过，输出什么](#92-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%83%BD%E5%90%A6%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%A6%82%E6%9E%9C%E9%80%9A%E8%BF%87%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [93. 关于无缓冲和有冲突的channel，下面说法正确的是](#93-%E5%85%B3%E4%BA%8E%E6%97%A0%E7%BC%93%E5%86%B2%E5%92%8C%E6%9C%89%E5%86%B2%E7%AA%81%E7%9A%84channel%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [94. 下面代码是否能编译通过？如果通过，输出什么](#94-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%98%AF%E5%90%A6%E8%83%BD%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%A6%82%E6%9E%9C%E9%80%9A%E8%BF%87%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [95. 下面代码输出什么](#95-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [96. 关于select机制，下面说法正确的是](#96-%E5%85%B3%E4%BA%8Eselect%E6%9C%BA%E5%88%B6%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [97. 下面的代码有什么问题](#97-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [98. 下面这段代码存在什么问题](#98-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E5%AD%98%E5%9C%A8%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [99. 下面代码编译能通过吗](#99-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E8%83%BD%E9%80%9A%E8%BF%87%E5%90%97)
+- [100. 下面这段代码输出什么](#100-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [101. 下面这段代码输出什么](#101-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [102. 请指出下面代码的错误](#102-%E8%AF%B7%E6%8C%87%E5%87%BA%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E7%9A%84%E9%94%99%E8%AF%AF)
+- [103. 下面代码输出什么](#103-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [104. 下面代码输出什么](#104-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [105. 下面的代码有什么问题](#105-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [106. 下面代码输出什么](#106-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [107. 下面代码有几处错误的地方？请说明原因](#107-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E5%87%A0%E5%A4%84%E9%94%99%E8%AF%AF%E7%9A%84%E5%9C%B0%E6%96%B9%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [108. 下面代码有什么问题](#108-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [109. 下面的代码有什么问题](#109-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [110. 下面代码能编译通过吗](#110-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%83%BD%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%90%97)
+- [111. 下面代码有什么错误](#111-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%94%99%E8%AF%AF)
+- [112. 下面代码有什么问题](#112-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [113. 下面代码输出什么](#113-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [114. 下面的代码有什么问题](#114-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [115. 下面代码输出什么](#115-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [116. 下面代码有什么问题](#116-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [117. 下面的代码有什么问题](#117-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [118. 下面代码最后一行输出什么](#118-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [119. 下面代码有什么问题](#119-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [120. 下面的代码输出什么](#120-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -2267,3 +2297,556 @@ D. 调用panic函数；
 ```
 
 A B C D
+
+# 91. 下面代码输出什么
+
+```go
+func main() {
+    x := []string{"a", "b", "c"}
+    for v := range x {
+        fmt.Print(v)
+    }
+}
+```
+
+Output
+
+```bash
+012
+```
+
+区别以下代码
+
+```go
+func main() {
+    x := []string{"a", "b", "c"}
+    for _, v := range x {
+        fmt.Print(v)     //输出 abc
+    }
+}
+```
+
+# 92. 下面这段代码能否编译通过？如果通过，输出什么
+
+```go
+type User struct{}
+type User1 User 	//  User 创建了新类型 User1
+type User2 = User  //  User 的类型别名 User2
+
+func (i User) m1() {
+    fmt.Println("m1")
+}
+func (i User) m2() {
+    fmt.Println("m2")
+}
+
+func main() {
+    var i1 User1
+    var i2 User2
+    i1.m1() // type User1 has no field or method m1
+    i2.m2()
+}
+```
+
+不能编译,因为 User1 没有定义该方法
+
+# 93. 关于无缓冲和有冲突的channel，下面说法正确的是
+
+```go
+A. 无缓冲的channel是默认的缓冲为1的channel；
+B. 无缓冲的channel和有缓冲的channel都是同步的；
+C. 无缓冲的channel和有缓冲的channel都是非同步的；
+D. 无缓冲的channel是同步的，而有缓冲的channel是非同步的；
+```
+
+D
+
+# 94. 下面代码是否能编译通过？如果通过，输出什么
+
+```go
+func Foo(x interface{}) {
+     if x == nil {
+         fmt.Println("empty interface")
+         return
+     }
+     fmt.Println("non-empty interface")
+ }
+
+ func main() {
+     var x *int = nil
+     Foo(x)
+}
+```
+
+non-empty interface
+
+当且仅当动态值和动态类型都为 nil 时，接口类型值才为 nil。这里的 x 的动态类型是 `*int`，所以 x 不为 nil。
+
+# 95. 下面代码输出什么
+
+```go
+func main() {
+     ch := make(chan int, 100)
+     // A
+     go func() {              
+         for i := 0; i < 10; i++ {
+             ch <- i
+         }
+     }()
+     // B
+    go func() {
+        for {
+            a, ok := <-ch
+            if !ok {
+                fmt.Println("close")
+                return
+            }
+            fmt.Println("a: ", a)
+        }
+    }()
+    close(ch)
+    fmt.Println("ok")
+    time.Sleep(time.Second * 10)
+}
+```
+
+程序抛异常 `panic: send on closed channel`
+
+当 A 协程还没起时，主协程已经将 channel 关闭了
+
+# 96. 关于select机制，下面说法正确的是
+
+```go
+A. select机制用来处理异步IO问题；
+B. select机制最大的一条限制就是每个case语句里必须是一个IO操作；
+C. golang在语言级别支持select关键字；
+D. select关键字的用法与switch语句非常类似，后面要带判断条件；
+```
+
+A B C 
+
+# 97. 下面的代码有什么问题
+
+```go
+unc Stop(stop <-chan bool) {
+    close(stop)
+}
+```
+
+编译错误，有方向的 消费 channel不能被关闭
+
+<font color="red">由于 `close()` 函数只能接受 `chan<- T` 类型的 channel，如果我们尝试在接收方关闭 channel</font>
+
+# 98. 下面这段代码存在什么问题
+
+```go
+type Param map[string]interface{}
+ 
+type Show struct {
+    *Param
+}
+
+func main() {
+    s := new(Show) // Param 是map 需要被初始化才能使用
+    s.Param["day"] = 2 //指针不支持索引。修复代码如下：
+}
+```
+
+修改如下
+
+```go
+func main() {
+    s := new(Show)
+    // 修复代码
+    p := make(Param)
+    p["day"] = 2
+    s.Param = &p
+    tmp := *s.Param
+    fmt.Println(tmp["day"])
+}
+```
+
+# 99. 下面代码编译能通过吗
+
+```go
+func main()  
+{  // { 应该在函数的右上方，不能放在单独的一行
+    fmt.Println("hello world")
+}
+```
+
+# 100. 下面这段代码输出什么
+
+```go
+var x = []int{2: 2, 3,8:8,7 0: 1}
+
+func main() {
+    fmt.Println(x)
+}
+```
+
+Output:
+
+```bash
+[1 0 2 3 0 0 0 0 8 7]
+```
+
+<font color="red">字面量初始化切片时候，可以指定索引，没有指定索引的元素会在前一个索引基础之上加一</font>
+
+# 101. 下面这段代码输出什么
+
+```go
+func incr(p *int) int {
+    *p++
+    return *p
+}
+func main() {
+    v := 1
+    incr(&v)
+    fmt.Println(v)
+}
+```
+
+Output:
+
+```bash
+2
+```
+
+# 102. 请指出下面代码的错误
+
+```go
+package main
+
+var gvar int 
+
+func main() {  
+    var one int   
+    two := 2      
+    var three int 
+    three = 3
+
+    func(unused string) {
+        fmt.Println("Unused arg. No compile error")
+    }("what?")
+}
+```
+
+<font color="red">报错：局部变量 one、two 和 three 声明未使用</font>
+
+>  全局变量没使用不会报错
+
+# 103. 下面代码输出什么
+
+```go
+type ConfigOne struct {
+    Daemon string
+}
+
+func (c *ConfigOne) String() string {
+    return fmt.Sprintf("print: %v", c)
+}
+
+func main() {
+    c := &ConfigOne{}
+    c.String()
+}
+```
+
+运行时错误`stack overflow`
+
+如果类型实现 String() 方法，当格式化输出时会自动使用 String() 方法。上面这段代码是在该类型的 String() 方法内使用格式化输出，导致递归调用，最后抛错。
+
+# 104. 下面代码输出什么
+
+```go
+func main() {
+    var a = []int{1, 2, 3, 4, 5}
+    var r = make([]int, 0)
+
+    for i, v := range a {
+        if i == 0 {
+            a = append(a, 6, 7)
+        }
+        r = append(r, v)
+    }
+    fmt.Println(r)
+}
+```
+
+Output
+
+```go
+[1 2 3 4 5]
+```
+
+ for range 时会使用 a 的副本 a' 参与循环，副本的 len 依旧是 5，因此 for range 只会循环 5 次，也就只获取 a 对应的底层数组的前 5 个元素。
+
+# 105. 下面的代码有什么问题
+
+```go
+import (  
+    "fmt"
+    "log"
+    "time"
+)
+func main() {  
+}
+```
+
+导入的包没有被使用
+
+# 106. 下面代码输出什么
+
+```go
+func main() {
+    x := interface{}(nil)
+    y := (*int)(nil)
+    a := y == x // false
+    b := y == nil // true
+    _, c := x.(interface{}) //false 
+    println(a, b, c)
+}
+```
+
+false true false
+
+类型断言语法：i.(Type)，其中 i 是接口，Type 是类型或接口。编译时会自动检测 i 的动态类型与 Type 是否一致。但是，如果动态类型不存在，则断言总是失败。
+
+# 107. 下面代码有几处错误的地方？请说明原因
+
+```go
+func main() {
+    var s []int
+    s = append(s,1)
+
+    var m map[string]int // 不能对 nil 的 map 直接赋值，需要使用 make() 初始化。
+    m["one"] = 1 
+}
+```
+
+一处
+
+# 108. 下面代码有什么问题
+
+```go
+func main() {
+    m := make(map[string]int,2) //2 会被忽略
+    cap(m) // 不能使用 cap() 获取 map 的容量
+}
+```
+
+不能使用 cap() 获取 map 的容量
+
+使用 make 创建 map 变量时可以指定第二个参数，不过会被忽略。
+
+<font color="red">cap() 函数适用于数组、数组指针、slice 和 channel，不适用于 map，可以使用 len() 返回 map 的元素个数。</font>
+
+#  109. 下面的代码有什么问题
+
+```go
+func main() {  
+    var x = nil // 推导错误 var x interface{} = nil
+    _ = x
+}
+```
+
+# 110. 下面代码能编译通过吗
+
+```go
+type info struct {
+    result int
+}
+
+func work() (int,error) {
+    return 13,nil
+}
+
+func main() {
+    var data info
+	
+    data.result, err := work() // 提前定义error
+    fmt.Printf("info: %+v\n",data)
+}
+```
+
+不能使用短变量声明设置结构体字段值
+
+# 111. 下面代码有什么错误
+
+```go
+func main() {
+    one := 0
+    one := 1 
+}
+```
+
+不能在单独的声明中重复声明一个变量，但在多变量声明的时候是可以的，但必须保证至少有一个变量是新声明的。
+
+```go
+func main() {  
+    one := 0
+    one, two := 1,2
+    one,two = two,one
+}
+```
+
+# 112. 下面代码有什么问题
+
+```go
+func main() {
+    x := []int{
+        1,
+        2  // 少个逗号 
+    }
+    _ = x
+}
+```
+
+# 113. 下面代码输出什么
+
+```go
+func test(x byte)  {
+    fmt.Println(x)
+}
+
+func main() {
+    var a byte = 0x11 
+    var b uint8 = a
+    var c uint8 = a + b
+    test(c)
+}
+```
+
+34
+
+byte 是 uint8 的别名，别名类型无序转换，可直接转换
+
+# 114. 下面的代码有什么问题
+
+```go
+func main() {
+    const x = 123
+    const y = 1.23
+    fmt.Println(x)
+}
+```
+
+编译可以通过
+
+常量是一个简单值的标识符，在程序运行时，不会被修改的量。不像局部变量，常量未使用是能编译通过的。
+
+# 115. 下面代码输出什么
+
+```go
+const (
+    x uint16 = 120
+    y
+    s = "abc"
+    z
+)
+
+func main() {
+    fmt.Printf("%T %v\n", y, y)
+    fmt.Printf("%T %v\n", z, z)
+}
+```
+
+Output:
+
+```go
+uint16 120
+string abc
+```
+
+<font color="red">常量组中如不指定类型和初始化值，则与上一行非空常量右值相同</font>
+
+# 116. 下面代码有什么问题
+
+```go
+func main() {  
+    var x string = nil //将 nil 分配给 string 类型的变量
+
+    if x == nil { 
+        x = "default"
+    }
+```
+
+# 117. 下面的代码有什么问题
+
+```go
+func main() {
+    data := []int{1,2,3}
+    i := 0
+    ++i // golang 没有++i
+    fmt.Println(data[i++])
+}
+```
+
+# 118. 下面代码最后一行输出什么
+
+```go
+func main() {
+    x := 1
+    fmt.Println(x)
+    {
+        fmt.Println(x)
+        i,x := 2,2
+        fmt.Println(i,x)
+    }
+    fmt.Println(x)  // print ?
+}
+```
+
+1
+
+代码块儿作用域
+
+# 119. 下面代码有什么问题
+
+```go
+type foo struct {
+    bar int
+}
+
+func main() {
+    var f foo
+    f.bar, tmp := 1, 2 // `:=` 操作符不能用于结构体字段赋值。
+}
+```
+
+# 120. 下面的代码输出什么
+
+```go
+func main() {  
+    fmt.Println(~2) 
+}
+```
+
+很多语言都是采用 `~` 作为按位取反运算符，Go 里面采用的是` ^` 。按位取反之后返回一个每个 bit 位都取反的数，对于有符号的整数来说，是按照补码进行取反操作的（快速计算方法：对数 a 取反，结果为 -(a+1) ）
+
+```go
+func main() {
+    var a int8 = 3
+    var b uint8 = 3
+    var c int8 = -3
+
+    fmt.Printf("^%b=%b %d\n", a, ^a, ^a) // ^11=-100 -4
+    fmt.Printf("^%b=%b %d\n", b, ^b, ^b) // ^11=11111100 252
+    fmt.Printf("^%b=%b %d\n", c, ^c, ^c) // ^-11=10 2
+}
+```
+
+如果作为二元运算符，^ 表示按位异或，即：对应位相同为 0，相异为 1
+
+```go
+func main() {
+    var a int8 = 3
+    var c int8 = 5
+
+    fmt.Printf("a: %08b\n",a)
+    fmt.Printf("c: %08b\n",c)
+    fmt.Printf("a^c: %08b\n",a ^ c)
+}
+```
+
