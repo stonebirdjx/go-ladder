@@ -123,6 +123,36 @@
 - [118. 下面代码最后一行输出什么](#118-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%80%E5%90%8E%E4%B8%80%E8%A1%8C%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 - [119. 下面代码有什么问题](#119-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
 - [120. 下面的代码输出什么](#120-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [121. 下面代码输出什么](#121-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [122. 下面这段代码输出什么](#122-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [123. 下面这段代码输出什么](#123-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [124. 下面代码输出什么](#124-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [125. 下面的代码能否正确输出](#125-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%83%BD%E5%90%A6%E6%AD%A3%E7%A1%AE%E8%BE%93%E5%87%BA)
+- [126. 下面代码输出什么](#126-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [127. 下面的代码有什么问题](#127-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [128. 下面代码有什么不规范的地方吗](#128-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E4%B8%8D%E8%A7%84%E8%8C%83%E7%9A%84%E5%9C%B0%E6%96%B9%E5%90%97)
+- [129. 关于 channel 下面描述正确的是](#129-%E5%85%B3%E4%BA%8E-channel-%E4%B8%8B%E9%9D%A2%E6%8F%8F%E8%BF%B0%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [130. 下面的代码有几处问题？请详细说明](#130-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E5%87%A0%E5%A4%84%E9%97%AE%E9%A2%98%E8%AF%B7%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E)
+- [131. 下面的代码有什么问题](#131-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [132. 下面的代码输出什么](#132-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [133. 关于 channel 下面描述正确的是](#133-%E5%85%B3%E4%BA%8E-channel-%E4%B8%8B%E9%9D%A2%E6%8F%8F%E8%BF%B0%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [134. 下面的代码有什么问题](#134-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [135. 下面的代码有什么问题](#135-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [136. 下面代码输出什么](#136-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [137. 下面哪一行代码会 panic，请说明原因](#137-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BC%9A-panic%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [138. 下面的代码输出什么](#138-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [139. 下面的代码输出什么](#139-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [140. 下面哪一行代码会 panic，请说明原因](#140-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BC%9A-panic%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [141. 下面的代码输出什么](#141-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [142. 下面哪一行代码会 panic，请说明原因](#142-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BC%9A-panic%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [143. 下面哪一行代码会 panic，请说明原因](#143-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BC%9A-panic%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [144. 下面的代码有什么问题](#144-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [145. 下面这段代码输出什么](#145-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [146. 下面代码输出什么](#146-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [147. 下面哪一行代码会 panic，请说明](#147-%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E4%BC%9A-panic%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [148. 下面代码输出什么](#148-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [149. 下面选项正确的是](#149-%E4%B8%8B%E9%9D%A2%E9%80%89%E9%A1%B9%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [150. 下面的代码输出什么](#150-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -2849,4 +2879,750 @@ func main() {
     fmt.Printf("a^c: %08b\n",a ^ c)
 }
 ```
+
+# 121. 下面代码输出什么
+
+```go
+func main() {
+    var ch chan int
+    select {
+    case v, ok := <-ch:
+        println(v, ok)
+    default:
+        println("default") 
+    }
+}
+```
+
+default
+
+ch 为 nil，读写都会阻塞
+
+# 122. 下面这段代码输出什么
+
+```go
+type People struct {
+    name string `json:"name"` // name 应该大写
+}
+
+func main() {
+    js := `{
+        "name":"seekload"
+    }`
+    var p People
+    err := json.Unmarshal([]byte(js), &p)
+    if err != nil {
+        fmt.Println("err: ", err)
+        return
+    }
+  fmt.Println(p) // {}
+}
+```
+
+结构体访问控制，因为 name 首字母是小写，导致其他包不能访问，所以输出为空结构体。
+
+# 123. 下面这段代码输出什么
+
+```go
+type T struct {
+    ls []int
+}
+
+func foo(t T) {
+    t.ls[0] = 100
+}
+
+func main() {
+    var t = T{
+        ls: []int{1, 2, 3},
+    }
+
+    foo(t)
+    fmt.Println(t.ls[0])
+}
+```
+
+100
+
+调用 foo() 函数时虽然是传值，但 foo() 函数中，<font color="red">字段 ls 依旧可以看成是指向底层数组的指针</font>。
+
+# 124. 下面代码输出什么
+
+```go
+func main() {
+    isMatch := func(i int) bool {
+        switch(i) {
+        case 1:
+        case 2:
+            return true
+        }
+        return false
+    }
+
+    fmt.Println(isMatch(1))
+    fmt.Println(isMatch(2))
+}
+```
+
+false true
+
+case 完成程序会默认 break
+
+# 125. 下面的代码能否正确输出
+
+```go
+func main() {
+    var fn1 = func() {}
+    var fn2 = func() {}
+
+    if fn1 != fn2 { // 函数只能与 nil 比较。
+        println("fn1 not equal fn2")
+    }
+}
+```
+
+编译错误
+
+函数只能与 nil 比较。
+
+# 126. 下面代码输出什么
+
+```go
+type T struct {
+    n int
+}
+
+func main() {
+    m := make(map[int]T)
+    m[0].n = 1
+    fmt.Println(m[0].n)
+}
+```
+
+编译错误
+
+map[key]值类型是不可寻址的，所以无法直接赋值。
+
+# 127. 下面的代码有什么问题
+
+```go
+type X struct {}
+
+func (x *X) test()  {
+    println(x)
+}
+
+func main() {
+    var a *X
+    a.test()
+    X{}.test() // X{} 是不可寻址的，不能直接调用方法
+}
+```
+
+X{} 是不可寻址的，不能直接调用方法
+
+修复代码：
+
+```go
+func main() {
+
+    var a *X
+    a.test()    // 相当于 test(nil)
+
+    var x = X{}
+    x.test()
+}
+```
+
+# 128. 下面代码有什么不规范的地方吗
+
+```go
+func main() {
+    x := map[string]string{"one":"a","two":"","three":"c"}
+
+    if v := x["two"]; v == "" {  // 最可靠的操作是使用访问 map 时返回的第二个值。
+        fmt.Println("no entry")
+    }
+}
+```
+
+最可靠的操作是使用访问 map 时返回的第二个值
+
+```go
+func main() {  
+    x := map[string]string{"one":"a","two":"","three":"c"}
+
+    if _,ok := x["two"]; !ok {
+        fmt.Println("no entry")
+    }
+}
+```
+
+# 129. 关于 channel 下面描述正确的是
+
+```go
+A. 向已关闭的通道发送数据会引发 panic；
+B. 从已关闭的缓冲通道接收数据，返回已缓冲数据或者零值；
+C. 无论接收还是接收，nil 通道都会阻塞；
+```
+
+A B C
+
+# 130. 下面的代码有几处问题？请详细说明
+
+```go
+type T struct {
+    n int
+}
+
+func (t *T) Set(n int) {
+    t.n = n
+}
+
+func getT() T {
+    return T{}
+}
+
+func main() {
+    getT().Set(1)
+}
+```
+
+直接返回的 T{} 不可寻址
+
+不可寻址的结构体不能调用带结构体指针接收者的方法；
+
+# 131. 下面的代码有什么问题
+
+```go
+type N int
+
+func (n N) value(){
+    n++
+    fmt.Printf("v:%p,%v\n",&n,n)
+}
+
+func (n *N) pointer(){
+    *n++
+    fmt.Printf("v:%p,%v\n",n,*n)
+}
+
+
+func main() {
+
+    var a N = 25
+
+    p := &a
+    p1 := &p // 不能使用多级指针调用方法。
+
+    p1.value()
+    p1.pointer()
+}
+```
+
+编译错误
+
+# 132. 下面的代码输出什么
+
+```go
+type N int
+
+func (n N) test(){
+    fmt.Println(n)
+}
+
+func main()  {
+    var n N = 10
+    fmt.Println(n)
+
+    n++
+    f1 := N.test
+    f1(n)
+
+    n++
+    f2 := (*N).test
+    f2(&n)
+}
+```
+
+Output
+
+```go
+10 11 12
+```
+
+（*T）可以使用T的方法
+
+# 133. 关于 channel 下面描述正确的是
+
+```go
+A. close() 可以用于只接收通道；
+B. 单向通道可以转换为双向通道；
+C. 不能在单向通道上做逆向操作（例如：只发送通道用于接收）；
+```
+
+C
+
+# 134. 下面的代码有什么问题
+
+```go
+type T struct {
+    n int
+}
+
+func getT() T {
+    return T{}
+}
+
+func main() {
+    getT().n = 1 // 直接返回的 T{} 无法寻址，不可直接赋值
+}
+```
+
+编译错误
+
+ T{} 无法寻址
+
+# 135. 下面的代码有什么问题
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+    s := make([]int, 3, 9)
+    fmt.Println(len(s)) // 3
+    s2 := s[4:8] // 派生出的子切片的长度可能大于基础切片的长度 0 <= low <= high <= cap(baseSlice)
+    fmt.Println(len(s2)) // 4
+}
+```
+
+Output
+
+```go
+3 4 
+```
+
+
+
+从一个基础切片派生出的子切片的长度可能大于基础切片的长度
+
+假设基础切片是 baseSlice，使用操作符 [low,high]，有如下规则：<font color="red">0 <= low <= high <= cap(baseSlice)</font>，只要上述满足这个关系，下标 low 和 high 都可以大于 len(baseSlice)。
+
+# 136. 下面代码输出什么
+
+```go
+type N int
+
+func (n N) test(){
+    fmt.Println(n)
+}
+
+func main()  {
+    var n N = 10
+    p := &n
+
+    n++  // 11
+    f1 := n.test
+
+    n++ //12
+    f2 := p.test 
+
+    n++
+    fmt.Println(n) /13
+
+    f1() // 11
+    f2() // 12
+}
+```
+
+Output
+
+```go
+13 11 12
+```
+
+# 137. 下面哪一行代码会 panic，请说明原因
+
+```go
+package main
+
+func main() {
+  var x interface{}
+  var y interface{} = []int{3, 5}
+  _ = x == x  // nil == nil
+  _ = x == y  // nil == []int{3, 5}
+  _ = y == y   // 切片属于引用类型不能比较
+}
+```
+
+_ = y == y
+
+引用类型为不可比较类型。
+
+# 138. 下面的代码输出什么
+
+```go
+var o = fmt.Print
+
+func main() {
+    c := make(chan int, 1)
+    for range [3]struct{}{} {
+        select {
+        default:
+            o(1)
+        case <-c:
+            o(2)
+            c = nil
+        case c <- 1:
+            o(3)
+        }
+    }
+}
+```
+
+Output
+
+```go
+3 2 1
+```
+
+第一次循环，写操作已经准备好，执行 o(3)，输出 3；
+
+第二次，读操作准备好，执行 o(2)，输出 2 并将 c 赋值为 nil；
+
+第三次，由于 c 为 nil，走的是 default 分支，输出 1。
+
+# 139. 下面的代码输出什么
+
+```go
+type T struct {
+    x int
+    y *int
+}
+
+func main() {
+    i := 20
+    t := T{10,&i}
+
+    p := &t.x
+
+    *p++
+    *p--
+
+    t.y = p
+
+    fmt.Println(*t.y)
+}
+```
+
+Output
+
+```bash
+10
+```
+
+递增运算符 ++ 和递减运算符 -- 的优先级低于解引用运算符 * 和取址运算符 &，解引用运算符和取址运算符的优先级低于选择器 . 中的属性选择操作符。
+
+# 140. 下面哪一行代码会 panic，请说明原因
+
+```go
+package main
+
+func main() {
+    x := make([]int, 2, 10)
+    _ = x[6:10] 
+    _ = x[6:] // 截取符号 [i:j]，如果 j 省略，默认是原切片或者数组的长度，x 的长度是 2，小于起始下标 6 ，所以 panic。
+    _ = x[2:]
+}
+```
+
+础切片是 baseSlice，使用操作符 [low,high]，有如下规则：<font color="red">0 <= low <= high <= cap(baseSlice)</font>
+
+截取符号 [i:j]，如果 j 省略，默认是原切片或者数组的长度
+
+# 141. 下面的代码输出什么
+
+```go
+type N int
+
+func (n *N) test(){
+    fmt.Println(*n)
+}
+
+func main()  {
+    var n N = 10
+    p := &n
+
+    n++
+    f1 := n.test
+
+    n++
+    f2 := p.test
+
+    n++
+    fmt.Println(n) // 13
+
+    f1()
+    f2()
+}
+```
+
+13 13 13
+
+当目标方法的接收者是指针类型时，那么被复制的就是指针。
+
+# 142. 下面哪一行代码会 panic，请说明原因
+
+```go
+package main
+
+func main() {
+  var m map[int]bool // nil
+  _ = m[123]
+  var p *[5]string // nil
+  for range p {
+    _ = len(p)
+  }
+  var s []int // nil
+  _ = s[:]
+  s, s[0] = []int{1, 2}, 9 //  s 为 nil。
+}
+```
+
+ s 为 nil s[0] panic。
+
+# 143. 下面哪一行代码会 panic，请说明原因
+
+```go
+package main
+
+type T struct{}
+
+func (*T) foo() {
+}
+
+func (T) bar() {
+}
+
+type S struct {
+  *T
+}
+
+func main() {
+  s := S{}
+  _ = s.foo
+  s.foo()
+  _ = s.bar // s.T 是空指针
+}
+```
+
+因为 s.bar 将被展开为 (*s.T).bar，而 s.T 是个空指针，解引用会 panic。
+
+# 144. 下面的代码有什么问题
+
+```go
+type data struct {
+    sync.Mutex
+}
+
+func (d data) test(s string)  { // Mutex 禁止复制
+    d.Lock()
+    defer d.Unlock()
+
+    for i:=0;i<5 ;i++  {
+        fmt.Println(s,i)
+        time.Sleep(time.Second)
+    }
+}
+
+
+func main() {
+
+    var wg sync.WaitGroup
+    wg.Add(2)
+    var d data
+
+    go func() {
+        defer wg.Done()
+        d.test("read")
+    }()
+
+    go func() {
+        defer wg.Done()
+        d.test("write")
+    }()
+
+    wg.Wait()
+}
+```
+
+将 Mutex 作为匿名字段时，相关的方法必须使用指针接收者，否则会导致锁机制失效。
+
+修复代码：
+
+```go
+func (d *data) test(s string)  {     // 指针接收者
+    d.Lock()
+    defer d.Unlock()
+
+    for i:=0;i<5 ;i++  {
+        fmt.Println(s,i)
+        time.Sleep(time.Second)
+    }
+}
+```
+
+或者可以通过嵌入 `*Mutex` 来避免复制的问题，但需要初始化。
+
+```go
+type data struct {
+    *sync.Mutex     // *Mutex
+}
+
+func (d data) test(s string) {    // 值方法
+    d.Lock()
+    defer d.Unlock()
+
+    for i := 0; i < 5; i++ {
+        fmt.Println(s, i)
+        time.Sleep(time.Second)
+    }
+}
+
+func main() {
+
+    var wg sync.WaitGroup
+    wg.Add(2)
+
+    d := data{new(sync.Mutex)}   // 初始化
+
+    go func() {
+        defer wg.Done()
+        d.test("read")
+    }()
+
+    go func() {
+        defer wg.Done()
+        d.test("write")
+    }()
+
+    wg.Wait()
+}
+```
+
+# 145. 下面这段代码输出什么
+
+```go
+func main() {
+    var k = 1
+    var s = []int{1, 2}
+    k, s[k] = 0, 3
+    fmt.Println(s[0] + s[1])
+}
+```
+
+Output
+
+```go
+4
+```
+
+# 146. 下面代码输出什么
+
+```go
+func main() {
+    var k = 9
+    for k = range []int{} {} // 跳过
+    fmt.Println(k) // 9
+
+    for k = 0; k < 3; k++ {
+    }
+    fmt.Println(k) //3
+
+
+    for k = range (*[3]int)(nil) { 0 1 2
+    }
+    fmt.Println(k)
+}
+```
+
+Output
+
+```go
+9 3 2
+```
+
+# 147. 下面哪一行代码会 panic，请说明
+
+```go
+func main() {
+    nil := 123 // nil = 123
+    fmt.Println(nil)
+    var _ map[string]int = nil // 此时 nil 是 int 类型值
+}
+```
+
+当前作用域中，预定义的 nil 被覆盖，此时 nil 是 int 类型值，不能赋值给 map 类型。
+
+# 148. 下面代码输出什么
+
+```go
+func main() {
+    var x int8 = -128
+    var y = x/-1 //  128 溢出
+    fmt.Println(y) 
+}
+```
+
+Output
+
+```go
+-128
+```
+
+溢出 int8 -> ~128-127
+
+# 149. 下面选项正确的是
+
+```go
+A. 类型可以声明的函数体内；
+B. Go 语言支持 ++i 或者 --i 操作；
+C. nil 是关键字； // nil 是常量
+D. 匿名函数可以直接赋值给一个变量或者直接执行；
+```
+
+A D
+
+<font color="red">nil 是常量</font>
+
+# 150. 下面的代码输出什么
+
+```go
+func F(n int) func() int {
+    return func() int {
+        n++
+        return n
+    }
+}
+
+func main() {
+    f := F(5)
+    defer func() {
+        fmt.Println(f()) // 8
+    }()
+    defer fmt.Println(f()) // 6
+    i := f() //7
+    fmt.Println(i) // 7
+}
+```
+
+Output
+
+```go
+7 6 8
+```
+
+`闭包保存变量`
 
