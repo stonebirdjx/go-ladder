@@ -5,6 +5,8 @@
 - [go-ladder](#go-ladder)
 - [断行规则](#%E6%96%AD%E8%A1%8C%E8%A7%84%E5%88%99)
 - [从数组或者切片派生切片（取子切片）](#%E4%BB%8E%E6%95%B0%E7%BB%84%E6%88%96%E8%80%85%E5%88%87%E7%89%87%E6%B4%BE%E7%94%9F%E5%88%87%E7%89%87%E5%8F%96%E5%AD%90%E5%88%87%E7%89%87)
+- [查看内存逃逸](#%E6%9F%A5%E7%9C%8B%E5%86%85%E5%AD%98%E9%80%83%E9%80%B8)
+- [获取汇编代码](#%E8%8E%B7%E5%8F%96%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81)
 - [喜欢的一些大牛](#%E5%96%9C%E6%AC%A2%E7%9A%84%E4%B8%80%E4%BA%9B%E5%A4%A7%E7%89%9B)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -72,6 +74,18 @@ baseContainer[: len(baseContainer) : cap(baseContainer)]
 ```
 
 > 子切片表达式的结果切片的长度为`high - low`、容量为`max - low`。 派生出来的结果切片的长度可能大于基础切片的长度，但结果切片的容量绝不可能大于基础切片的容量。
+
+# 查看内存逃逸
+
+```go
+go build -gcflags='-m -m' main.go
+```
+
+# 获取汇编代码
+
+```bash
+go tool compile -S main.go
+```
 
 # 喜欢的一些大牛
 
