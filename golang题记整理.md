@@ -153,6 +153,49 @@
 - [148. 下面代码输出什么](#148-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 - [149. 下面选项正确的是](#149-%E4%B8%8B%E9%9D%A2%E9%80%89%E9%A1%B9%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
 - [150. 下面的代码输出什么](#150-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [151. 下面列举的是 recover() 的几种调用方式，哪些是正确的](#151-%E4%B8%8B%E9%9D%A2%E5%88%97%E4%B8%BE%E7%9A%84%E6%98%AF-recover-%E7%9A%84%E5%87%A0%E7%A7%8D%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F%E5%93%AA%E4%BA%9B%E6%98%AF%E6%AD%A3%E7%A1%AE%E7%9A%84)
+- [152. 下面代码输出什么，请说明](#152-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [153. flag 是 bool 型变量，下面 if 表达式符合编码规范的是](#153-flag-%E6%98%AF-bool-%E5%9E%8B%E5%8F%98%E9%87%8F%E4%B8%8B%E9%9D%A2-if-%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%AC%A6%E5%90%88%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83%E7%9A%84%E6%98%AF)
+- [154. 下面的代码输出什么，请说明](#154-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [155. 下面的代码输出什么](#155-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [156. 下面的代码输出什么](#156-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [157. 下面的代码输出什么](#157-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [158. 下面的代码输出什么](#158-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [159. 下面代码有什么问题吗](#159-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E5%90%97)
+- [160. 下面代码输出什么，请说明](#160-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [161. 关于 slice 或 map 操作，下面正确的是](#161-%E5%85%B3%E4%BA%8E-slice-%E6%88%96-map-%E6%93%8D%E4%BD%9C%E4%B8%8B%E9%9D%A2%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [162. 下面代码输出什么](#162-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [163. 关于字符串连接，下面语法正确的是](#163-%E5%85%B3%E4%BA%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E4%B8%8B%E9%9D%A2%E8%AF%AD%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [164. 下面代码能编译通过吗？可以的话，输出什么](#164-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%83%BD%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%90%97%E5%8F%AF%E4%BB%A5%E7%9A%84%E8%AF%9D%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [165. 判断题：对变量x的取反操作是 ~x](#165-%E5%88%A4%E6%96%AD%E9%A2%98%E5%AF%B9%E5%8F%98%E9%87%8Fx%E7%9A%84%E5%8F%96%E5%8F%8D%E6%93%8D%E4%BD%9C%E6%98%AF-x)
+- [166. 下面代码输出什么，请说明原因](#166-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [167. 下面的代码输出什么，请说明](#167-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [168. 下面的代码输出什么，请说明](#168-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [169. 下面代码输出什么](#169-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [170. 下面的代码能编译通过吗？可以的话输出什么，请说明](#170-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%83%BD%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%90%97%E5%8F%AF%E4%BB%A5%E7%9A%84%E8%AF%9D%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [171. 下面代码有什么问题，请说明](#171-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [172. 假设 x 已声明，y 未声明，下面 4 行代码哪些是正确的。错误的请说明原因](#172-%E5%81%87%E8%AE%BE-x-%E5%B7%B2%E5%A3%B0%E6%98%8Ey-%E6%9C%AA%E5%A3%B0%E6%98%8E%E4%B8%8B%E9%9D%A2-4-%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%93%AA%E4%BA%9B%E6%98%AF%E6%AD%A3%E7%A1%AE%E7%9A%84%E9%94%99%E8%AF%AF%E7%9A%84%E8%AF%B7%E8%AF%B4%E6%98%8E%E5%8E%9F%E5%9B%A0)
+- [173. 下面的代码有什么问题，请说明](#173-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [174. 下面代码输出什么，为什么](#174-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88)
+- [175. 下面这段代码输出什么](#175-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [176. 下面的代码有什么问题](#176-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [177. 关于 cap 函数适用下面哪些类型](#177-%E5%85%B3%E4%BA%8E-cap-%E5%87%BD%E6%95%B0%E9%80%82%E7%94%A8%E4%B8%8B%E9%9D%A2%E5%93%AA%E4%BA%9B%E7%B1%BB%E5%9E%8B)
+- [178. 下面代码输出什么](#178-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [179. 关于 switch 语句，下面说法正确的是](#179-%E5%85%B3%E4%BA%8E-switch-%E8%AF%AD%E5%8F%A5%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [180. 下面代码能编译通过吗？可以的话，输出什么](#180-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%83%BD%E7%BC%96%E8%AF%91%E9%80%9A%E8%BF%87%E5%90%97%E5%8F%AF%E4%BB%A5%E7%9A%84%E8%AF%9D%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [181. interface{} 是可以指向任意对象的 Any 类型，是否正确](#181-interface-%E6%98%AF%E5%8F%AF%E4%BB%A5%E6%8C%87%E5%90%91%E4%BB%BB%E6%84%8F%E5%AF%B9%E8%B1%A1%E7%9A%84-any-%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE)
+- [182. 下面的代码有什么问题](#182-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [183. 定义一个包内全局字符串变量，下面语法正确的是](#183-%E5%AE%9A%E4%B9%89%E4%B8%80%E4%B8%AA%E5%8C%85%E5%86%85%E5%85%A8%E5%B1%80%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%98%E9%87%8F%E4%B8%8B%E9%9D%A2%E8%AF%AD%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF)
+- [184. 下面的代码有什么问题](#184-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98)
+- [185. 下面的代码输出什么](#185-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [186. 下面代码中的指针 p 为野指针，因为返回的栈内存在函数结束时会被释放](#186-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84%E6%8C%87%E9%92%88-p-%E4%B8%BA%E9%87%8E%E6%8C%87%E9%92%88%E5%9B%A0%E4%B8%BA%E8%BF%94%E5%9B%9E%E7%9A%84%E6%A0%88%E5%86%85%E5%AD%98%E5%9C%A8%E5%87%BD%E6%95%B0%E7%BB%93%E6%9D%9F%E6%97%B6%E4%BC%9A%E8%A2%AB%E9%87%8A%E6%94%BE)
+- [187. 下面这段代码输出什么](#187-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [188. 下面代码输出什么](#188-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [190. 下面的代码有什么问题，请说明](#190-%E4%B8%8B%E9%9D%A2%E7%9A%84%E4%BB%A3%E7%A0%81%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%E8%AF%B7%E8%AF%B4%E6%98%8E)
+- [191. 函数执行时，如果由于 panic 导致了异常，则延迟函数不会执行。这一说法是否正确](#191-%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E6%97%B6%E5%A6%82%E6%9E%9C%E7%94%B1%E4%BA%8E-panic-%E5%AF%BC%E8%87%B4%E4%BA%86%E5%BC%82%E5%B8%B8%E5%88%99%E5%BB%B6%E8%BF%9F%E5%87%BD%E6%95%B0%E4%B8%8D%E4%BC%9A%E6%89%A7%E8%A1%8C%E8%BF%99%E4%B8%80%E8%AF%B4%E6%B3%95%E6%98%AF%E5%90%A6%E6%AD%A3%E7%A1%AE)
+- [192. 下面代码输出什么](#192-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
+- [193. 下面这段代码输出什么？请简要说明](#193-%E4%B8%8B%E9%9D%A2%E8%BF%99%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E7%AE%80%E8%A6%81%E8%AF%B4%E6%98%8E)
+- [194. 下面代码输出什么？](#194-%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E8%BE%93%E5%87%BA%E4%BB%80%E4%B9%88)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -1563,7 +1606,7 @@ compilation error
 
 值类型 `Student` 没有实现接口的 `Speak()` 方法，而是指针类型 `*Student` 实现该方法。
 
-<font color="red">指针类型的结构体能用值类型的方法，值类型不能使用指针类型的方法</font>>
+<font color="red">初始化interface时，指针类型的结构体能用值类型的方法，值类型不能使用指针类型的方法</font>
 
 # 61. 下面这段代码输出什么
 
@@ -3626,3 +3669,958 @@ Output
 
 `闭包保存变量`
 
+# 151. 下面列举的是 recover() 的几种调用方式，哪些是正确的
+
+```go
+A.
+func main() {
+    recover()
+    panic(1)
+}
+
+B.
+func main() {
+    defer recover()
+    panic(1)
+}
+
+C.
+func main() {
+    defer func() {
+        recover()
+    }()
+    panic(1)
+}
+
+D.
+func main() {
+    defer func() {
+        defer func() {
+            recover()
+        }()
+    }()
+    panic(1)
+}
+```
+
+C
+
+<font color="red">recover() 必须在 defer() func函数中直接调用才有效。</font>
+
+直接调用 recover()、在 defer() 中直接调用 recover() 和 defer() 调用时多层嵌套 是无效的
+
+# 152. 下面代码输出什么，请说明
+
+```go
+func main() {
+    defer func() {
+        fmt.Print(recover()) //1
+    }()
+    defer func() {
+        defer fmt.Print(recover()) // 2
+        panic(1)
+    }()
+    defer recover() 
+    panic(2)
+}
+```
+
+Output:
+
+```go
+2 1
+```
+
+# 153. flag 是 bool 型变量，下面 if 表达式符合编码规范的是
+
+```go
+A. if flag == 1
+B. if flag
+C. if flag == false
+D. if !flag
+```
+
+B C D
+
+# 154. 下面的代码输出什么，请说明
+
+```go
+func main() {
+    defer func() {
+        fmt.Print(recover()) // 2
+    }()
+    defer func() {
+        defer func() {
+            fmt.Print(recover()) // 1
+        }()
+        panic(1)
+    }()
+    defer recover()
+    panic(2)
+}
+```
+
+Output:
+
+```go
+1 2
+```
+
+# 155. 下面的代码输出什么
+
+```go
+type T struct {
+    n int
+}
+
+func main() {
+    ts := [2]T{}
+    for i, t := range ts {
+        switch i {
+        case 0:
+            t.n = 3
+            ts[1].n = 9
+        case 1:
+            fmt.Print(t.n, " ") // 使用的是 数组 ts 的副本，所以 t.n = 3 的赋值操作不会影响原数组。
+        }
+    }
+    fmt.Print(ts)
+}
+```
+
+Output:
+
+```go
+0 [{0} {9}]
+```
+
+<font color="red">range 数组时，使用的数组的副本，数组数据隔离，修改数组的值不会影响取值</font>
+
+<font color="red"> range 切片时，底层数据隔离，修改切片的值，影响取值</font>
+
+# 156. 下面的代码输出什么
+
+```go
+type T struct {
+    n int
+}
+
+func main() {
+    ts := [2]T{}
+    for i, t := range &ts { // 数组指针 ts的地址
+        switch i {
+        case 0:
+            t.n = 3
+            ts[1].n = 9
+        case 1:
+            fmt.Print(t.n, " ")
+        }
+    }
+    fmt.Print(ts)
+}
+```
+
+Output:
+
+```go
+9 [{0} {9}]
+```
+
+# 157. 下面的代码输出什么
+
+```go
+type T struct {
+    n int
+}
+
+func main() {
+    ts := [2]T{}
+    for i := range ts[:] {
+        switch i {
+        case 0:
+            ts[1].n = 9
+        case 1:
+            fmt.Print(ts[i].n, " ")
+        }
+    }
+    fmt.Print(ts)
+}
+```
+
+Output:
+
+```bash
+9 [{0} {9}]
+```
+
+for-range 切片时使用的是切片的副本，但不会复制底层数组，换句话说，此副本切片与原数组共享底层数组。
+
+# 158. 下面的代码输出什么
+
+```go
+type T struct {
+    n int
+}
+
+func main() {
+    ts := [2]T{}
+    for i := range ts[:] {
+        switch t := &ts[i]; i {
+        case 0:
+            t.n = 3;
+            ts[1].n = 9
+        case 1:
+            fmt.Print(t.n, " ")
+        }
+    }
+    fmt.Print(ts)
+}
+```
+
+Output:
+
+```go
+9 [{0} {9}]
+```
+
+# 159. 下面代码有什么问题吗
+
+```go
+func main()  {
+    for i:=0;i<10 ;i++  {
+    loop:
+        println(i)
+    }
+    goto loop // goto 不能跳转到内层代码
+}
+```
+
+编译错误
+
+<font color="red">goto 不能跳转到其他函数或者内层代码</font>
+
+# 160. 下面代码输出什么，请说明
+
+```go
+func main() {
+    x := []int{0, 1, 2}
+    y := [3]*int{}
+    for i, v := range x {
+        defer func() {
+            print(v) // 2 2 2
+        }()
+        y[i] = &v
+    }
+    print(*y[0], *y[1], *y[2]) // 2 2 2
+}
+```
+
+Output:
+
+```go
+222222
+```
+
+# 161. 关于 slice 或 map 操作，下面正确的是
+
+```go
+A.
+var s []int
+s = append(s,1)
+
+B. // map 初始化需要申请空间
+var m map[string]int
+m["one"] = 1 
+
+C.
+var s []int
+s = make([]int, 0)
+s = append(s,1)
+
+D.
+var m map[string]int
+m = make(map[string]int)
+m["one"] = 1 
+```
+
+A C D
+
+# 162. 下面代码输出什么
+
+```go
+func test(x int) (func(), func()) {
+    return func() {
+        println(x)
+        x += 10
+    }, func() {
+        println(x)
+    }
+}
+
+func main() {
+    a, b := test(100)
+    a() // 100
+    b() // 110
+}
+```
+
+Output:
+
+```go
+100 110
+```
+
+# 163. 关于字符串连接，下面语法正确的是
+
+```go
+A. str := 'abc' + '123'  //单引号表示 rune 类型
+B. str := "abc" + "123"
+C. str ：= '123' + "abc"
+D. fmt.Sprintf("abc%d", 123)
+```
+
+B D
+
+# 164. 下面代码能编译通过吗？可以的话，输出什么
+
+```go
+func main() {
+    println(DeferTest1(1)) // 4
+    println(DeferTest2(1)) // 3
+}
+
+func DeferTest1(i int) (r int) {
+    r = i
+    defer func() {
+        r += 3
+    }()
+    return r
+}
+
+func DeferTest2(i int) (r int) {
+    defer func() {
+        r += i
+    }()
+    return 2
+}
+```
+
+Output:
+
+```go
+4 3
+```
+
+# 165. 判断题：对变量x的取反操作是 ~x
+
+Go 语言的取反操作是 `^`
+
+# 166. 下面代码输出什么，请说明原因
+
+```go
+type Slice []int
+
+func NewSlice() Slice {
+    return make(Slice, 0)
+}
+func (s *Slice) Add(elem int) *Slice {
+    *s = append(*s, elem)
+    fmt.Print(elem)
+    return s
+}
+func main() {
+    s := NewSlice()
+    defer s.Add(1).Add(2) // add(2) 会执行
+    s.Add(3)
+}
+```
+
+Output:
+
+```go
+2 3 1
+```
+
+# 167. 下面的代码输出什么，请说明
+
+```go
+type Slice []int
+
+func NewSlice() Slice {
+    return make(Slice, 0)
+}
+func (s *Slice) Add(elem int) *Slice {
+    *s = append(*s, elem)
+    fmt.Print(elem)
+    return s
+}
+func main() {
+    s := NewSlice()
+    defer func() {
+        s.Add(1).Add(2)
+    }()
+    s.Add(3)
+}
+```
+
+Output:
+
+```go
+3 1 2
+```
+
+# 168. 下面的代码输出什么，请说明
+
+```go
+type Orange struct {
+    Quantity int
+}
+
+func (o *Orange) Increase(n int) {
+    o.Quantity += n
+}
+
+func (o *Orange) Decrease(n int) {
+    o.Quantity -= n
+}
+
+func (o *Orange) String() string { 
+   // String() 是指针方法，而不是值方法，所以使用 Println() 输出时不会调用到 String() 方法。
+    return fmt.Sprintf("%#v", o.Quantity)
+}
+
+func main() {
+    var orange Orange
+    orange.Increase(10)
+    orange.Decrease(5)
+    fmt.Println(orange)
+}
+```
+
+Output
+
+```go
+{5} // 结构体{5}
+```
+
+<font color="red"> 在结构体未赋值给 `interface`时, 指针类型方法可以接受值类型</font>
+
+<font color="red"> fmt打印时调用的是指针方法String()</font>
+
+# 169. 下面代码输出什么
+
+```go
+func test() []func() {
+    var funs []func()
+    for i := 0; i < 2; i++ {
+        funs = append(funs, func() {
+            println(&i, i)
+        })
+    }
+    return funs
+}
+
+func main() {
+    funs := test()
+    for _, f := range funs {
+        f()
+    }
+}
+```
+
+Output:
+
+```go
+// 每台设备上执行 地址一样 值一样
+0x14000102000 2
+0x14000102000 2
+```
+
+# 170. 下面的代码能编译通过吗？可以的话输出什么，请说明
+
+```go
+var f = func(i int) {
+    print("x")
+}
+
+func main() {
+    f := func(i int) {
+        print(i)
+        if i > 0 {
+            f(i - 1) // 外层的f
+        }
+    }
+    f(10)
+}
+```
+
+Output:
+
+```bash
+10X
+```
+
+# 171. 下面代码有什么问题，请说明
+
+```go
+func main() {
+    runtime.GOMAXPROCS(1)
+  
+    go func() {
+        for i:=0;i<10 ;i++  {
+            fmt.Println(i)
+        }
+    }()
+
+    for {} // 1.14之前的版本 for {} 独占 CPU 资源导致其他 Goroutine 饿死，
+}
+```
+
+go1.14版本之前(不含1.14版本): for {} 独占 CPU 资源导致其他 Goroutine 饿死。 可以改成 `select {}` 可以改成`nil chan` 取值
+
+后面的版本改过了这个问题, 但是不推荐这样写
+
+# 172. 假设 x 已声明，y 未声明，下面 4 行代码哪些是正确的。错误的请说明原因
+
+```go
+A.x, _ := f()  // x, _ = f() 
+B.x, _ = f()  
+C.x, y := f()  
+D.x, y = f()  // x, y := f()
+```
+
+B C
+
+# 173. 下面的代码有什么问题，请说明
+
+```go
+func main() {
+    f, err := os.Open("file")
+    defer f.Close()
+    if err != nil {
+        return
+    }
+
+    b, err := ioutil.ReadAll(f)
+    println(string(b))
+}
+```
+
+defer 应该放在err后面
+
+# 174. 下面代码输出什么，为什么
+
+```go
+func f() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Printf("recover:%#v", r)
+        }
+    }()
+    panic(1)
+    panic(2)
+}
+
+func main() {
+    f()
+}
+```
+
+recover:1
+
+当程序 panic 时就不会往下执行，可以使用 recover() 捕获 panic 的内容。
+
+# 175. 下面这段代码输出什么
+
+```go
+type S1 struct{}
+
+func (s1 S1) f() {
+    fmt.Println("S1.f()")
+}
+func (s1 S1) g() {
+    fmt.Println("S1.g()")
+}
+
+type S2 struct {
+    S1
+}
+
+func (s2 S2) f() {
+    fmt.Println("S2.f()")
+}
+
+type I interface {
+    f()
+}
+
+func printType(i I) {
+
+    fmt.Printf("%T\n", i)
+    if s1, ok := i.(S1); ok {
+        s1.f()
+        s1.g()
+    }
+    if s2, ok := i.(S2); ok {
+        s2.f()
+        s2.g()
+    }
+}
+
+func main() {
+    printType(S1{})
+    printType(S2{})
+}
+```
+
+Output:
+
+```go
+main.S1
+S1.f()
+S1.g()
+
+main.S2
+S2.f()
+S1.g()
+```
+
+# 176. 下面的代码有什么问题
+
+```go
+func main() {
+    var wg sync.WaitGroup
+    wg.Add(1)
+  
+    go func() {
+        fmt.Println("1")
+        wg.Done()
+        wg.Add(1) // WaitGroup is reused before previous Wait has returned
+    }()
+    wg.Wait()
+}
+```
+
+会 `panic`
+
+<font color="red">wg.Add(num)的数量 在 goroutine 结束之后没有Done完也会报错,如下</font>
+
+```go
+func main() {
+    var wg sync.WaitGroup
+    wg.Add(12)
+    go func() {
+        fmt.Println("1")
+        wg.Done()
+    }()
+    wg.Wait()
+}
+
+// fatal error: all goroutines are asleep - deadlock!
+```
+
+# 177. 关于 cap 函数适用下面哪些类型
+
+```go
+A. 数组
+B. channel
+C. map
+D. slice
+```
+
+A B D
+
+`cap()`函数的作用是：
+
+* array 返回数组的元素个数
+* slice 返回slice的最大容量
+* channel 返回 channel的容量
+
+# 178. 下面代码输出什么
+
+```go
+func hello(num ...int) {
+    num[0] = 18
+}
+
+func Test13(t *testing.T) {
+    i := []int{5, 6, 7}
+    hello(i...)
+    fmt.Println(i[0])
+}
+
+func main() {
+    t := &testing.T{}
+    Test13(t)
+}
+```
+
+18
+
+可变函数传递slice，与原底层数据共享
+
+# 179. 关于 switch 语句，下面说法正确的是
+
+```go
+A. 单个 case 中，可以出现多个结果选项；
+B. 需要使用 break 来明确退出一个 case;
+C. 只有在 case 中明确添加 fallthrought 关键字，才会继续执行紧跟的下一个 case;
+D. 条件表达式必须为常量或者整数；
+```
+
+A C
+
+# 180. 下面代码能编译通过吗？可以的话，输出什么
+
+```go
+func alwaysFalse() bool {
+    return false
+}
+
+func main() {
+    switch alwaysFalse() // go语言断行规则
+    {
+    case true:
+        println(true)
+    case false:
+        println(false)
+    }
+}
+```
+
+true
+
+其实 Go 语言的断行规则定义如下：
+
+1. 在 Go 代码中，注释除外，如果一个代码行的最后一个语法词段（ token ）为下列所示之一，则一个分号将自动插入在此字段后（即行尾）：
+
+- 一个标识符；
+- 一个整数、浮点数、虚部、码点或者字符串字面表示形式；
+- 这几个跳转关键字之一：`break`、`continue`、`fallthrough`和`return`；
+- 自增运算符`++`或者自减运算符`--`；
+- 一个右括号：`)`、`]`或`}`。
+
+# 181. interface{} 是可以指向任意对象的 Any 类型，是否正确
+
+true
+
+# 182. 下面的代码有什么问题
+
+```go
+type ConfigOne struct {
+    Daemon string
+}
+
+func (c *ConfigOne) String() string {
+    return fmt.Sprintf("print: %v", c)
+}
+
+func main() {
+    c := &ConfigOne{}
+    c.String()
+}
+```
+
+无限递归循环，栈溢出
+
+`指针类型`的 String() 方法
+
+如果`指针类型`定义了 String() 方法，使用 Printf()、Print() 、 Println() 、 Sprintf() 等格式化输出时会自动使用 String() 方法。
+
+# 183. 定义一个包内全局字符串变量，下面语法正确的是
+
+```go
+A. var str string
+B. str := "" // func 
+C. str = ""  // error
+D. var str = ""
+```
+
+A D
+
+# 184. 下面的代码有什么问题
+
+```go
+func main() {
+
+    wg := sync.WaitGroup{}
+    for i := 0; i < 5; i++ {
+        go func(wg sync.WaitGroup, i int) { // 禁止拷贝 sync.WaitGroup 
+            wg.Add(1)
+            fmt.Printf("i:%d\n", i)
+            wg.Done()
+        }(wg, i)
+    }
+
+    wg.Wait()
+
+    fmt.Println("exit")
+}
+```
+
+- 在协程中使用 wg.Add()
+- 使用了 sync.WaitGroup 副本
+
+# 185. 下面的代码输出什么
+
+```go
+func main() {
+    var a []int = nil
+    a, a[0] = []int{1, 2}, 9 // a[0] error
+    fmt.Println(a)
+}
+```
+
+运行时错误 
+
+# 186. 下面代码中的指针 p 为野指针，因为返回的栈内存在函数结束时会被释放
+
+```go
+type TimesMatcher struct {
+    base int
+}
+
+func NewTimesMatcher(base int) *TimesMatcher  {
+    return &TimesMatcher{base:base}
+}
+
+func main() {
+    p := NewTimesMatcher(3)
+    fmt.Println(p)
+}
+```
+
+false
+
+Go语言的内存回收机制规定，只要有一个指针指向引用一个变量，那么这个变量就不会被释放（内存逃逸），因此在 Go 语言中返回函数参数或临时变量是安全的。
+
+# 187. 下面这段代码输出什么
+
+```go
+func main() {
+    count := 0
+    for i := range [256]struct{}{} {
+        m, n := byte(i), int8(i)
+        if n == -n { // 0 128 
+            count++
+        }
+        if m == -m { // 0 128 
+            count++
+        }
+    }
+    fmt.Println(count)
+}
+```
+
+4 
+
+数值溢出。当 i 的值为 0、128 是会发生相等情况，注意 byte 是 uint8 的别名。
+
+# 188. 下面代码输出什么
+
+```go
+const (
+    azero = iota //0
+    aone  = iota /1
+)
+
+const (
+    info  = "msg"
+    bzero = iota // 1
+    bone  = iota // 2
+)
+
+func main() {
+    fmt.Println(azero, aone)
+    fmt.Println(bzero, bone)
+}
+```
+
+0 1 1 2
+
+iota 在conts中相当于数组的索引
+
+# 190. 下面的代码有什么问题，请说明
+
+```go
+type data struct {
+    name string
+}
+
+func (p *data) print() {
+    fmt.Println("name:", p.name)
+}
+
+type printer interface {
+    print()
+}
+
+func main() {
+    d1 := data{"one"}
+    d1.print()
+
+    var in printer = data{"two"}
+    in.print()
+}
+```
+
+值类型的data 没有实现接口 printer的方法。知识点：接口。
+
+# 191. 函数执行时，如果由于 panic 导致了异常，则延迟函数不会执行。这一说法是否正确
+
+false
+
+由 panic 引发异常以后，程序停止执行，然后调用延迟函数（defer），就像程序正常退出一样。
+
+# 192. 下面代码输出什么
+
+```go
+func main() {
+    a := [3]int{0, 1, 2}
+    s := a[1:2] // len(1) cap(2)
+
+    s[0] = 11  
+    s = append(s, 12) // s的cap为2，与a共享下标
+    s = append(s, 13)
+    s[0] = 21
+
+    fmt.Println(a) // [0 11 12]
+    fmt.Println(s) // [21 12 13]
+}
+```
+
+Output
+
+```go
+[0 11 12]
+[21 12 13]
+```
+
+# 193. 下面这段代码输出什么？请简要说明
+
+```go
+func main() {
+    fmt.Println(strings.TrimRight("ABBA", "BA"))
+}
+```
+
+结果为""
+
+strings.TrimRight的作用是把有包含第二个参数的组合项的对应字母都替换掉
+
+# 194. 下面代码输出什么？
+
+```go
+func main() {
+    var src, dst []int
+    src = []int{1, 2, 3}
+    copy(dst, src) 
+    fmt.Println(dst)
+}
+```
+
+输出结果为[]
+
+copy函数实际上会返回一个int值，这个int是一个size，计算逻辑为size = min(len(dst), len(src))，这个size的大小
+
+dst声明了，但是没有进行初始化，所以dst的len是0，因此实际没有从src上copy到任何元素给dst
