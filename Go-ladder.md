@@ -153,7 +153,6 @@
   - [//go:uintptrkeepalive](#gouintptrkeepalive)
   - [//go:uintptrescapes](#gouintptrescapes)
   - [//go:embed](#goembed)
-- [Delve、GDB、LLDB调试（了解）](#delvegdblldb%E8%B0%83%E8%AF%95%E4%BA%86%E8%A7%A3)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -3595,86 +3594,5 @@ print(string(data))
 ```
 
 <div STYLE="page-break-after: always;"></div>
-
-# Delve、GDB、LLDB调试（了解）
-
-目前 Go 语言支持 GDB、LLDB 和 Delve 几种调试器。其中 GDB 是最早支持的调试工具，LLDB 是 macOS 系统推荐的标准调试工具。但是 GDB 和 LLDB 对 Go 语言的专有特性都缺乏很大支持，而只有 Delve 是专门为 Go 语言设计开发的调试工具。
-
-需要关闭内联调试
-
-```bash
-# 关闭内联优化，方便调试
-go build -gcflags "-N -l" demo.go
-
-gdb demo
-lldb demo 
-delve demo
-```
-
-delve参数
-
-```go
-(dlv) help
-The following commands are available:
-    args ------------------------ Print function arguments.
-    break (alias: b) ------------ Sets a breakpoint.
-    breakpoints (alias: bp) ----- Print out info for active breakpoints.
-    clear ----------------------- Deletes breakpoint.
-    clearall -------------------- Deletes multiple breakpoints.
-    condition (alias: cond) ----- Set breakpoint condition.
-    config ---------------------- Changes configuration parameters.
-    continue (alias: c) --------- Run until breakpoint or program termination.
-    disassemble (alias: disass) - Disassembler.
-    down ------------------------ Move the current frame down.
-    exit (alias: quit | q) ------ Exit the debugger.
-    frame ----------------------- Set the current frame, or execute command...
-    funcs ----------------------- Print list of functions.
-    goroutine ------------------- Shows or changes current goroutine
-    goroutines ------------------ List program goroutines.
-    help (alias: h) ------------- Prints the help message.
-    list (alias: ls | l) -------- Show source code.
-    locals ---------------------- Print local variables.
-    next (alias: n) ------------- Step over to next source line.
-    on -------------------------- Executes a command when a breakpoint is hit.
-    print (alias: p) ------------ Evaluate an expression.
-    regs ------------------------ Print contents of CPU registers.
-    restart (alias: r) ---------- Restart process.
-    set ------------------------- Changes the value of a variable.
-    source ---------------------- Executes a file containing a list of delve...
-    sources --------------------- Print list of source files.
-    stack (alias: bt) ----------- Print stack trace.
-    step (alias: s) ------------- Single step through program.
-    step-instruction (alias: si)  Single step a single cpu instruction.
-    stepout --------------------- Step out of the current function.
-    thread (alias: tr) ---------- Switch to the specified thread.
-    threads --------------------- Print out info for every traced thread.
-    trace (alias: t) ------------ Set tracepoint.
-    types ----------------------- Print list of types
-    up -------------------------- Move the current frame up.
-    vars ------------------------ Print package variables.
-    whatis ---------------------- Prints type of an expression.
-Type help followed by a command for full documentation.
-(dlv)
-```
-
-要熟练使用 GDB ，你得熟悉的掌握它的指令，这里列举一下
-
-- `r`：run，执行程序 
-- `n`：next，下一步，不进入函数
-- `s`：step，下一步，会进入函数
-- `b`：breakponit，设置断点
-- `l`：list，查看源码
-- `c`：continue，继续执行到下一断点
-- `bt`：backtrace，查看当前调用栈
-- `p`：print，打印查看变量
-- `q`：quit，退出 GDB
-- `whatis`：查看对象类型
-- `info breakpoints`：查看所有的断点
-- `info locals`：查看局部变量
-- `info args`：查看函数的参数值及要返回的变量值 
-- `info frame`：堆栈帧信息
-- `info goroutines`：查看 goroutines 信息。在使用前 ，需要注意先执行 source /usr/local/go/src/runtime/runtime-gdb.py
-- `goroutine 1 bt`：查看指定序号的 goroutine 调用堆栈
-- 回车：重复执行上一次操作
 
 <div STYLE="page-break-after: always;"></div>
