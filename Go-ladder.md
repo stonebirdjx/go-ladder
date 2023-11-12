@@ -2,13 +2,6 @@
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
 
-- [sync.RWMutex](#syncrwmutex)
-  - [RWMutex数据结构](#rwmutex%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
-  - [RWMutex方法](#rwmutex%E6%96%B9%E6%B3%95)
-    - [Lock() 逻辑](#lock-%E9%80%BB%E8%BE%91)
-    - [Unlock()实现逻辑](#unlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
-    - [RLock()实现逻辑](#rlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
-    - [RUnlock()实现逻辑](#runlock%E5%AE%9E%E7%8E%B0%E9%80%BB%E8%BE%91)
 - [sync.Cond](#synccond)
   - [Cond数据结构](#cond%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84)
   - [Cond 方法](#cond-%E6%96%B9%E6%B3%95)
@@ -43,68 +36,6 @@
   - [传值方法](#%E4%BC%A0%E5%80%BC%E6%96%B9%E6%B3%95)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-# sync.RWMutex
-
-实现读写锁需要解决如下几个问题：
-
-1. 写锁需要阻塞写锁：一个协程拥有写锁时，其他协程写锁定需要阻塞
-2. 写锁需要阻塞读锁：一个协程拥有写锁时，其他协程读锁定需要阻塞
-3. 读锁需要阻塞写锁：一个协程拥有读锁时，其他协程写锁定需要阻塞
-4. 读锁不能阻塞读锁：一个协程拥有读锁时，其他协程也可以拥有读锁
-
-## RWMutex数据结构
-
-源码包`src/sync/rwmutex.go:RWMutex`定义了读写锁数据结构：
-
-```go
-type RWMutex struct {
-    w           Mutex  //用于控制多个写锁，获得写锁首先要获取该锁，如果有一个写锁在进行，那么再到来的写锁将会阻塞于此
-    writerSem   uint32 //写阻塞等待的信号量，最后一个读者释放锁时会释放信号量
-    readerSem   uint32 //读阻塞的协程等待的信号量，持有写锁的协程释放锁后会释放信号量
-    readerCount int32  //记录读者个数
-    readerWait  int32  //记录写阻塞时读者个数
-}
-```
-
-## RWMutex方法
-
-RWMutex提供4个简单的接口来提供服务：
-
-- RLock()：读锁定
-- RUnlock()：解除读锁定
-- Lock(): 写锁定，与Mutex完全一致
-- Unlock()：解除写锁定，与Mutex完全一致
-
-### Lock() 逻辑
-
-写锁定操作需要做两件事：
-
-- 获取互斥锁
-- 阻塞等待所有读操作结束（如果有的话）
-
-### Unlock()实现逻辑
-
-解除写锁定要做两件事：
-
-- 唤醒因读锁定而被阻塞的协程（如果有的话）
-- 解除互斥锁
-
-### RLock()实现逻辑
-
-读锁定需要做两件事：
-
-- 增加读操作计数，即readerCount++
-- 阻塞等待写操作结束(如果有的话)
-
-### RUnlock()实现逻辑
-
-解除读锁定需要做两件事：
-
-- 减少读操作计数，即readerCount--
-- 唤醒等待写操作的协程（如果有的话）
-
-<div STYLE="page-break-after: always;"></div>
 
 # sync.Cond
 
