@@ -1,3 +1,18 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Overview](#overview)
+- [经典三段式](#%E7%BB%8F%E5%85%B8%E4%B8%89%E6%AE%B5%E5%BC%8F)
+- [range](#range)
+  - [数组和切片](#%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87)
+  - [map](#map)
+  - [channel](#channel)
+  - [string](#string)
+- [range 性能](#range-%E6%80%A7%E8%83%BD)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Overview
 
 关键字 range 帮助我们快速遍历 字符串， 数组、切片、哈希表以及 Channel 等集合类型。

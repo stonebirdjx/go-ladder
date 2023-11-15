@@ -1,3 +1,15 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Overview](#overview)
+- [Array结构](#array%E7%BB%93%E6%9E%84)
+- [初始化数组](#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84)
+- [访问和赋值](#%E8%AE%BF%E9%97%AE%E5%92%8C%E8%B5%8B%E5%80%BC)
+- [For range 数组](#for-range-%E6%95%B0%E7%BB%84)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # Overview
 
 <span style="color:red">数组是单一内存块，并无附加结构</span>
