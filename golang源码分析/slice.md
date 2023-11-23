@@ -14,6 +14,7 @@
 - [slice扩容](#slice%E6%89%A9%E5%AE%B9)
   - [1.18版本之前](#118%E7%89%88%E6%9C%AC%E4%B9%8B%E5%89%8D)
   - [1.18版本之后](#118%E7%89%88%E6%9C%AC%E4%B9%8B%E5%90%8E)
+- [slice扩容注意事项](#slice%E6%89%A9%E5%AE%B9%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9)
 - [slice 拷贝](#slice-%E6%8B%B7%E8%B4%9D)
 - [注意](#%E6%B3%A8%E6%84%8F)
 
@@ -236,6 +237,27 @@ if oldCap < threshold {
                 newcap = newLen
         }
 }
+```
+
+# slice扩容注意事项
+
+`append()` 函数如果发生了扩容，返回的是个新地址对外层slice没影响。没扩容对外层slice就有影响了
+
+```go
+func main() {
+	nums1 := []int{1, 2, 3, 0, 0, 0}
+	nums2 := []int{2, 5, 6}
+	merge(nums1, 3, nums2, 3)
+	fmt.Println(nums1)
+}
+
+func merge(nums1 []int, m int, nums2 []int, n int) {
+	nums1 = append(nums1[:m], nums2...) //此处不扩容
+	sort.Ints(nums1)
+	nums1 = append(nums1, 8) // 此处扩容
+}
+
+// [1 2 2 3 5 6]
 ```
 
 # slice 拷贝
